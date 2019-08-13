@@ -56,6 +56,9 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DocX">
+      <Version>1.2.1</Version>
+    </PackageReference>
     <PackageReference Include="EPPlus">
       <Version>4.5.3.2</Version>
     </PackageReference>
