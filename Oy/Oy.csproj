@@ -46,8 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AcCommand.cs" />
-    <Compile Include="lib\Greating.cs" />
+    <Compile Include="AutoCADCommand.cs" />
+    <Compile Include="lib\Document.cs" />
+    <Compile Include="lib\Excel.cs" />
+    <Compile Include="lib\AutoCAD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

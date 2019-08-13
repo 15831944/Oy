@@ -4,13 +4,13 @@ using Autodesk.AutoCAD.Runtime;
 
 namespace Oy.CAD2006.lib
 {
-    class Greating
+    class AutoCAD
     {
         //在模型空间中显示一行文字
-         protected internal static void greating()
+         protected internal static void Greating()
         {
             // Get the current document and database, and start a transaction
-            Document acDoc = Application.DocumentManager.MdiActiveDocument;
+            Autodesk.AutoCAD.ApplicationServices.Document acDoc = Application.DocumentManager.MdiActiveDocument;
             Database acCurDb = acDoc.Database;
 
             // Starts a new transaction with the Transaction Manager
