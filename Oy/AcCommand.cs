@@ -3,13 +3,13 @@ using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
 
-using Spire.Xls;
 
 [assembly: CommandClass(typeof(Oy.AcCommand))]
 namespace Oy
 {
     public class AcCommand
     {
+        //注释
         [CommandMethod("greating")]
         public void greating()
         {
@@ -57,44 +57,21 @@ namespace Oy
             }
         }
 
+        //注释
         [CommandMethod("toExcel")]
         public void toExcel()
         {
-            //创建1个工作簿，相当于1个Excel文件　　　　　　　　
 
-            //Excel的文档结构是 Workbook->Worksheet（1个book可以包含多个sheet）
-            Workbook workbook = new Workbook();
-
-            //删除所有默认sheet.
-            workbook.Worksheets.Clear();
-            workbook.Worksheets.Add("summary");
-
-            //获取第一个sheet，进行操作，下标是从0开始
-            Worksheet sheet = workbook.Worksheets[0];
-            //当然你也可以自己添加1个命名的Worksheet到book中
-
-            //向A1单元格写入文字
-            sheet.Range["A1:A50"].Formula = "=SUM(1+2+3)";
-            //将Excel文件保存到指定文件,还可以指定Excel版本
-            workbook.SaveToFile("C:\\hxq.xls", ExcelVersion.Version97to2003);
-            System.Diagnostics.Process.Start("C:\\hxq.xls");
         }
 
+        //注释
         [CommandMethod("loadExcel")]
         public void loadExcel()
         {
-            const string filename = "resources\\Template.xls";
-            Workbook workbook = new Workbook();
-            workbook.LoadTemplateFromFile(filename);
 
-
-            Worksheet worksheet = workbook.ActiveSheet;
-            worksheet.Range["A1"].Value = "项目名称：没什么";
-            worksheet.Range["B1"].Value = "项目名称：没什么";
-            worksheet.Range["C1"].Value = "项目名称：没什么";
-            workbook.SaveToFile("resources\\hxq.xls");
         }
 
+        //注释
         [CommandMethod("toDoc")]
         public void toDoc()
         {
