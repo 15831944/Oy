@@ -9,7 +9,7 @@ namespace Oy.CAD
 {
     public class AcCommand
     {
-        //注释//注释
+        //注释
         [CommandMethod("greating")]
         public void greating()
         {
