@@ -4,12 +4,12 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
 
 
-[assembly: CommandClass(typeof(Oy.AcCommand))]
-namespace Oy
+[assembly: CommandClass(typeof(Oy.CAD.AcCommand))]
+namespace Oy.CAD
 {
     public class AcCommand
     {
-        //注释
+        //注释//注释
         [CommandMethod("greating")]
         public void greating()
         {
