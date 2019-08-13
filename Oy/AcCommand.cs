@@ -4,8 +4,8 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Runtime;
 
 
-[assembly: CommandClass(typeof(Oy.CAD.AcCommand))]
-namespace Oy.CAD
+[assembly: CommandClass(typeof(Oy.CAD2006.AcCommand))]
+namespace Oy.CAD2006
 {
     public class AcCommand
     {
