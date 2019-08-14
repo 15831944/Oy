@@ -14,11 +14,12 @@ namespace Oy.CAD2006
             lib.AutoCAD.Greating();
         }
 
-        //注册cad命令:LoadExcel
-        [CommandMethod("LoadExcel")]
-        public void LoadExcel()
+        //注册cad命令:SaveExcel
+        [CommandMethod("SaveExcel")]
+        public void SaveExcel()
         {
-            lib.Excel.LoadExcel();
+            lib.Excel.SaveExcel();
+            
         }
 
         //注册cad命令:ExportDocument
