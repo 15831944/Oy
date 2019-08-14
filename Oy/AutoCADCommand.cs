@@ -8,6 +8,16 @@ namespace Oy.CAD2006
     public class AutoCADCommand
     {
         //注册cad命令:Greating
+        [CommandMethod("Test")]
+        public void Test()
+        {
+           var  form1= new Form1();
+            form1.ShowInTaskbar = false;
+            form1.MinimizeBox = false;
+            form1.ShowDialog();
+        }
+
+        //注册cad命令:Greating
         [CommandMethod("Greating")]
         public void Greating()
         {
