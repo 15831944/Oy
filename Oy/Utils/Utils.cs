@@ -23,7 +23,7 @@ namespace Oy.CAD2006
         //弹出重拾对话框
         internal static DialogResult RetryDialog()
         {
-            DialogResult dialogResult = MessageBox.Show("文件在被使用", "无法保持", MessageBoxButtons.RetryCancel, MessageBoxIcon.Asterisk);
+            DialogResult dialogResult = MessageBox.Show("文件在被使用", "无法保存", MessageBoxButtons.RetryCancel, MessageBoxIcon.Asterisk);
             return dialogResult;
         }
     }
