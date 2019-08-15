@@ -11,7 +11,7 @@ namespace Oy.CAD2006
         [CommandMethod("Test")]
         public void Test()
         {
-           var  form1= new Form1();
+           Form1  form1= new Form1();
             form1.ShowInTaskbar = false;
             form1.MinimizeBox = false;
             form1.ShowDialog();
@@ -22,14 +22,6 @@ namespace Oy.CAD2006
         public void Greating()
         {
             lib.AutoCAD.Greating();
-        }
-
-        //注册cad命令:SaveExcel
-        [CommandMethod("SaveExcel")]
-        public void SaveExcel()
-        {
-            lib.Excel.SaveExcel();
-            
         }
 
         //注册cad命令:ExportDocument

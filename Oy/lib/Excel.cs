@@ -9,36 +9,41 @@ namespace Oy.CAD2006.lib
     //Excel类
     class Excel
     {
-
-        //文件路径
-        static readonly string filePath = @"c:\hxq.xlsx";
-
-        //保持并打开文件
-        protected internal static void SaveExcel()
+        //保存
+        protected internal void SaveExcel(string FilePath)
         {
+
+            Utils utils = new Utils();
             ExcelPackage package = new ExcelPackage();
 
             ExcelWorksheet excelWorksheet = package.Workbook.Worksheets.Add("汇总表");
             excelWorksheet.Cells["A5"].LoadFromDataTable(GetDataTable(), false);
             try
             {
-                package.SaveAs(new FileInfo(filePath));
-                Utils.OpenFileWithConfirmDialog(filePath);
+                package.SaveAs(new FileInfo(FilePath));
+                //询问是否打开文件
+                utils.OpenFileWithConfirmDialog(FilePath);
             }
 
             catch (Exception)
             {
                 //重试操作
-                if (Utils.RetryDialog().Equals(DialogResult.Retry))
+                if (utils.RetryDialog().Equals(DialogResult.Retry))
                 {
-                    SaveExcel();
+                    SaveExcel(FilePath);
                 }
+            }
+
+            finally
+            {
+                package.Dispose();
             }
 
 
         }
 
-        private static DataTable GetDataTable()
+        //生成DataTable
+        private DataTable GetDataTable()
         {
             DataTable table = new DataTable();
             table.Columns.Add("序列号", Type.GetType("System.Int32"));
