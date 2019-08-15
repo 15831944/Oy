@@ -31,10 +31,7 @@ namespace Oy.CAD2006
         }
 
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
+ 
 
         //获取文件保存路径
         private string GetFilePath()
@@ -52,12 +49,9 @@ namespace Oy.CAD2006
             return null;
         }
 
-        private void Button2_Click(object sender, KeyEventArgs e)
+        private void CloseButton_Click(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
-            {
-                this.Close();
-            }
+            this.Close();
         }
     }
 }

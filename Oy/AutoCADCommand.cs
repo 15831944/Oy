@@ -1,6 +1,4 @@
-﻿using Autodesk.AutoCAD.ApplicationServices;
-using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.Runtime;
+﻿using Autodesk.AutoCAD.Runtime;
 
 [assembly: CommandClass(typeof(Oy.CAD2006.AutoCADCommand))]
 namespace Oy.CAD2006
@@ -11,10 +9,9 @@ namespace Oy.CAD2006
         [CommandMethod("Test")]
         public void Test()
         {
-           Form1  form1= new Form1();
-            form1.ShowInTaskbar = false;
-            form1.MinimizeBox = false;
+            Form1 form1 = new Form1();
             form1.ShowDialog();
+            form1.Dispose();
         }
 
         //注册cad命令:Greating
