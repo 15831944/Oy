@@ -30,7 +30,6 @@
         {
             this.saveFileButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.closeButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -88,7 +87,6 @@
 
         private System.Windows.Forms.Button saveFileButton;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Button closeButton;
     }
 }
