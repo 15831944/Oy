@@ -6,14 +6,19 @@ using System.Windows.Forms;
 
 namespace Oy.CAD2006.lib
 {
-    //Excel类
+    /// <summary>
+    /// Excel类
+    /// </summary>
     class Excel
     {
-        //保存
+        readonly Utils utils = new Utils();
+
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <param name="FilePath"></param>
         protected internal void SaveExcel(string FilePath)
         {
-
-            Utils utils = new Utils();
             ExcelPackage package = new ExcelPackage();
 
             ExcelWorksheet excelWorksheet = package.Workbook.Worksheets.Add("汇总表");
@@ -42,7 +47,10 @@ namespace Oy.CAD2006.lib
 
         }
 
-        //生成DataTable
+        /// <summary>
+        /// /生成DataTable
+        /// </summary>
+        /// <returns></returns>
         private DataTable GetDataTable()
         {
             DataTable table = new DataTable();
