@@ -6,8 +6,10 @@ namespace Oy.CAD2006.lib
 {
     class AutoCAD
     {
-        //在模型空间中显示一行文字
-         protected internal static void Greating()
+        /// <summary>
+        /// 在模型空间中显示一行文字
+        /// </summary>
+        protected internal static void Greating()
         {
             // Get the current document and database, and start a transaction
             Autodesk.AutoCAD.ApplicationServices.Document acDoc = Application.DocumentManager.MdiActiveDocument;
