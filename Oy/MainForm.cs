@@ -53,5 +53,26 @@ namespace Oy.CAD2006
                 this.Close();
             }
         }
+
+        private void PingButton_Click(object sender, EventArgs e)
+        {
+            string pingAddress = this.textBox1.Text;
+            if (pingAddress.Length>0)
+            {
+                bool pingResult = utils.Ping(pingAddress);
+                if (pingResult == true && pingAddress.Length > 0)
+                {
+                    MessageBox.Show("成功");
+                }
+                else
+                {
+                    MessageBox.Show("失败");
+                }
+            }
+            else
+            {
+                MessageBox.Show("未输入内容");
+            }
+        }
     }
 }
