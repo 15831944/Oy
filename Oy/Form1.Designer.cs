@@ -28,21 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SaveFileButton = new System.Windows.Forms.Button();
+            this.saveFileButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.closeButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // SaveFileButton
+            // saveFileButton
             // 
-            this.SaveFileButton.Location = new System.Drawing.Point(355, 30);
-            this.SaveFileButton.Name = "SaveFileButton";
-            this.SaveFileButton.Size = new System.Drawing.Size(75, 23);
-            this.SaveFileButton.TabIndex = 0;
-            this.SaveFileButton.Text = "保存文件";
-            this.SaveFileButton.UseVisualStyleBackColor = true;
-            this.SaveFileButton.Click += new System.EventHandler(this.SaveFIleButton_Click);
+            this.saveFileButton.Location = new System.Drawing.Point(355, 30);
+            this.saveFileButton.Name = "saveFileButton";
+            this.saveFileButton.Size = new System.Drawing.Size(75, 23);
+            this.saveFileButton.TabIndex = 0;
+            this.saveFileButton.Text = "保存文件";
+            this.saveFileButton.UseVisualStyleBackColor = true;
+            this.saveFileButton.Click += new System.EventHandler(this.SaveFIleButton_Click);
             // 
             // textBox1
             // 
@@ -71,7 +71,7 @@
             this.ClientSize = new System.Drawing.Size(784, 361);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.SaveFileButton);
+            this.Controls.Add(this.saveFileButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.HelpButton = true;
             this.KeyPreview = true;
@@ -86,7 +86,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button SaveFileButton;
+        private System.Windows.Forms.Button saveFileButton;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Button closeButton;
