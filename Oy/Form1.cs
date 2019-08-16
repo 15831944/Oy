@@ -5,34 +5,6 @@ namespace Oy.CAD2006
 {
     public partial class Form1 : Form
     {
-        public Form1()
-        {
-            InitializeComponent();
-        }
-
-        //保存文件按钮
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            string FilePath = GetFilePath();
-            if (FilePath != null)
-            {
-                lib.Excel excel= new lib.Excel();
-                excel.SaveExcel(FilePath);
-            }
-
-        }
-
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-            {
-                this.Close();
-            }
-        }
-
-
- 
-
         //获取文件保存路径
         private string GetFilePath()
         {
@@ -49,9 +21,37 @@ namespace Oy.CAD2006
             return null;
         }
 
+        //初始化form
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        //保存文件按钮
+        private void SaveFIleButton_Click(object sender, EventArgs e)
+        {
+            string FilePath = GetFilePath();
+            if (FilePath != null)
+            {
+                lib.Excel excel= new lib.Excel();
+                excel.SaveExcel(FilePath);
+            }
+
+        }
+
+        //关闭按钮
         private void CloseButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        //Esc键退出
+        private void EscClose_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar==(char)Keys.Escape)
+            {
+                this.Close();
+            }
         }
     }
 }

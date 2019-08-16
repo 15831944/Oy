@@ -28,25 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.SaveFileButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.closeButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // SaveFileButton
             // 
-            this.button1.Location = new System.Drawing.Point(380, 26);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "保存文件";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.SaveFileButton.Location = new System.Drawing.Point(355, 30);
+            this.SaveFileButton.Name = "SaveFileButton";
+            this.SaveFileButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveFileButton.TabIndex = 0;
+            this.SaveFileButton.Text = "保存文件";
+            this.SaveFileButton.UseVisualStyleBackColor = true;
+            this.SaveFileButton.Click += new System.EventHandler(this.SaveFIleButton_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(217, 80);
+            this.textBox1.Location = new System.Drawing.Point(194, 104);
             this.textBox1.Name = "textBox1";
             this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
@@ -56,7 +56,7 @@
             // 
             // closeButton
             // 
-            this.closeButton.Location = new System.Drawing.Point(380, 187);
+            this.closeButton.Location = new System.Drawing.Point(355, 191);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(75, 23);
             this.closeButton.TabIndex = 0;
@@ -68,16 +68,17 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(784, 361);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.SaveFileButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.HelpButton = true;
             this.KeyPreview = true;
             this.Name = "Form1";
             this.ShowInTaskbar = false;
             this.Text = "瓯越制图管理程序";
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EscClose_KeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -85,7 +86,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button SaveFileButton;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Button closeButton;
