@@ -1,6 +1,6 @@
 ﻿namespace Oy.CAD2006
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.saveFileButton = new System.Windows.Forms.Button();
+            this.SaveFileButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.closeButton = new System.Windows.Forms.Button();
+            this.CloseButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // saveFileButton
+            // SaveFileButton
             // 
-            this.saveFileButton.Location = new System.Drawing.Point(355, 30);
-            this.saveFileButton.Name = "saveFileButton";
-            this.saveFileButton.Size = new System.Drawing.Size(75, 23);
-            this.saveFileButton.TabIndex = 0;
-            this.saveFileButton.Text = "保存文件";
-            this.saveFileButton.UseVisualStyleBackColor = true;
-            this.saveFileButton.Click += new System.EventHandler(this.SaveFIleButton_Click);
+            this.SaveFileButton.Location = new System.Drawing.Point(355, 30);
+            this.SaveFileButton.Name = "SaveFileButton";
+            this.SaveFileButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveFileButton.TabIndex = 0;
+            this.SaveFileButton.Text = "保存文件";
+            this.SaveFileButton.UseVisualStyleBackColor = true;
+            this.SaveFileButton.Click += new System.EventHandler(this.SaveFIleButton_Click);
             // 
             // textBox1
             // 
@@ -53,28 +53,28 @@
             this.textBox1.TabIndex = 1;
             this.textBox1.TabStop = false;
             // 
-            // closeButton
+            // CloseButton
             // 
-            this.closeButton.Location = new System.Drawing.Point(355, 191);
-            this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(75, 23);
-            this.closeButton.TabIndex = 0;
-            this.closeButton.Text = "关闭";
-            this.closeButton.UseVisualStyleBackColor = true;
-            this.closeButton.Click += new System.EventHandler(this.CloseButton_Click);
+            this.CloseButton.Location = new System.Drawing.Point(355, 191);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(75, 23);
+            this.CloseButton.TabIndex = 0;
+            this.CloseButton.Text = "关闭";
+            this.CloseButton.UseVisualStyleBackColor = true;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 361);
-            this.Controls.Add(this.closeButton);
+            this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.saveFileButton);
+            this.Controls.Add(this.SaveFileButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.HelpButton = true;
             this.KeyPreview = true;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.ShowInTaskbar = false;
             this.Text = "瓯越制图管理程序";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EscClose_KeyPress);
@@ -85,8 +85,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button saveFileButton;
+        private System.Windows.Forms.Button SaveFileButton;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button closeButton;
+        private System.Windows.Forms.Button CloseButton;
     }
 }

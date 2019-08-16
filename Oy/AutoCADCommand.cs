@@ -9,9 +9,9 @@ namespace Oy.CAD2006
         [CommandMethod("Test")]
         public void Test()
         {
-            Form1 form1 = new Form1();
-            form1.ShowDialog();
-            form1.Dispose();
+            MainForm mainForm = new MainForm();
+            mainForm.ShowDialog();
+            mainForm.Dispose();
         }
 
         //注册cad命令:Greating

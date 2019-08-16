@@ -38,6 +38,29 @@ namespace Oy.CAD2006.lib
             DialogResult dialogResult = MessageBox.Show("文件在被使用", "无法保存", MessageBoxButtons.RetryCancel, MessageBoxIcon.Asterisk);
             return dialogResult;
         }
+
+        /// <summary>
+        /// 获取文件保存路径
+        /// </summary>
+        /// <returns></returns>
+        internal string GetFilePath()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
+                FileName = "坐标表",
+                Filter = "Excel 2007 工作簿(*.xlsx)|*.xlsx|Word 2007 文档(*.docx)|*.docx|所有文件(*.*)|*.*",
+                RestoreDirectory = true,
+                OverwritePrompt = false
+            };
+            DialogResult dialogResult = saveFileDialog.ShowDialog();
+            saveFileDialog.Dispose();
+            if (dialogResult.Equals(DialogResult.OK))
+            {
+                return saveFileDialog.FileName;
+            }
+            return null;
+        }
     }
 }
 
