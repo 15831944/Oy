@@ -45,10 +45,11 @@ namespace Oy.CAD2006.lib
         /// <returns></returns>
         internal string GetFilePath()
         {
+
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
-                FileName = "坐标表",
+                FileName = "坐标表",//默认文件名
                 Filter = "Excel 2007 工作簿(*.xlsx)|*.xlsx|Word 2007 文档(*.docx)|*.docx|所有文件(*.*)|*.*",
                 RestoreDirectory = true,
                 OverwritePrompt = false

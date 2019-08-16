@@ -1,7 +1,9 @@
 ﻿
 namespace Oy.CAD2006.lib
 {
-    //Document类
+    /// <summary>
+    /// Document类
+    /// </summary>
     class Document
     {
         internal static string projectNumber = "NZ-2019-0001";

@@ -31,6 +31,7 @@
             this.SaveFileButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.CloseButton = new System.Windows.Forms.Button();
+            this.PingButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SaveFileButton
@@ -63,11 +64,21 @@
             this.CloseButton.UseVisualStyleBackColor = true;
             this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
+            // PingButton
+            // 
+            this.PingButton.Location = new System.Drawing.Point(623, 101);
+            this.PingButton.Name = "PingButton";
+            this.PingButton.Size = new System.Drawing.Size(75, 23);
+            this.PingButton.TabIndex = 2;
+            this.PingButton.Text = "Ping";
+            this.PingButton.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 361);
+            this.Controls.Add(this.PingButton);
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.SaveFileButton);
@@ -88,5 +99,6 @@
         private System.Windows.Forms.Button SaveFileButton;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button CloseButton;
+        private System.Windows.Forms.Button PingButton;
     }
 }

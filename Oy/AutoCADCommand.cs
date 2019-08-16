@@ -5,7 +5,9 @@ namespace Oy.CAD2006
 {
     public class AutoCADCommand
     {
-        //注册cad命令:Greating
+        /// <summary>
+        /// 注册cad命令:Test
+        /// </summary>
         [CommandMethod("Test")]
         public void Test()
         {
@@ -14,14 +16,18 @@ namespace Oy.CAD2006
             mainForm.Dispose();
         }
 
-        //注册cad命令:Greating
+        /// <summary>
+        /// 注册cad命令:Greating
+        /// </summary>
         [CommandMethod("Greating")]
         public void Greating()
         {
             lib.AutoCAD.Greating();
         }
 
-        //注册cad命令:ExportDocument
+        /// <summary>
+        /// 注册cad命令:ExportDocument
+        /// </summary>
         [CommandMethod("ExportDocument")]
         public void ExportDocument()
         {
