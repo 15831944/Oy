@@ -12,7 +12,7 @@ namespace Oy.CAD2006
         [CommandMethod("TT")]
         public void OpenMainFormest()
         {
-            MainForm mainForm = new MainForm();
+            GUI.MainForm mainForm = new GUI.MainForm();
             mainForm.ShowDialog(Application.MainWindow);
             mainForm.Dispose();
         }

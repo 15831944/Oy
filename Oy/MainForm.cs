@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Oy.CAD2006
+namespace Oy.CAD2006.GUI
 {
     public partial class MainForm : Form
     {

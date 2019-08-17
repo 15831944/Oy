@@ -1,4 +1,4 @@
-﻿namespace Oy.CAD2006
+﻿namespace Oy.CAD2006.GUI
 {
     partial class MainForm
     {
