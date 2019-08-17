@@ -72,14 +72,8 @@ namespace Oy.CAD2006.lib
             try
             {
                 System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping();
-                System.Net.NetworkInformation.PingOptions options = new System.Net.NetworkInformation.PingOptions
-                {
-                    DontFragment = true
-                };
-                string data = "Test Data!";
-                byte[] buffer = Encoding.ASCII.GetBytes(data);
                 int timeout = 5000; // Timeout 时间，单位：毫秒  
-                System.Net.NetworkInformation.PingReply reply = ping.Send(ip, timeout, buffer, options);
+                System.Net.NetworkInformation.PingReply reply = ping.Send(ip, timeout);
                 ping.Dispose();
                 if (reply == null || reply.Status == System.Net.NetworkInformation.IPStatus.Success)
                 {

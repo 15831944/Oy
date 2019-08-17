@@ -61,7 +61,7 @@
             this.PingButton.Name = "PingButton";
             this.PingButton.Size = new System.Drawing.Size(75, 23);
             this.PingButton.TabIndex = 2;
-            this.PingButton.Text = "Ping";
+            this.PingButton.Text = "连接服务器";
             this.PingButton.UseVisualStyleBackColor = true;
             this.PingButton.Click += new System.EventHandler(this.PingButton_Click);
             // 
@@ -80,7 +80,6 @@
             this.AcceptButton = this.PingButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.CancelButton;
             this.ClientSize = new System.Drawing.Size(794, 458);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.PingButton);
@@ -104,6 +103,6 @@
         private System.Windows.Forms.Button SaveFileButton;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button PingButton;
-        private System.Windows.Forms.Button CancelButton;
+        private new System.Windows.Forms.Button CancelButton;
     }
 }

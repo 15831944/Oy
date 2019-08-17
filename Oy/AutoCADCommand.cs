@@ -8,8 +8,8 @@ namespace Oy.CAD2006
         /// <summary>
         /// 注册cad命令:Test
         /// </summary>
-        [CommandMethod("Test")]
-        public void Test()
+        [CommandMethod("TT")]
+        public void OpenMainFormest()
         {
             MainForm mainForm = new MainForm();
             mainForm.ShowDialog();
