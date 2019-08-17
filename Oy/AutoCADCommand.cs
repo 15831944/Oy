@@ -1,4 +1,6 @@
-﻿using Autodesk.AutoCAD.Runtime;
+﻿using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.Runtime;
+using Autodesk.AutoCAD.Windows;
 
 [assembly: CommandClass(typeof(Oy.CAD2006.AutoCADCommand))]
 namespace Oy.CAD2006
@@ -12,7 +14,7 @@ namespace Oy.CAD2006
         public void OpenMainFormest()
         {
             MainForm mainForm = new MainForm();
-            mainForm.ShowDialog();
+            mainForm.ShowDialog(Application.MainWindow);
             mainForm.Dispose();
         }
 
