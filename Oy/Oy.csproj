@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Resources\Template.xls" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">
@@ -58,11 +59,11 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="AcDbMgd">
-      <HintPath>C:\ObjectARX 2006\inc\AcDbMgd.dll</HintPath>
+      <HintPath>References\ObjectARX 2006\inc\AcDbMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AcMgd">
-      <HintPath>C:\ObjectARX 2006\inc\AcMgd.dll</HintPath>
+      <HintPath>References\ObjectARX 2006\inc\AcMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualC" />
@@ -82,6 +83,11 @@
     <PackageReference Include="netDXF">
       <Version>0.9.3</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="References\ObjectARX 2006\inc\AcDbMgd.dll" />
+    <Content Include="References\ObjectARX 2006\inc\AcDbMgdHost.dll" />
+    <Content Include="References\ObjectARX 2006\inc\AcMgd.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

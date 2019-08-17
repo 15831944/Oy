@@ -61,8 +61,6 @@ namespace Oy.CAD2006.lib
             return null;
         }
 
-
-
         /// <summary>  
         /// 是否能 Ping 通指定的主机  
         /// </summary>  
@@ -90,6 +88,9 @@ namespace Oy.CAD2006.lib
             }
         }
 
+        /// <summary>
+        /// 写入字典
+        /// </summary>
         public void WriteToNOD()
         {
             using (ApplicationServices.Document doc = ApplicationServices.Application.DocumentManager.MdiActiveDocument)
@@ -115,6 +116,9 @@ namespace Oy.CAD2006.lib
             }
         }
 
+        /// <summary>
+        /// 读取字典
+        /// </summary>
         public void ReadNOD()
         {
             ApplicationServices.Document doc = ApplicationServices.Application.DocumentManager.MdiActiveDocument;
@@ -139,6 +143,8 @@ namespace Oy.CAD2006.lib
                 }
             }
         }
+
+
     }
 }
 
