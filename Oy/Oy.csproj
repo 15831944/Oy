@@ -79,6 +79,9 @@
     <PackageReference Include="FreeSpire.Doc">
       <Version>7.1.13</Version>
     </PackageReference>
+    <PackageReference Include="netDXF">
+      <Version>0.9.3</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
