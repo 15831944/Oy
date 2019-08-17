@@ -25,7 +25,7 @@ namespace Oy.CAD2006
             this.textBox1.Text = filePath;
             if (filePath != null)
             {
-                lib.Excel excel= new lib.Excel();
+                lib.Excel excel = new lib.Excel();
                 excel.SaveExcel(filePath);
             }
 
@@ -48,7 +48,7 @@ namespace Oy.CAD2006
         /// <param name="e"></param>
         private void EscClose_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar==(char)Keys.Escape)
+            if (e.KeyChar == (char)Keys.Escape)
             {
                 this.Close();
             }
@@ -57,7 +57,7 @@ namespace Oy.CAD2006
         private void PingButton_Click(object sender, EventArgs e)
         {
             string pingAddress = this.textBox1.Text;
-            if (pingAddress.Length>0)
+            if (pingAddress.Length > 0)
             {
                 bool pingResult = utils.Ping(pingAddress);
                 if (pingResult == true && pingAddress.Length > 0)

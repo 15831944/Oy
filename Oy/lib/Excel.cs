@@ -62,13 +62,13 @@ namespace Oy.CAD2006.lib
             table.Columns.Add("横坐标(Y)", Type.GetType("System.Double"));
             table.Columns.Add("指向点号", Type.GetType("System.Int32"));
             table.Columns.Add("距离", Type.GetType("System.Double"));
-            
-            
+
+
             table.Rows.Add(new object[] { 1, 1, 1, 1, 111.111, 222.2222, 2, 10 });
             table.Rows.Add(new object[] { 2, 1, 1, 2, 333.300, 444.440, 3, 20 });
             table.Rows.Add(new object[] { 3, 1, 1, 3, 555.000, 666.666, 4, 30 });
             table.Rows.Add(new object[] { 4, 1, 1, 4, 777.7, 888.88, 5, 40 });
-            
+
 
             return table;
         }

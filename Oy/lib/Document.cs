@@ -24,7 +24,7 @@ namespace Oy.CAD2006.lib
             Spire.Doc.Document document = new Spire.Doc.Document();
             document.LoadFromFile("c:\\Template.doc");
 
-            document.Replace("[项目编号]",projectNumber , false, true);
+            document.Replace("[项目编号]", projectNumber, false, true);
             document.Replace("[委托单位]", clientName, false, true);
             document.Replace("[项目名称]", projectName, false, true);
             document.Replace("[年]", year, false, true);
