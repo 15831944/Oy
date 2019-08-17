@@ -31,7 +31,7 @@
             this.SaveFileButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.PingButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.CloseButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SaveFileButton
@@ -65,15 +65,15 @@
             this.PingButton.UseVisualStyleBackColor = true;
             this.PingButton.Click += new System.EventHandler(this.PingButton_Click);
             // 
-            // CancelButton
+            // CloseButton
             // 
-            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelButton.Location = new System.Drawing.Point(438, 205);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 3;
-            this.CancelButton.Text = "取消";
-            this.CancelButton.UseVisualStyleBackColor = true;
+            this.CloseButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CloseButton.Location = new System.Drawing.Point(438, 205);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(75, 23);
+            this.CloseButton.TabIndex = 3;
+            this.CloseButton.Text = "取消";
+            this.CloseButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -81,7 +81,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(794, 458);
-            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.PingButton);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.SaveFileButton);
@@ -103,6 +103,6 @@
         private System.Windows.Forms.Button SaveFileButton;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button PingButton;
-        private new System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button CloseButton;
     }
 }

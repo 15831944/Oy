@@ -21,7 +21,7 @@ namespace Oy.CAD2006.Utils
             try
             {
                 System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping();
-                int timeout = 5000; // Timeout 时间，单位：毫秒  
+                int timeout = 500; // Timeout 时间，单位：毫秒  
                 System.Net.NetworkInformation.PingReply reply = ping.Send(ip, timeout);
                 ping.Dispose();
                 if (reply == null || reply.Status == System.Net.NetworkInformation.IPStatus.Success)
