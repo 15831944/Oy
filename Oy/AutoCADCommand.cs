@@ -12,10 +12,11 @@ namespace Oy.CAD2006
         /// 注册cad命令:Test
         /// </summary>
         [CommandMethod("TT")]
-        public void OpenMainForm()
+        public void OpenMainFormest()
         {
             GUI.MainForm mainForm = new GUI.MainForm();
             mainForm.ShowDialog(Application.MainWindow);
+            mainForm.Dispose();
         }
 
         /// <summary>
@@ -35,7 +36,6 @@ namespace Oy.CAD2006
         {
             lib.Document.ExportDocument();
         }
-
         /// <summary>
         /// 写入测试数据
         /// </summary>
@@ -45,6 +45,7 @@ namespace Oy.CAD2006
             new Utils.NamedObjectDictionary().WriteToNOD();
             System.Windows.Forms.MessageBox.Show("写入成功");
         }
+
 
         /// <summary>
         /// 读取测试数据
@@ -57,3 +58,4 @@ namespace Oy.CAD2006
         }
     }
 }
+
