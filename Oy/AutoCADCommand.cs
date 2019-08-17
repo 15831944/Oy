@@ -1,4 +1,6 @@
 ﻿using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 
 [assembly: CommandClass(typeof(Oy.CAD2006.AutoCADCommand))]
