@@ -102,6 +102,7 @@ namespace Oy.CAD2006.lib
 
                 // 自定义数据
                 DatabaseServices.Xrecord myXrecord = new DatabaseServices.Xrecord();
+
                 myXrecord.Data = new DatabaseServices.ResultBuffer(
                     new DatabaseServices.TypedValue((int)DatabaseServices.DxfCode.Int32, 520),
                     new DatabaseServices.TypedValue((int)DatabaseServices.DxfCode.Text, "Hello www.caxdev.com"));
