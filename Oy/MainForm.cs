@@ -5,7 +5,6 @@ namespace Oy.CAD2006
 {
     public partial class MainForm : Form
     {
-        private readonly lib.Utils utils = new lib.Utils();
         /// <summary>
         /// 初始化form
         /// </summary>
@@ -21,7 +20,7 @@ namespace Oy.CAD2006
         /// <param name="e"></param>
         private void SaveFIleButton_Click(object sender, EventArgs e)
         {
-            string filePath = utils.GetFilePath();
+            string filePath = new Utils.InterOperation().GetFilePath();
             this.textBox1.Text = filePath;
             if (filePath != null)
             {
@@ -49,7 +48,7 @@ namespace Oy.CAD2006
             string pingAddress = this.textBox1.Text;
             if (pingAddress.Length > 0)
             {
-                bool pingResult = utils.Ping(pingAddress);
+                bool pingResult = new Utils.Server().Ping(pingAddress);
                 if (pingResult == true && pingAddress.Length > 0)
                 {
                     MessageBox.Show("成功");

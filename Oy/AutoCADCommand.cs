@@ -40,8 +40,7 @@ namespace Oy.CAD2006
         [CommandMethod("WNOD")]
         public void WNOD()
         {
-            lib.Utils utils = new lib.Utils();
-            utils.WriteToNOD();
+            new Utils.NamedObjectDictionary().WriteToNOD();
             System.Windows.Forms.MessageBox.Show("写入成功");
         }
 
@@ -52,8 +51,7 @@ namespace Oy.CAD2006
         [CommandMethod("RNOD")]
         public void RNOD()
         {
-            lib.Utils utils = new lib.Utils();
-            utils.ReadNOD();
+            new Utils.NamedObjectDictionary().ReadNOD();
             System.Windows.Forms.MessageBox.Show("读取成功");
         }
     }

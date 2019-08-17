@@ -1,72 +1,22 @@
-﻿using DatabaseServices=Autodesk.AutoCAD.DatabaseServices;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using ApplicationServices = Autodesk.AutoCAD.ApplicationServices;
+using DatabaseServices = Autodesk.AutoCAD.DatabaseServices;
 
-namespace Oy.CAD2006.lib
+namespace Oy.CAD2006.Utils
 {
     /// <summary>
-    /// util工具包
+    /// 
     /// </summary>
-    class Utils
+    class Server
     {
-        /// <summary>
-        /// 打开文件
-        /// </summary>
-        /// <param name="FilePath"></param>
-        /// <param name="text"></param>
-        /// <param name="caption"></param>
-        internal void OpenFileWithConfirmDialog(string FilePath, string text = "是否打开文件?", string caption = "打开文件")
-        {
-            DialogResult dialogResult = MessageBox.Show(text, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            //打卡excel文件
-            if (dialogResult.Equals(DialogResult.Yes))
-            {
-                Process.Start(FilePath);
-            }
-        }
-
-        /// <summary>
-        /// 弹出重试对话框
-        /// </summary>
-        /// <returns></returns>
-        internal DialogResult RetryDialog()
-        {
-            DialogResult dialogResult = MessageBox.Show("文件在被使用", "无法保存", MessageBoxButtons.RetryCancel, MessageBoxIcon.Asterisk);
-            return dialogResult;
-        }
-
-        /// <summary>
-        /// 获取文件保存路径
-        /// </summary>
-        /// <returns></returns>
-        internal string GetFilePath()
-        {
-
-            SaveFileDialog saveFileDialog = new SaveFileDialog
-            {
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
-                FileName = "坐标表",//默认文件名
-                Filter = "Excel 2007 工作簿(*.xlsx)|*.xlsx|Word 2007 文档(*.docx)|*.docx|所有文件(*.*)|*.*",
-                RestoreDirectory = true,
-                OverwritePrompt = false
-            };
-            DialogResult dialogResult = saveFileDialog.ShowDialog();
-            saveFileDialog.Dispose();
-            if (dialogResult.Equals(DialogResult.OK))
-            {
-                return saveFileDialog.FileName;
-            }
-            return null;
-        }
-
         /// <summary>  
         /// 是否能 Ping 通指定的主机  
         /// </summary>  
         /// <param name="ip">ip 地址或主机名或域名</param>  
         /// <returns>true 通，false 不通</returns>  
-        internal bool Ping(string ip)
+        public bool Ping(string ip)
         {
             try
             {
@@ -79,15 +29,19 @@ namespace Oy.CAD2006.lib
                     return true;
                 }
                 return false;
-
-
             }
             catch (System.Net.NetworkInformation.PingException)
             {
                 return false;
             }
         }
+    }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    class NamedObjectDictionary
+    {
         /// <summary>
         /// 写入字典
         /// </summary>
@@ -102,11 +56,12 @@ namespace Oy.CAD2006.lib
                     DatabaseServices.OpenMode.ForWrite) as DatabaseServices.DBDictionary;
 
                 // 自定义数据
-                DatabaseServices.Xrecord myXrecord = new DatabaseServices.Xrecord();
-
-                myXrecord.Data = new DatabaseServices.ResultBuffer(
+                DatabaseServices.Xrecord myXrecord = new DatabaseServices.Xrecord
+                {
+                    Data = new DatabaseServices.ResultBuffer(
                     new DatabaseServices.TypedValue((int)DatabaseServices.DxfCode.Int32, 520),
-                    new DatabaseServices.TypedValue((int)DatabaseServices.DxfCode.Text, "Hello www.caxdev.com"));
+                    new DatabaseServices.TypedValue((int)DatabaseServices.DxfCode.Text, "Hello www.caxdev.com"))
+                };
 
                 // 往命名对象字典中存储自定义数据
                 nod.SetAt("MyData", myXrecord);
@@ -143,8 +98,61 @@ namespace Oy.CAD2006.lib
                 }
             }
         }
+    }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    class InterOperation
+    {
+        /// <summary>
+        /// 打开文件
+        /// </summary>
+        /// <param name="FilePath"></param>
+        /// <param name="text"></param>
+        /// <param name="caption"></param>
+        public void SaveFileDialog(string FilePath)
+        {
+            DialogResult dialogResult = MessageBox.Show("是否打开文件?", "打开文件", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //打卡excel文件
+            if (dialogResult.Equals(DialogResult.Yes))
+            {
+                Process.Start(FilePath);
+            }
+        }
 
+        /// <summary>
+        /// 弹出重试对话框
+        /// </summary>
+        /// <returns></returns>
+        public DialogResult RetryDialog()
+        {
+            DialogResult dialogResult = MessageBox.Show("文件在被使用", "无法保存", MessageBoxButtons.RetryCancel, MessageBoxIcon.Asterisk);
+            return dialogResult;
+        }
+
+        /// <summary>
+        /// 获取文件保存路径
+        /// </summary>
+        /// <returns></returns>
+        public string GetFilePath()
+        {
+
+            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog
+            {
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
+                FileName = "坐标表",//默认文件名
+                Filter = "Excel 2007 工作簿(*.xlsx)|*.xlsx|Word 2007 文档(*.docx)|*.docx|所有文件(*.*)|*.*",
+                RestoreDirectory = true,
+                OverwritePrompt = false
+            };
+            DialogResult dialogResult = saveFileDialog.ShowDialog();
+            saveFileDialog.Dispose();
+            if (dialogResult.Equals(DialogResult.OK))
+            {
+                return saveFileDialog.FileName;
+            }
+            return null;
+        }
     }
 }
-

@@ -11,8 +11,6 @@ namespace Oy.CAD2006.lib
     /// </summary>
     class Excel
     {
-        readonly Utils utils = new Utils();
-
         /// <summary>
         /// 保存
         /// </summary>
@@ -20,20 +18,19 @@ namespace Oy.CAD2006.lib
         protected internal void SaveExcel(string FilePath)
         {
             ExcelPackage package = new ExcelPackage();
-
             ExcelWorksheet excelWorksheet = package.Workbook.Worksheets.Add("汇总表");
             excelWorksheet.Cells["A5"].LoadFromDataTable(GetDataTable(), false);
             try
             {
                 package.SaveAs(new FileInfo(FilePath));
                 //询问是否打开文件
-                utils.OpenFileWithConfirmDialog(FilePath);
+                new Utils.InterOperation().SaveFileDialog(FilePath);
             }
 
             catch (Exception)
             {
                 //重试操作
-                if (utils.RetryDialog().Equals(DialogResult.Retry))
+                if (new Utils.InterOperation().RetryDialog().Equals(DialogResult.Retry))
                 {
                     SaveExcel(FilePath);
                 }
@@ -43,8 +40,6 @@ namespace Oy.CAD2006.lib
             {
                 package.Dispose();
             }
-
-
         }
 
         /// <summary>
@@ -69,9 +64,7 @@ namespace Oy.CAD2006.lib
             table.Rows.Add(new object[] { 3, 1, 1, 3, 555.000, 666.666, 4, 30 });
             table.Rows.Add(new object[] { 4, 1, 1, 4, 777.7, 888.88, 5, 40 });
 
-
             return table;
         }
     }
-
 }
