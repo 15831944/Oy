@@ -30,13 +30,13 @@
         {
             this.SaveFileButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.CloseButton = new System.Windows.Forms.Button();
             this.PingButton = new System.Windows.Forms.Button();
+            this.CancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SaveFileButton
             // 
-            this.SaveFileButton.Location = new System.Drawing.Point(355, 30);
+            this.SaveFileButton.Location = new System.Drawing.Point(256, 205);
             this.SaveFileButton.Name = "SaveFileButton";
             this.SaveFileButton.Size = new System.Drawing.Size(75, 23);
             this.SaveFileButton.TabIndex = 0;
@@ -46,27 +46,18 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(194, 104);
+            this.textBox1.Location = new System.Drawing.Point(176, 178);
             this.textBox1.Name = "textBox1";
             this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.textBox1.Size = new System.Drawing.Size(422, 21);
             this.textBox1.TabIndex = 1;
             this.textBox1.TabStop = false;
-            // 
-            // CloseButton
-            // 
-            this.CloseButton.Location = new System.Drawing.Point(355, 191);
-            this.CloseButton.Name = "CloseButton";
-            this.CloseButton.Size = new System.Drawing.Size(75, 23);
-            this.CloseButton.TabIndex = 0;
-            this.CloseButton.Text = "关闭";
-            this.CloseButton.UseVisualStyleBackColor = true;
-            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
+            this.textBox1.Text = "19w07z5654.51mypc.cn";
             // 
             // PingButton
             // 
-            this.PingButton.Location = new System.Drawing.Point(623, 101);
+            this.PingButton.Location = new System.Drawing.Point(605, 175);
             this.PingButton.Name = "PingButton";
             this.PingButton.Size = new System.Drawing.Size(75, 23);
             this.PingButton.TabIndex = 2;
@@ -74,20 +65,33 @@
             this.PingButton.UseVisualStyleBackColor = true;
             this.PingButton.Click += new System.EventHandler(this.PingButton_Click);
             // 
+            // CancelButton
+            // 
+            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CancelButton.Location = new System.Drawing.Point(438, 205);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(75, 23);
+            this.CancelButton.TabIndex = 3;
+            this.CancelButton.Text = "取消";
+            this.CancelButton.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
+            this.AcceptButton = this.PingButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 361);
+            this.CancelButton = this.CancelButton;
+            this.ClientSize = new System.Drawing.Size(794, 458);
+            this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.PingButton);
-            this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.SaveFileButton);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.HelpButton = true;
             this.KeyPreview = true;
             this.Name = "MainForm";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "瓯越制图管理程序";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EscClose_KeyPress);
             this.ResumeLayout(false);
@@ -99,7 +103,7 @@
 
         private System.Windows.Forms.Button SaveFileButton;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button CloseButton;
         private System.Windows.Forms.Button PingButton;
+        private System.Windows.Forms.Button CancelButton;
     }
 }

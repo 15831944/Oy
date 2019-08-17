@@ -32,16 +32,6 @@ namespace Oy.CAD2006
         }
 
         /// <summary>
-        /// 关闭按钮
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CloseButton_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        /// <summary>
         /// Esc键退出
         /// </summary>
         /// <param name="sender"></param>
