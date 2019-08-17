@@ -74,7 +74,6 @@
             this.CloseButton.TabIndex = 3;
             this.CloseButton.Text = "取消";
             this.CloseButton.UseVisualStyleBackColor = true;
-            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // MainForm
             // 
