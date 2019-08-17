@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29209.62
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oy", "Oy\Oy.csproj", "{61BCF007-9A76-47AD-AECE-CC52279EBA62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCADCommands", "..\AutoCADCodePack-1.0.0\AutoCADCommands\AutoCADCommands.csproj", "{C5F6C326-952B-43E8-9830-311F190BAB11}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCADCommands", "AutoCADCodePack-1.0.0\AutoCADCommands\AutoCADCommands.csproj", "{C5F6C326-952B-43E8-9830-311F190BAB11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
