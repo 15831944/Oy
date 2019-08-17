@@ -67,6 +67,7 @@ namespace Oy.CAD2006.Utils
                 nod.SetAt("MyData", myXrecord);
                 tr.AddNewlyCreatedDBObject(myXrecord, true);
                 tr.Commit();
+                Forms.MessageBox.Show("写入成功");
             }
         }
 
@@ -94,6 +95,7 @@ namespace Oy.CAD2006.Utils
                         doc.Editor.WriteMessage("type: {0}, value: {1}\n", tv.TypeCode, tv.Value);
                     }
                 }
+                Forms.MessageBox.Show("读取成功");
             }
         }
     }

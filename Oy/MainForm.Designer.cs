@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.SaveFileButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.PingButton = new System.Windows.Forms.Button();
             this.CloseButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SaveFileButton
@@ -39,28 +41,29 @@
             this.SaveFileButton.Location = new System.Drawing.Point(256, 205);
             this.SaveFileButton.Name = "SaveFileButton";
             this.SaveFileButton.Size = new System.Drawing.Size(75, 23);
-            this.SaveFileButton.TabIndex = 0;
+            this.SaveFileButton.TabIndex = 2;
             this.SaveFileButton.Text = "保存文件";
             this.SaveFileButton.UseVisualStyleBackColor = true;
             this.SaveFileButton.Click += new System.EventHandler(this.SaveFIleButton_Click);
             // 
             // textBox1
             // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
             this.textBox1.Location = new System.Drawing.Point(176, 178);
             this.textBox1.Name = "textBox1";
             this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.textBox1.Size = new System.Drawing.Size(422, 21);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.TabStop = false;
+            this.textBox1.TabIndex = 0;
             this.textBox1.Text = "19w07z5654.51mypc.cn";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // PingButton
             // 
-            this.PingButton.Location = new System.Drawing.Point(605, 175);
+            this.PingButton.Location = new System.Drawing.Point(616, 178);
             this.PingButton.Name = "PingButton";
             this.PingButton.Size = new System.Drawing.Size(75, 23);
-            this.PingButton.TabIndex = 2;
+            this.PingButton.TabIndex = 1;
             this.PingButton.Text = "连接服务器";
             this.PingButton.UseVisualStyleBackColor = true;
             this.PingButton.Click += new System.EventHandler(this.PingButton_Click);
@@ -75,24 +78,42 @@
             this.CloseButton.Text = "取消";
             this.CloseButton.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(421, 62);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.PingButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.CloseButton;
+            this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(794, 458);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.PingButton);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.SaveFileButton);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.HelpButton = true;
-            this.KeyPreview = true;
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainForm";
+            this.Opacity = 0.9D;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "瓯越制图管理程序";
+            this.Tag = "";
+            this.Text = "HXQ-瓯越制图管理程序";
+            this.TransparencyKey = System.Drawing.Color.Aqua;
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -104,5 +125,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button PingButton;
         private System.Windows.Forms.Button CloseButton;
+        private System.Windows.Forms.Button button1;
     }
 }

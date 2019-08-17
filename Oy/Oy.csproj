@@ -85,6 +85,7 @@
     <Content Include="References\ObjectARX 2006\inc\AcDbMgd.dll" />
     <Content Include="References\ObjectARX 2006\inc\AcDbMgdHost.dll" />
     <Content Include="References\ObjectARX 2006\inc\AcMgd.dll" />
+    <Content Include="Resources\HXQ_favicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

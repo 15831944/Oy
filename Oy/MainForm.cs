@@ -50,5 +50,10 @@ namespace Oy.CAD2006.GUI
                 MessageBox.Show("未输入内容");
             }
         }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            lib.AutoCAD.Greating();
+        }
     }
 }
