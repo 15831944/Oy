@@ -55,9 +55,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="AcDbMgd">
       <HintPath>References\ObjectARX 2006\inc\AcDbMgd.dll</HintPath>
       <Private>False</Private>
