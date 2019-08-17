@@ -74,12 +74,14 @@
             this.CloseButton.TabIndex = 3;
             this.CloseButton.Text = "取消";
             this.CloseButton.UseVisualStyleBackColor = true;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // MainForm
             // 
             this.AcceptButton = this.PingButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.CloseButton;
             this.ClientSize = new System.Drawing.Size(794, 458);
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.PingButton);
@@ -92,7 +94,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "瓯越制图管理程序";
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EscClose_KeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();
 

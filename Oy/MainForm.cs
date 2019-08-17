@@ -30,18 +30,18 @@ namespace Oy.CAD2006.GUI
 
         }
 
-        /// <summary>
-        /// Esc键退出
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void EscClose_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Escape)
-            {
-                Close();
-            }
-        }
+        ///// <summary>
+        ///// Esc键退出
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //private void EscClose_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+        //    if (e.KeyChar == (char)Keys.Escape)
+        //    {
+        //        Close();
+        //    }
+        //}
 
         private void PingButton_Click(object sender, EventArgs e)
         {
@@ -62,6 +62,11 @@ namespace Oy.CAD2006.GUI
             {
                 MessageBox.Show("未输入内容");
             }
+        }
+
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
