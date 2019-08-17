@@ -2,7 +2,7 @@
 using System;
 using System.Data;
 using System.IO;
-using System.Windows.Forms;
+using Forms = System.Windows.Forms;
 
 namespace Oy.CAD2006.lib
 {
@@ -30,7 +30,7 @@ namespace Oy.CAD2006.lib
             catch (Exception)
             {
                 //重试操作
-                if (new Utils.InterOperation().RetryDialog().Equals(DialogResult.Retry))
+                if (new Utils.InterOperation().RetryDialog().Equals(Forms.DialogResult.Retry))
                 {
                     SaveExcel(FilePath);
                 }

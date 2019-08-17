@@ -21,7 +21,7 @@ namespace Oy.CAD2006.GUI
         private void SaveFIleButton_Click(object sender, EventArgs e)
         {
             string filePath = new Utils.InterOperation().GetFilePath();
-            this.textBox1.Text = filePath;
+            textBox1.Text = filePath;
             if (filePath != null)
             {
                 lib.Excel excel = new lib.Excel();
@@ -39,13 +39,13 @@ namespace Oy.CAD2006.GUI
         {
             if (e.KeyChar == (char)Keys.Escape)
             {
-                this.Close();
+                Close();
             }
         }
 
         private void PingButton_Click(object sender, EventArgs e)
         {
-            string pingAddress = this.textBox1.Text;
+            string pingAddress = textBox1.Text;
             if (pingAddress.Length > 0)
             {
                 bool pingResult = new Utils.Server().Ping(pingAddress);

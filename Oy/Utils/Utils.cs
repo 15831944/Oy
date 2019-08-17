@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.DatabaseServices;
+using System;
 using System.Diagnostics;
-using System.Windows.Forms;
-using ApplicationServices = Autodesk.AutoCAD.ApplicationServices;
-using DatabaseServices = Autodesk.AutoCAD.DatabaseServices;
+using Forms = System.Windows.Forms;
 
 namespace Oy.CAD2006.Utils
 {
@@ -47,25 +47,24 @@ namespace Oy.CAD2006.Utils
         /// </summary>
         public void WriteToNOD()
         {
-            using (ApplicationServices.Document doc = ApplicationServices.Application.DocumentManager.MdiActiveDocument)
+            using (Document doc = Application.DocumentManager.MdiActiveDocument)
             {
-                DatabaseServices.Database db = doc.Database;
-                DatabaseServices.Transaction tr = db.TransactionManager.StartTransaction();
+                Database db = doc.Database;
+                Transaction tr = db.TransactionManager.StartTransaction();
                 // 命名对象字典
-                DatabaseServices.DBDictionary nod = tr.GetObject(db.NamedObjectsDictionaryId,
-                    DatabaseServices.OpenMode.ForWrite) as DatabaseServices.DBDictionary;
+                DBDictionary nod = tr.GetObject(db.NamedObjectsDictionaryId,
+                    OpenMode.ForWrite) as DBDictionary;
 
                 // 自定义数据
-                DatabaseServices.Xrecord myXrecord = new DatabaseServices.Xrecord
+                Xrecord myXrecord = new Xrecord
                 {
-                    Data = new DatabaseServices.ResultBuffer(
-                    new DatabaseServices.TypedValue((int)DatabaseServices.DxfCode.Int32, 520),
-                    new DatabaseServices.TypedValue((int)DatabaseServices.DxfCode.Text, "Hello www.caxdev.com"))
+                    Data = new ResultBuffer(
+                    new TypedValue((int)DxfCode.Int32, 520),
+                    new TypedValue((int)DxfCode.Text, "Hello www.caxdev.com"))
                 };
 
                 // 往命名对象字典中存储自定义数据
                 nod.SetAt("MyData", myXrecord);
-
                 tr.AddNewlyCreatedDBObject(myXrecord, true);
                 tr.Commit();
             }
@@ -76,22 +75,21 @@ namespace Oy.CAD2006.Utils
         /// </summary>
         public void ReadNOD()
         {
-            ApplicationServices.Document doc = ApplicationServices.Application.DocumentManager.MdiActiveDocument;
-            DatabaseServices.Database db = doc.Database;
+            Document doc = Application.DocumentManager.MdiActiveDocument;
+            Database db = doc.Database;
 
-            using (DatabaseServices.Transaction tr = db.TransactionManager.StartTransaction())
+            using (Transaction tr = db.TransactionManager.StartTransaction())
             {
                 // 命名对象字典
-                DatabaseServices.DBDictionary nod = tr.GetObject(db.NamedObjectsDictionaryId,
-                    DatabaseServices.OpenMode.ForWrite) as DatabaseServices.DBDictionary;
+                DBDictionary nod = tr.GetObject(db.NamedObjectsDictionaryId,
+                    OpenMode.ForWrite) as DBDictionary;
 
                 // 查找自定义数据
                 if (nod.Contains("MyData"))
                 {
-                    DatabaseServices.ObjectId myDataId = nod.GetAt("MyData");
-                    DatabaseServices.Xrecord myXrecord = tr.GetObject(myDataId, DatabaseServices.OpenMode.ForRead) as DatabaseServices.Xrecord;
-
-                    foreach (DatabaseServices.TypedValue tv in myXrecord.Data)
+                    ObjectId myDataId = nod.GetAt("MyData");
+                    Xrecord myXrecord = tr.GetObject(myDataId, OpenMode.ForRead) as Xrecord;
+                    foreach (TypedValue tv in myXrecord.Data)
                     {
                         doc.Editor.WriteMessage("type: {0}, value: {1}\n", tv.TypeCode, tv.Value);
                     }
@@ -113,9 +111,9 @@ namespace Oy.CAD2006.Utils
         /// <param name="caption"></param>
         public void SaveFileDialog(string FilePath)
         {
-            DialogResult dialogResult = MessageBox.Show("是否打开文件?", "打开文件", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            Forms.DialogResult dialogResult = Forms.MessageBox.Show("是否打开文件?", "打开文件", Forms.MessageBoxButtons.YesNo, Forms.MessageBoxIcon.Question);
             //打卡excel文件
-            if (dialogResult.Equals(DialogResult.Yes))
+            if (dialogResult.Equals(Forms.DialogResult.Yes))
             {
                 Process.Start(FilePath);
             }
@@ -125,9 +123,9 @@ namespace Oy.CAD2006.Utils
         /// 弹出重试对话框
         /// </summary>
         /// <returns></returns>
-        public DialogResult RetryDialog()
+        public System.Windows.Forms.DialogResult RetryDialog()
         {
-            DialogResult dialogResult = MessageBox.Show("文件在被使用", "无法保存", MessageBoxButtons.RetryCancel, MessageBoxIcon.Asterisk);
+            var dialogResult = System.Windows.Forms.MessageBox.Show("文件在被使用", "无法保存", Forms.MessageBoxButtons.RetryCancel, Forms.MessageBoxIcon.Asterisk);
             return dialogResult;
         }
 
@@ -137,7 +135,6 @@ namespace Oy.CAD2006.Utils
         /// <returns></returns>
         public string GetFilePath()
         {
-
             System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog
             {
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
@@ -146,9 +143,9 @@ namespace Oy.CAD2006.Utils
                 RestoreDirectory = true,
                 OverwritePrompt = false
             };
-            DialogResult dialogResult = saveFileDialog.ShowDialog();
+            Forms.DialogResult dialogResult = saveFileDialog.ShowDialog();
             saveFileDialog.Dispose();
-            if (dialogResult.Equals(DialogResult.OK))
+            if (dialogResult.Equals(Forms.DialogResult.OK))
             {
                 return saveFileDialog.FileName;
             }
