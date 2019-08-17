@@ -1,7 +1,8 @@
-﻿using System;
+﻿using DatabaseServices=Autodesk.AutoCAD.DatabaseServices;
+using System;
 using System.Diagnostics;
-using System.Text;
 using System.Windows.Forms;
+using ApplicationServices = Autodesk.AutoCAD.ApplicationServices;
 
 namespace Oy.CAD2006.lib
 {
@@ -86,6 +87,55 @@ namespace Oy.CAD2006.lib
             catch (System.Net.NetworkInformation.PingException)
             {
                 return false;
+            }
+        }
+
+        public void WriteToNOD()
+        {
+            using (ApplicationServices.Document doc = ApplicationServices.Application.DocumentManager.MdiActiveDocument)
+            {
+                DatabaseServices.Database db = doc.Database;
+                DatabaseServices.Transaction tr = db.TransactionManager.StartTransaction();
+                // 命名对象字典
+                DatabaseServices.DBDictionary nod = tr.GetObject(db.NamedObjectsDictionaryId,
+                    DatabaseServices.OpenMode.ForWrite) as DatabaseServices.DBDictionary;
+
+                // 自定义数据
+                DatabaseServices.Xrecord myXrecord = new DatabaseServices.Xrecord();
+                myXrecord.Data = new DatabaseServices.ResultBuffer(
+                    new DatabaseServices.TypedValue((int)DatabaseServices.DxfCode.Int32, 520),
+                    new DatabaseServices.TypedValue((int)DatabaseServices.DxfCode.Text, "Hello www.caxdev.com"));
+
+                // 往命名对象字典中存储自定义数据
+                nod.SetAt("MyData", myXrecord);
+
+                tr.AddNewlyCreatedDBObject(myXrecord, true);
+                tr.Commit();
+            }
+        }
+
+        public void ReadNOD()
+        {
+            ApplicationServices.Document doc = ApplicationServices.Application.DocumentManager.MdiActiveDocument;
+            DatabaseServices.Database db = doc.Database;
+
+            using (DatabaseServices.Transaction tr = db.TransactionManager.StartTransaction())
+            {
+                // 命名对象字典
+                DatabaseServices.DBDictionary nod = tr.GetObject(db.NamedObjectsDictionaryId,
+                    DatabaseServices.OpenMode.ForWrite) as DatabaseServices.DBDictionary;
+
+                // 查找自定义数据
+                if (nod.Contains("MyData"))
+                {
+                    DatabaseServices.ObjectId myDataId = nod.GetAt("MyData");
+                    DatabaseServices.Xrecord myXrecord = tr.GetObject(myDataId, DatabaseServices.OpenMode.ForRead) as DatabaseServices.Xrecord;
+
+                    foreach (DatabaseServices.TypedValue tv in myXrecord.Data)
+                    {
+                        doc.Editor.WriteMessage("type: {0}, value: {1}\n", tv.TypeCode, tv.Value);
+                    }
+                }
             }
         }
     }

@@ -1,6 +1,5 @@
 ﻿using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.Runtime;
-using Autodesk.AutoCAD.Windows;
 
 [assembly: CommandClass(typeof(Oy.CAD2006.AutoCADCommand))]
 namespace Oy.CAD2006
@@ -34,6 +33,28 @@ namespace Oy.CAD2006
         public void ExportDocument()
         {
             lib.Document.ExportDocument();
+        }
+        /// <summary>
+        /// 写入测试数据
+        /// </summary>
+        [CommandMethod("WNOD")]
+        public void WNOD()
+        {
+            lib.Utils utils = new lib.Utils();
+            utils.WriteToNOD();
+            System.Windows.Forms.MessageBox.Show("写入成功");
+        }
+
+
+        /// <summary>
+        /// 读取测试数据
+        /// </summary>
+        [CommandMethod("RNOD")]
+        public void RNOD()
+        {
+            lib.Utils utils = new lib.Utils();
+            utils.ReadNOD();
+            System.Windows.Forms.MessageBox.Show("读取成功");
         }
     }
 }
