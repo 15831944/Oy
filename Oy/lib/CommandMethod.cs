@@ -12,9 +12,7 @@ namespace Oy.CAD2006.CommandMethod
         [CommandMethod("TT")]
         public void OpenMainForm()
         {
-            GUI.MainForm mainForm= new GUI.MainForm();
-            mainForm.ShowDialog(Application.MainWindow);
-            mainForm.Dispose();
+            Application.ShowModalDialog(new GUI.MainForm());
         }
 
         [CommandMethod("Greating")]
