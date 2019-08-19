@@ -4,6 +4,7 @@ using ApplicationServices=Autodesk.AutoCAD.ApplicationServices;
 using DatabaseServices=Autodesk.AutoCAD.DatabaseServices;
 using EditorInput=Autodesk.AutoCAD.EditorInput;
 using Runtime=Autodesk.AutoCAD.Runtime;
+using win=Autodesk.AutoCAD.Windows;
 namespace Oy.CAD2006.GUI
 {
     public partial class MainForm : Forms.Form
@@ -57,23 +58,12 @@ namespace Oy.CAD2006.GUI
         private void Button1_Click(object sender, EventArgs e)
         {
             this.Hide(); // this is not mandatory
-                ApplicationServices.Document document = ApplicationServices.Application.DocumentManager.MdiActiveDocument;
+            ApplicationServices.Document document = ApplicationServices.Application.DocumentManager.MdiActiveDocument;
             EditorInput.PromptSelectionResult promptSelectionResult = document.Editor.GetSelection();
             if (promptSelectionResult.Status==EditorInput.PromptStatus.OK)
             {
                 document.Editor.WriteMessage(promptSelectionResult.Value.Count.ToString() + "\n");
             }
-
-
-            //ApplicationServices.Document document = ApplicationServices.Application.DocumentManager.MdiActiveDocument;
-            //EditorInput.Editor editor = document.Editor;
-            //EditorInput.PromptPointResult ppr = editor.GetPoint("\n选取第一个点 ");
-            //using (doc.LockDocument()) // this is needed from a modeless form
-            //{
-            // set focus to AutoCAD
-            // do your stuff here
-            // ...
-            //}
             this.Show(); // this is mandatory if the form have been hidden
         }
     }

@@ -137,7 +137,7 @@ namespace Oy.CAD2006.Utils
         /// <returns></returns>
         public string GetFilePath()
         {
-            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog
+            Forms.SaveFileDialog saveFileDialog = new Forms.SaveFileDialog
             {
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
                 FileName = "坐标表",//默认文件名
