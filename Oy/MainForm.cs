@@ -1,10 +1,7 @@
 ﻿using System;
+using ApplicationServices = Autodesk.AutoCAD.ApplicationServices;
+using EditorInput = Autodesk.AutoCAD.EditorInput;
 using Forms = System.Windows.Forms;
-using ApplicationServices=Autodesk.AutoCAD.ApplicationServices;
-using DatabaseServices=Autodesk.AutoCAD.DatabaseServices;
-using EditorInput=Autodesk.AutoCAD.EditorInput;
-using Runtime=Autodesk.AutoCAD.Runtime;
-using win=Autodesk.AutoCAD.Windows;
 namespace Oy.CAD2006.GUI
 {
     public partial class MainForm : Forms.Form
@@ -60,7 +57,7 @@ namespace Oy.CAD2006.GUI
             this.Hide(); // this is not mandatory
             ApplicationServices.Document document = ApplicationServices.Application.DocumentManager.MdiActiveDocument;
             EditorInput.PromptSelectionResult promptSelectionResult = document.Editor.GetSelection();
-            if (promptSelectionResult.Status==EditorInput.PromptStatus.OK)
+            if (promptSelectionResult.Status == EditorInput.PromptStatus.OK)
             {
                 document.Editor.WriteMessage(promptSelectionResult.Value.Count.ToString() + "\n");
             }

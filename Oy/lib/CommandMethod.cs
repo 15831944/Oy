@@ -1,8 +1,7 @@
 ﻿using Autodesk.AutoCAD.ApplicationServices;
-using Autodesk.AutoCAD.Runtime;
-using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.Geometry;
+using Autodesk.AutoCAD.EditorInput;
+using Autodesk.AutoCAD.Runtime;
 using Oy.CAD2006.CommandMethod;
 
 [assembly: CommandClass(typeof(CommandMethod))]
@@ -27,7 +26,7 @@ namespace Oy.CAD2006.CommandMethod
         /// 写入测试数据
         /// </summary>
         [CommandMethod("WNOD")]
-        public void WNOD() => Utils.NamedObjectDictionary.WriteToNOD("asd","asd");
+        public void WNOD() => Utils.NamedObjectDictionary.WriteToNOD("asd", "asd");
 
         /// <summary>
         /// 读取测试数据
@@ -48,7 +47,7 @@ namespace Oy.CAD2006.CommandMethod
 
             //Database database = document.Database;
             Transaction transaction = document.Database.TransactionManager.StartTransaction();
-            string st= transaction.GetObject(objectId,OpenMode.ForRead).ToString();
+            string st = transaction.GetObject(objectId, OpenMode.ForRead).ToString();
             editor.WriteMessage(st);
         }
     }
