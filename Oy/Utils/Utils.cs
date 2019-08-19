@@ -45,36 +45,54 @@ namespace Oy.CAD2006.Utils
         /// <summary>
         /// 写入字典
         /// </summary>
-        public void WriteToNOD()
+        public static void WriteToNOD(string NodKey, string NodValue)
         {
-            using (Document doc = Application.DocumentManager.MdiActiveDocument)
-            {
-                Database db = doc.Database;
-                Transaction tr = db.TransactionManager.StartTransaction();
-                // 命名对象字典
-                DBDictionary nod = tr.GetObject(db.NamedObjectsDictionaryId,
-                    OpenMode.ForWrite) as DBDictionary;
-
-                // 自定义数据
-                Xrecord myXrecord = new Xrecord
+            Document document = Application.DocumentManager.MdiActiveDocument;
+            Database db = document.Database;
+            //try
+            //{
+                using (Transaction transaction = db.TransactionManager.StartTransaction())
                 {
-                    Data = new ResultBuffer(
-                    new TypedValue((int)DxfCode.Int32, 520),
-                    new TypedValue((int)DxfCode.Text, "Hello www.caxdev.com"))
-                };
+                    // 命名对象字典
+                    DBDictionary nod = transaction.GetObject(db.NamedObjectsDictionaryId,
+                        OpenMode.ForWrite) as DBDictionary;
 
-                // 往命名对象字典中存储自定义数据
-                nod.SetAt("MyData", myXrecord);
-                tr.AddNewlyCreatedDBObject(myXrecord, true);
-                tr.Commit();
-                Forms.MessageBox.Show("写入成功");
-            }
+                    // 自定义数据
+                    Xrecord OyXrecord = new Xrecord
+                    {
+                        Data = new ResultBuffer(
+                        new TypedValue((int)DxfCode.Text, NodKey),
+                        new TypedValue((int)DxfCode.Text, NodValue))
+                    };
+
+                    // 往命名对象字典中存储自定义数据
+                    nod.SetAt("OyXrecord", OyXrecord);
+                    transaction.AddNewlyCreatedDBObject(OyXrecord, true);
+                    transaction.Commit();
+                    // Now let's read the data back and print them out 
+                    //  to the Visual Studio's Output window
+                    //ObjectId myDataId = nod.GetAt("OyXrecord");
+                    //Xrecord readBack = (Xrecord)transaction.GetObject(
+                    //                              myDataId, OpenMode.ForRead);
+                    //foreach (TypedValue typedValue in readBack.Data)
+                    //    document.Editor.WriteMessage(
+                    //              "===== OUR DATA: " + typedValue.TypeCode
+                    //              + ". " + typedValue.Value.ToString()
+                    //              );
+
+                }
+            //}
+            //catch (Exception e)
+            //{
+            //    throw e;
+            //}
         }
+ 
 
-        /// <summary>
-        /// 读取字典
-        /// </summary>
-        public void ReadNOD()
+    /// <summary>
+    /// 读取字典
+    /// </summary>
+    public void ReadFromNOD()
         {
             Document doc = Application.DocumentManager.MdiActiveDocument;
             Database db = doc.Database;
@@ -89,7 +107,7 @@ namespace Oy.CAD2006.Utils
                 if (nod.Contains("MyData"))
                 {
                     ObjectId myDataId = nod.GetAt("MyData");
-                    Xrecord myXrecord = tr.GetObject(myDataId, OpenMode.ForRead) as Xrecord;
+                    Xrecord myXrecord = tr.GetObject(myDataId,OpenMode.ForRead) as Xrecord;
                     foreach (TypedValue tv in myXrecord.Data)
                     {
                         doc.Editor.WriteMessage("type: {0}, value: {1}\n", tv.TypeCode, tv.Value);
@@ -99,7 +117,6 @@ namespace Oy.CAD2006.Utils
             }
         }
     }
-
     /// <summary>
     /// 
     /// </summary>

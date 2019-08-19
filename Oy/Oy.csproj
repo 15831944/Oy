@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Tools\ArxDbg\ArxDbg.2004.arx" />
+    <None Include="Tools\ArxDbg\ArxDbg.2008.x64.arx" />
     <None Include="Tools\AutoNetLoad-mac.lsp" />
     <None Include="Tools\AutoNetLoad-oy.lsp" />
     <None Include="Tools\AutoNetLoad-dell.lsp" />

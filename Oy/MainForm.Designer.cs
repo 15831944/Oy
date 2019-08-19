@@ -34,6 +34,8 @@
             this.PingButton = new System.Windows.Forms.Button();
             this.CloseButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.writeXrecord = new System.Windows.Forms.Button();
+            this.readXrecord = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SaveFileButton
@@ -88,6 +90,25 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
+            // writeXrecord
+            // 
+            this.writeXrecord.Location = new System.Drawing.Point(447, 67);
+            this.writeXrecord.Name = "writeXrecord";
+            this.writeXrecord.Size = new System.Drawing.Size(75, 23);
+            this.writeXrecord.TabIndex = 5;
+            this.writeXrecord.Text = "写入";
+            this.writeXrecord.UseVisualStyleBackColor = true;
+            this.writeXrecord.Click += new System.EventHandler(this.WriteXrecord_Click);
+            // 
+            // readXrecord
+            // 
+            this.readXrecord.Location = new System.Drawing.Point(545, 67);
+            this.readXrecord.Name = "readXrecord";
+            this.readXrecord.Size = new System.Drawing.Size(75, 23);
+            this.readXrecord.TabIndex = 6;
+            this.readXrecord.Text = "读取";
+            this.readXrecord.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AcceptButton = this.PingButton;
@@ -97,6 +118,8 @@
             this.CancelButton = this.CloseButton;
             this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(794, 458);
+            this.Controls.Add(this.readXrecord);
+            this.Controls.Add(this.writeXrecord);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.PingButton);
@@ -125,5 +148,7 @@
         private System.Windows.Forms.Button PingButton;
         private System.Windows.Forms.Button CloseButton;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button writeXrecord;
+        private System.Windows.Forms.Button readXrecord;
     }
 }

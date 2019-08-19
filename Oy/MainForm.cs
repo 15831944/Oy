@@ -66,5 +66,10 @@ namespace Oy.CAD2006.GUI
             }
             this.Show(); // this is mandatory if the form have been hidden
         }
+
+        private void WriteXrecord_Click(object sender, EventArgs e)
+        {
+            Utils.NamedObjectDictionary.WriteToNOD("项目名称2", "浙江省温州市瓯海区郭溪街道浦北村南浦路130号2");
+        }
     }
 }
