@@ -56,13 +56,18 @@ namespace Oy.CAD2006.GUI
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            //this.WindowState = FormWindowState.Minimized;
-            //this.SetVisibleCore(false);
             this.Hide(); // this is not mandatory
 
+            try
+            {
+                ApplicationServices.Document document = ApplicationServices.Application.DocumentManager.MdiActiveDocument;
+                document.Editor.WriteMessage(document.Editor.GetSelection().Value.Count.ToString() + "\n");
+            }
+            catch (Exception)
+            {
 
-            ApplicationServices.Document document = ApplicationServices.Application.DocumentManager.MdiActiveDocument;
-            document.Editor.WriteMessage(document.Editor.GetSelection().Value.Count.ToString()+"\n");
+            }
+
             //ApplicationServices.Document document = ApplicationServices.Application.DocumentManager.MdiActiveDocument;
             //EditorInput.Editor editor = document.Editor;
             //EditorInput.PromptPointResult ppr = editor.GetPoint("\n选取第一个点 ");

@@ -1,0 +1,1 @@
+(COMMAND "NetLoad" "C:\\Users\\super\\Desktop\\Oy\\myNetLoad\\bin\\Debug\\myNetLoad.dll")

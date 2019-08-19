@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Tools\AutoNetLoad-mac.lsp" />
     <None Include="Tools\AutoNetLoad-oy.lsp" />
     <None Include="Tools\AutoNetLoad-dell.lsp" />
     <None Include="Resources\Template.xls" />
