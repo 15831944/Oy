@@ -8,7 +8,7 @@ namespace myNetLoad
     public class NL
     {
         //本程序在AutoCAD的快捷命令是"NL"
-        [CommandMethod("NL")]
+        [CommandMethod("qq")]
         public void MyLoad()
         {
 

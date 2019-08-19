@@ -10,10 +10,7 @@ namespace Oy.CAD2006.CommandMethod
     public class CommandMethod
     {
         [CommandMethod("TT")]
-        public void OpenMainForm()
-        {
-            Application.ShowModalDialog(new GUI.MainForm());
-        }
+        public void OpenMainForm() => Application.ShowModalDialog(new GUI.MainForm());
 
         [CommandMethod("Greating")]
         public void Greating() => lib.AutoCAD.Greating();

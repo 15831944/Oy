@@ -57,16 +57,13 @@ namespace Oy.CAD2006.GUI
         private void Button1_Click(object sender, EventArgs e)
         {
             this.Hide(); // this is not mandatory
-
-            try
-            {
                 ApplicationServices.Document document = ApplicationServices.Application.DocumentManager.MdiActiveDocument;
-                document.Editor.WriteMessage(document.Editor.GetSelection().Value.Count.ToString() + "\n");
-            }
-            catch (Exception)
+            EditorInput.PromptSelectionResult promptSelectionResult = document.Editor.GetSelection();
+            if (promptSelectionResult.Status==EditorInput.PromptStatus.OK)
             {
-
+                document.Editor.WriteMessage(promptSelectionResult.Value.Count.ToString() + "\n");
             }
+
 
             //ApplicationServices.Document document = ApplicationServices.Application.DocumentManager.MdiActiveDocument;
             //EditorInput.Editor editor = document.Editor;
