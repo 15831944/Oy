@@ -91,8 +91,16 @@ namespace Oy.CAD2006.GUI
                 textBox.Text = tValue[i];
             }
         }
+
         #endregion
 
-
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            string filePath = @"C:\Users\super\Desktop\新建 Microsoft Word Document.docx";
+            Utils.Word word = new Utils.Word();
+            word.WordReplace(filePath,"[姓]","黄");
+            word.WordReplace(filePath,"[名]","显强");
+            this.AddressTextBox.Text = "完成";
+        }
     }
 }

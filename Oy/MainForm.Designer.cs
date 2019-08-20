@@ -60,6 +60,7 @@
             this.infoLabel9 = new System.Windows.Forms.Label();
             this.infoLabel10 = new System.Windows.Forms.Label();
             this.infoLabel11 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SaveFileButton
@@ -351,6 +352,16 @@
             this.infoLabel11.Text = "日期(日)";
             this.infoLabel11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(531, 92);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 31;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.PingButton;
@@ -360,6 +371,7 @@
             this.CancelButton = this.CloseButton;
             this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(794, 458);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.infoLabel11);
             this.Controls.Add(this.infoLabel10);
             this.Controls.Add(this.infoLabel9);
@@ -441,5 +453,6 @@
         private System.Windows.Forms.Label infoLabel9;
         private System.Windows.Forms.Label infoLabel10;
         private System.Windows.Forms.Label infoLabel11;
+        private System.Windows.Forms.Button button1;
     }
 }
