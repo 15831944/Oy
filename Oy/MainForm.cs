@@ -78,7 +78,7 @@ namespace Oy.CAD2006.GUI
             string[] tKey = Utils.NamedObjectDictionary.tKey;
             for (int i = 0; i <= 11; i++)
             {
-                Forms.TextBox textBox = (Forms.TextBox)Controls["infoBox" + i.ToString()];
+                Forms.TextBox textBox = (Forms.TextBox)panel1.Controls["infoBox" + i.ToString()];
                 Utils.NamedObjectDictionary.WriteToNOD(tKey[i], textBox.Text);
             }
         }
@@ -87,7 +87,7 @@ namespace Oy.CAD2006.GUI
             string[] tValue = Utils.NamedObjectDictionary.ReadFromNODAll();
             for (int i = 0; i < tValue.Length; i++)
             {
-                Forms.TextBox textBox = (Forms.TextBox)Controls["infoBox" + i.ToString()];
+                Forms.TextBox textBox = (Forms.TextBox)panel1.Controls["infoBox" + i.ToString()];
                 textBox.Text = tValue[i];
             }
         }
@@ -102,6 +102,13 @@ namespace Oy.CAD2006.GUI
             Utils.Word word = new Utils.Word();
             word.WordReplace(filePath,strOld,strNew);
             this.AddressTextBox.Text = "完成";
+        }
+
+        private void DateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            this.infoBox9.Text = dateTimePicker1.Value.Year.ToString() + "年";
+            this.infoBox10.Text = dateTimePicker1.Value.Month.ToString() + "月";
+            this.infoBox11.Text = dateTimePicker1.Value.Day.ToString() + "日";
         }
     }
 }

@@ -26,17 +26,17 @@
             document.Replace("[项目编号]", projectNumber, false, true);
             document.Replace("[委托单位]", clientName, false, true);
             document.Replace("[项目名称]", projectName, false, true);
-            document.Replace("[年]", year, false, true);
-            document.Replace("[月]", month, false, true);
-            document.Replace("[日]", day, false, true);
+            document.Replace("[日期(年)]", year, false, true);
+            document.Replace("[日期(月)]", month, false, true);
+            document.Replace("[日期(日)]", day, false, true);
             document.Replace("[制图员]", drawer, false, true);
             document.Replace("[检查员]", checker, false, true);
             document.Replace("[审核人员]", inspector, false, true);
-            document.Replace("[坐标系]", ucs, false, true);
-            document.Replace("[街道]", street, false, true);
-            document.Replace("[村]", village, false, true);
+            document.Replace("[坐标系统]", ucs, false, true);
+            document.Replace("[街道-乡镇]", street, false, true);
+            document.Replace("[村落-社区]", village, false, true);
             document.SaveToFile(@"c:\hxq.doc", Spire.Doc.FileFormat.Doc);
-
+            document.Dispose();
             System.Diagnostics.Process.Start(@"c:\hxq.doc");
         }
     }

@@ -61,6 +61,9 @@
             this.infoLabel10 = new System.Windows.Forms.Label();
             this.infoLabel11 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveFileButton
@@ -139,7 +142,7 @@
             // infoBox0
             // 
             this.infoBox0.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox0.Location = new System.Drawing.Point(78, 9);
+            this.infoBox0.Location = new System.Drawing.Point(74, 6);
             this.infoBox0.Name = "infoBox0";
             this.infoBox0.Size = new System.Drawing.Size(205, 21);
             this.infoBox0.TabIndex = 7;
@@ -148,7 +151,7 @@
             // infoBox1
             // 
             this.infoBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox1.Location = new System.Drawing.Point(78, 36);
+            this.infoBox1.Location = new System.Drawing.Point(74, 33);
             this.infoBox1.Name = "infoBox1";
             this.infoBox1.Size = new System.Drawing.Size(205, 21);
             this.infoBox1.TabIndex = 8;
@@ -157,7 +160,7 @@
             // infoBox2
             // 
             this.infoBox2.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox2.Location = new System.Drawing.Point(78, 63);
+            this.infoBox2.Location = new System.Drawing.Point(74, 60);
             this.infoBox2.Name = "infoBox2";
             this.infoBox2.Size = new System.Drawing.Size(205, 21);
             this.infoBox2.TabIndex = 9;
@@ -166,7 +169,7 @@
             // infoBox3
             // 
             this.infoBox3.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox3.Location = new System.Drawing.Point(78, 90);
+            this.infoBox3.Location = new System.Drawing.Point(74, 87);
             this.infoBox3.Name = "infoBox3";
             this.infoBox3.Size = new System.Drawing.Size(205, 21);
             this.infoBox3.TabIndex = 10;
@@ -175,7 +178,7 @@
             // infoBox5
             // 
             this.infoBox5.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox5.Location = new System.Drawing.Point(78, 144);
+            this.infoBox5.Location = new System.Drawing.Point(74, 141);
             this.infoBox5.Name = "infoBox5";
             this.infoBox5.Size = new System.Drawing.Size(205, 21);
             this.infoBox5.TabIndex = 12;
@@ -184,7 +187,7 @@
             // infoBox4
             // 
             this.infoBox4.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox4.Location = new System.Drawing.Point(78, 117);
+            this.infoBox4.Location = new System.Drawing.Point(74, 114);
             this.infoBox4.Name = "infoBox4";
             this.infoBox4.Size = new System.Drawing.Size(205, 21);
             this.infoBox4.TabIndex = 11;
@@ -193,7 +196,7 @@
             // infoBox6
             // 
             this.infoBox6.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox6.Location = new System.Drawing.Point(78, 171);
+            this.infoBox6.Location = new System.Drawing.Point(74, 168);
             this.infoBox6.Name = "infoBox6";
             this.infoBox6.Size = new System.Drawing.Size(205, 21);
             this.infoBox6.TabIndex = 13;
@@ -202,7 +205,7 @@
             // infoBox7
             // 
             this.infoBox7.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox7.Location = new System.Drawing.Point(78, 198);
+            this.infoBox7.Location = new System.Drawing.Point(74, 195);
             this.infoBox7.Name = "infoBox7";
             this.infoBox7.Size = new System.Drawing.Size(205, 21);
             this.infoBox7.TabIndex = 14;
@@ -211,7 +214,7 @@
             // infoBox8
             // 
             this.infoBox8.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox8.Location = new System.Drawing.Point(78, 225);
+            this.infoBox8.Location = new System.Drawing.Point(74, 222);
             this.infoBox8.Name = "infoBox8";
             this.infoBox8.Size = new System.Drawing.Size(205, 21);
             this.infoBox8.TabIndex = 15;
@@ -220,7 +223,7 @@
             // infoBox9
             // 
             this.infoBox9.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox9.Location = new System.Drawing.Point(78, 252);
+            this.infoBox9.Location = new System.Drawing.Point(74, 249);
             this.infoBox9.Name = "infoBox9";
             this.infoBox9.Size = new System.Drawing.Size(205, 21);
             this.infoBox9.TabIndex = 16;
@@ -229,7 +232,7 @@
             // infoBox10
             // 
             this.infoBox10.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox10.Location = new System.Drawing.Point(78, 279);
+            this.infoBox10.Location = new System.Drawing.Point(74, 276);
             this.infoBox10.Name = "infoBox10";
             this.infoBox10.Size = new System.Drawing.Size(205, 21);
             this.infoBox10.TabIndex = 17;
@@ -238,7 +241,7 @@
             // infoBox11
             // 
             this.infoBox11.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox11.Location = new System.Drawing.Point(78, 306);
+            this.infoBox11.Location = new System.Drawing.Point(74, 303);
             this.infoBox11.Name = "infoBox11";
             this.infoBox11.Size = new System.Drawing.Size(205, 21);
             this.infoBox11.TabIndex = 18;
@@ -246,7 +249,7 @@
             // 
             // infoLabel0
             // 
-            this.infoLabel0.Location = new System.Drawing.Point(12, 11);
+            this.infoLabel0.Location = new System.Drawing.Point(8, 8);
             this.infoLabel0.Name = "infoLabel0";
             this.infoLabel0.Size = new System.Drawing.Size(60, 15);
             this.infoLabel0.TabIndex = 19;
@@ -255,7 +258,7 @@
             // 
             // infoLabel1
             // 
-            this.infoLabel1.Location = new System.Drawing.Point(12, 38);
+            this.infoLabel1.Location = new System.Drawing.Point(8, 35);
             this.infoLabel1.Name = "infoLabel1";
             this.infoLabel1.Size = new System.Drawing.Size(60, 15);
             this.infoLabel1.TabIndex = 20;
@@ -264,7 +267,7 @@
             // 
             // infoLabel2
             // 
-            this.infoLabel2.Location = new System.Drawing.Point(12, 65);
+            this.infoLabel2.Location = new System.Drawing.Point(8, 62);
             this.infoLabel2.Name = "infoLabel2";
             this.infoLabel2.Size = new System.Drawing.Size(60, 15);
             this.infoLabel2.TabIndex = 21;
@@ -273,25 +276,25 @@
             // 
             // infoLabel3
             // 
-            this.infoLabel3.Location = new System.Drawing.Point(12, 92);
+            this.infoLabel3.Location = new System.Drawing.Point(8, 89);
             this.infoLabel3.Name = "infoLabel3";
             this.infoLabel3.Size = new System.Drawing.Size(60, 15);
             this.infoLabel3.TabIndex = 22;
-            this.infoLabel3.Text = "街道";
+            this.infoLabel3.Text = "街道-乡镇";
             this.infoLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // infoLabel4
             // 
-            this.infoLabel4.Location = new System.Drawing.Point(12, 119);
+            this.infoLabel4.Location = new System.Drawing.Point(8, 116);
             this.infoLabel4.Name = "infoLabel4";
             this.infoLabel4.Size = new System.Drawing.Size(60, 15);
             this.infoLabel4.TabIndex = 23;
-            this.infoLabel4.Text = "村";
+            this.infoLabel4.Text = "村落-社区";
             this.infoLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // infoLabel5
             // 
-            this.infoLabel5.Location = new System.Drawing.Point(12, 146);
+            this.infoLabel5.Location = new System.Drawing.Point(8, 143);
             this.infoLabel5.Name = "infoLabel5";
             this.infoLabel5.Size = new System.Drawing.Size(60, 15);
             this.infoLabel5.TabIndex = 24;
@@ -300,7 +303,7 @@
             // 
             // infoLabel6
             // 
-            this.infoLabel6.Location = new System.Drawing.Point(12, 173);
+            this.infoLabel6.Location = new System.Drawing.Point(8, 170);
             this.infoLabel6.Name = "infoLabel6";
             this.infoLabel6.Size = new System.Drawing.Size(60, 15);
             this.infoLabel6.TabIndex = 25;
@@ -309,7 +312,7 @@
             // 
             // infoLabel7
             // 
-            this.infoLabel7.Location = new System.Drawing.Point(12, 200);
+            this.infoLabel7.Location = new System.Drawing.Point(8, 197);
             this.infoLabel7.Name = "infoLabel7";
             this.infoLabel7.Size = new System.Drawing.Size(60, 15);
             this.infoLabel7.TabIndex = 26;
@@ -318,16 +321,16 @@
             // 
             // infoLabel8
             // 
-            this.infoLabel8.Location = new System.Drawing.Point(12, 227);
+            this.infoLabel8.Location = new System.Drawing.Point(8, 224);
             this.infoLabel8.Name = "infoLabel8";
             this.infoLabel8.Size = new System.Drawing.Size(60, 15);
             this.infoLabel8.TabIndex = 27;
-            this.infoLabel8.Text = "坐标系";
+            this.infoLabel8.Text = "坐标系统";
             this.infoLabel8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // infoLabel9
             // 
-            this.infoLabel9.Location = new System.Drawing.Point(12, 254);
+            this.infoLabel9.Location = new System.Drawing.Point(8, 251);
             this.infoLabel9.Name = "infoLabel9";
             this.infoLabel9.Size = new System.Drawing.Size(60, 15);
             this.infoLabel9.TabIndex = 28;
@@ -336,7 +339,7 @@
             // 
             // infoLabel10
             // 
-            this.infoLabel10.Location = new System.Drawing.Point(12, 281);
+            this.infoLabel10.Location = new System.Drawing.Point(8, 278);
             this.infoLabel10.Name = "infoLabel10";
             this.infoLabel10.Size = new System.Drawing.Size(60, 15);
             this.infoLabel10.TabIndex = 29;
@@ -345,7 +348,7 @@
             // 
             // infoLabel11
             // 
-            this.infoLabel11.Location = new System.Drawing.Point(12, 308);
+            this.infoLabel11.Location = new System.Drawing.Point(8, 305);
             this.infoLabel11.Name = "infoLabel11";
             this.infoLabel11.Size = new System.Drawing.Size(60, 15);
             this.infoLabel11.TabIndex = 30;
@@ -362,6 +365,46 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(74, 330);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(205, 21);
+            this.dateTimePicker1.TabIndex = 32;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.DateTimePicker1_ValueChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.infoLabel0);
+            this.panel1.Controls.Add(this.dateTimePicker1);
+            this.panel1.Controls.Add(this.infoBox0);
+            this.panel1.Controls.Add(this.infoBox1);
+            this.panel1.Controls.Add(this.infoLabel11);
+            this.panel1.Controls.Add(this.infoBox2);
+            this.panel1.Controls.Add(this.infoLabel10);
+            this.panel1.Controls.Add(this.infoBox4);
+            this.panel1.Controls.Add(this.infoLabel9);
+            this.panel1.Controls.Add(this.infoBox5);
+            this.panel1.Controls.Add(this.infoLabel8);
+            this.panel1.Controls.Add(this.infoBox3);
+            this.panel1.Controls.Add(this.infoLabel7);
+            this.panel1.Controls.Add(this.infoBox6);
+            this.panel1.Controls.Add(this.infoLabel6);
+            this.panel1.Controls.Add(this.infoBox7);
+            this.panel1.Controls.Add(this.infoLabel5);
+            this.panel1.Controls.Add(this.infoBox8);
+            this.panel1.Controls.Add(this.infoLabel4);
+            this.panel1.Controls.Add(this.infoBox9);
+            this.panel1.Controls.Add(this.infoLabel3);
+            this.panel1.Controls.Add(this.infoBox10);
+            this.panel1.Controls.Add(this.infoLabel2);
+            this.panel1.Controls.Add(this.infoBox11);
+            this.panel1.Controls.Add(this.infoLabel1);
+            this.panel1.Location = new System.Drawing.Point(12, 7);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(282, 360);
+            this.panel1.TabIndex = 33;
+            // 
             // MainForm
             // 
             this.AcceptButton = this.PingButton;
@@ -371,31 +414,8 @@
             this.CancelButton = this.CloseButton;
             this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(794, 458);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.infoLabel11);
-            this.Controls.Add(this.infoLabel10);
-            this.Controls.Add(this.infoLabel9);
-            this.Controls.Add(this.infoLabel8);
-            this.Controls.Add(this.infoLabel7);
-            this.Controls.Add(this.infoLabel6);
-            this.Controls.Add(this.infoLabel5);
-            this.Controls.Add(this.infoLabel4);
-            this.Controls.Add(this.infoLabel3);
-            this.Controls.Add(this.infoLabel2);
-            this.Controls.Add(this.infoLabel1);
-            this.Controls.Add(this.infoLabel0);
-            this.Controls.Add(this.infoBox11);
-            this.Controls.Add(this.infoBox10);
-            this.Controls.Add(this.infoBox9);
-            this.Controls.Add(this.infoBox8);
-            this.Controls.Add(this.infoBox7);
-            this.Controls.Add(this.infoBox6);
-            this.Controls.Add(this.infoBox3);
-            this.Controls.Add(this.infoBox5);
-            this.Controls.Add(this.infoBox4);
-            this.Controls.Add(this.infoBox2);
-            this.Controls.Add(this.infoBox1);
-            this.Controls.Add(this.infoBox0);
             this.Controls.Add(this.readXrecord);
             this.Controls.Add(this.writeXrecord);
             this.Controls.Add(this.pickButton);
@@ -415,6 +435,8 @@
             this.Text = "HXQ-瓯越制图管理程序";
             this.TransparencyKey = System.Drawing.Color.Aqua;
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -454,5 +476,7 @@
         private System.Windows.Forms.Label infoLabel10;
         private System.Windows.Forms.Label infoLabel11;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Panel panel1;
     }
 }

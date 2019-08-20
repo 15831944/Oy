@@ -40,7 +40,7 @@ namespace Oy.CAD2006.Utils
     #region:NOD
     class NamedObjectDictionary
     {
-        public static readonly string[] tKey = { "项目编号", "项目名称", "委托单位", "街道", "村", "制图人员", "检查人员", "审核人员", "坐标系", "年", "月", "日" };
+        public static readonly string[] tKey = { "项目编号", "项目名称", "委托单位", "街道-乡镇", "村落-社区", "制图人员", "检查人员", "审核人员", "坐标系统", "日期(年)", "日期(月)", "日期(日)" };
 
         /// <summary>
         /// 写入字典
