@@ -82,9 +82,9 @@ namespace Oy.CAD2006.GUI
 
         private void ReadXrecord_Click(object sender, EventArgs e)
         {
-            ApplicationServices.Application.ShowAlertDialog( Utils.NamedObjectDictionary.ReadFromNOD("项目编号"));
+            Utils.NamedObjectDictionary.ReadFromNOD("项目编号");
             Utils.NamedObjectDictionary.ReadFromNOD("项目名称");
-            ApplicationServices.Application.ShowAlertDialog(Utils.NamedObjectDictionary.ReadFromNOD("委托单位"));
+            Utils.NamedObjectDictionary.ReadFromNOD("委托单位");
             Utils.NamedObjectDictionary.ReadFromNOD("街道");
             Utils.NamedObjectDictionary.ReadFromNOD("村");
             Utils.NamedObjectDictionary.ReadFromNOD("制图人员");
@@ -94,6 +94,14 @@ namespace Oy.CAD2006.GUI
             Utils.NamedObjectDictionary.ReadFromNOD("年");
             Utils.NamedObjectDictionary.ReadFromNOD("月");
             Utils.NamedObjectDictionary.ReadFromNOD("日");
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            if (Utils.NamedObjectDictionary.ReadFromNOD("街道")!="")
+            {
+                this.readXrecord.PerformClick();
+            }
         }
     }
 }

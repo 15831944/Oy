@@ -281,6 +281,7 @@
             this.Tag = "";
             this.Text = "HXQ-瓯越制图管理程序";
             this.TransparencyKey = System.Drawing.Color.Aqua;
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
