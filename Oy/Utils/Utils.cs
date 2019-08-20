@@ -6,9 +6,7 @@ using Forms = System.Windows.Forms;
 
 namespace Oy.CAD2006.Utils
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    #region:Server
     class Server
     {
         /// <summary>  
@@ -36,12 +34,15 @@ namespace Oy.CAD2006.Utils
             }
         }
     }
+    #endregion
 
-    /// <summary>
-    /// 
-    /// </summary>
+
+    
+    #region:NOD
     class NamedObjectDictionary
     {
+        public static readonly string[] tKey = { "项目编号", "项目名称", "委托单位", "街道", "村", "制图人员", "检查人员", "审核人员", "坐标系", "年", "月", "日" };
+
         /// <summary>
         /// 写入字典
         /// </summary>
@@ -49,8 +50,6 @@ namespace Oy.CAD2006.Utils
         {
             Document document = Application.DocumentManager.MdiActiveDocument;
             Database db = document.Database;
-            //try
-            //{
             using (Transaction transaction = db.TransactionManager.StartTransaction())
             {
                 // 命名对象字典
@@ -62,53 +61,58 @@ namespace Oy.CAD2006.Utils
                 {
                     Data = new ResultBuffer(new TypedValue((int)DxfCode.Text, NodValue))
                 };
-
                 // 往命名对象字典中存储自定义数据
                 nod.SetAt(NodKey, OyXrecord);
                 transaction.AddNewlyCreatedDBObject(OyXrecord, true);
                 transaction.Commit();
-                // Now let's read the data back and print them out 
-                //  to the Visual Studio's Output window
-                //ObjectId myDataId = nod.GetAt("OyXrecord");
-                //Xrecord readBack = (Xrecord)transaction.GetObject(
-                //                              myDataId, OpenMode.ForRead);
-                //foreach (TypedValue typedValue in readBack.Data)
-                //    document.Editor.WriteMessage(
-                //              "===== OUR DATA: " + typedValue.TypeCode
-                //              + ". " + typedValue.Value.ToString()
-                //              );
-
             }
         }
 
-
         /// <summary>
-        /// 读取字典
+        /// 读取字典（单个）
         /// </summary>
         public static string ReadFromNOD(string NodKey)
         {
-            Document document = Application.DocumentManager.MdiActiveDocument;
-            Database db = document.Database;
-            //try
-            //{
-            using (Transaction transaction = db.TransactionManager.StartTransaction())
+            try
             {
-                // 命名对象字典
-                DBDictionary nod = transaction.GetObject(db.NamedObjectsDictionaryId,
-                    OpenMode.ForWrite) as DBDictionary;
+                Document document = Application.DocumentManager.MdiActiveDocument;
+                Database db = document.Database;
 
-                //Now let's read the data back and print them out 
-                //to the Visual Studio's Output window
-                ObjectId myDataId = nod.GetAt(NodKey);
-                Xrecord readBack = (Xrecord)transaction.GetObject(
-                                              myDataId, OpenMode.ForRead);
-                return readBack.Data.AsArray()[0].Value.ToString();
+                using (Transaction transaction = db.TransactionManager.StartTransaction())
+                {
+                    // 命名对象字典
+                    DBDictionary nod = transaction.GetObject(db.NamedObjectsDictionaryId,
+                        OpenMode.ForWrite) as DBDictionary;
+                    //Now let's read the data back and print them out 
+                    //to the Visual Studio's Output window
+                    ObjectId myDataId = nod.GetAt(NodKey);
+                    Xrecord readBack = (Xrecord)transaction.GetObject(myDataId, OpenMode.ForRead);
+                    transaction.Dispose();
+                    return readBack.Data.AsArray()[0].Value.ToString();
+                }
+            }
+            catch (Exception)
+            {
+                return "0";
             }
         }
+
+        /// <summary>
+        /// 读取字典（全部）
+        /// </summary>
+        public static string[] ReadFromNODAll()
+        {
+            string[] tValue = new string[tKey.Length];
+            for (int i = 0; i < tKey.Length; i++)
+            {
+                tValue[i] = ReadFromNOD(tKey[i]);
+            }
+            return tValue;
+        }
     }
-    /// <summary>
-    /// 
-    /// </summary>
+    #endregion
+
+    #region InterOperation
     class InterOperation
     {
         /// <summary>
@@ -160,4 +164,6 @@ namespace Oy.CAD2006.Utils
             return null;
         }
     }
+    #endregion
+
 }
