@@ -32,7 +32,7 @@ namespace Oy.CAD2006.CommandMethod
         /// 读取测试数据
         /// </summary>
         [CommandMethod("RNOD")]
-        public void RNOD() => new Utils.NamedObjectDictionary().ReadFromNOD();
+        public void RNOD() => Utils.NamedObjectDictionary.ReadFromNOD("asd");
 
 
         /// <summary>

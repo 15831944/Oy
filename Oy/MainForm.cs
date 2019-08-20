@@ -66,7 +66,34 @@ namespace Oy.CAD2006.GUI
 
         private void WriteXrecord_Click(object sender, EventArgs e)
         {
-            Utils.NamedObjectDictionary.WriteToNOD("项目名称2", "浙江省温州市瓯海区郭溪街道浦北村南浦路130号2");
+            Utils.NamedObjectDictionary.WriteToNOD("项目编号",textBox2.Text);
+            Utils.NamedObjectDictionary.WriteToNOD("项目名称",textBox3.Text);
+            Utils.NamedObjectDictionary.WriteToNOD("委托单位",textBox4.Text);
+            Utils.NamedObjectDictionary.WriteToNOD("街道",textBox5.Text);
+            Utils.NamedObjectDictionary.WriteToNOD("村",textBox6.Text);
+            Utils.NamedObjectDictionary.WriteToNOD("制图人员",textBox7.Text);
+            Utils.NamedObjectDictionary.WriteToNOD("检查人员",textBox8.Text);
+            Utils.NamedObjectDictionary.WriteToNOD("审核人员",textBox9.Text);
+            Utils.NamedObjectDictionary.WriteToNOD("坐标系",textBox10.Text);
+            Utils.NamedObjectDictionary.WriteToNOD("年",textBox11.Text);
+            Utils.NamedObjectDictionary.WriteToNOD("月",textBox12.Text);
+            Utils.NamedObjectDictionary.WriteToNOD("日",textBox13.Text);
+        }
+
+        private void ReadXrecord_Click(object sender, EventArgs e)
+        {
+            ApplicationServices.Application.ShowAlertDialog( Utils.NamedObjectDictionary.ReadFromNOD("项目编号"));
+            Utils.NamedObjectDictionary.ReadFromNOD("项目名称");
+            ApplicationServices.Application.ShowAlertDialog(Utils.NamedObjectDictionary.ReadFromNOD("委托单位"));
+            Utils.NamedObjectDictionary.ReadFromNOD("街道");
+            Utils.NamedObjectDictionary.ReadFromNOD("村");
+            Utils.NamedObjectDictionary.ReadFromNOD("制图人员");
+            Utils.NamedObjectDictionary.ReadFromNOD("检查人员");
+            Utils.NamedObjectDictionary.ReadFromNOD("审核人员");
+            Utils.NamedObjectDictionary.ReadFromNOD("坐标系");
+            Utils.NamedObjectDictionary.ReadFromNOD("年");
+            Utils.NamedObjectDictionary.ReadFromNOD("月");
+            Utils.NamedObjectDictionary.ReadFromNOD("日");
         }
     }
 }

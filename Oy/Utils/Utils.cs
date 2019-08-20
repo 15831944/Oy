@@ -60,13 +60,11 @@ namespace Oy.CAD2006.Utils
                 // 自定义数据
                 Xrecord OyXrecord = new Xrecord
                 {
-                    Data = new ResultBuffer(
-                    new TypedValue((int)DxfCode.Text, NodKey),
-                    new TypedValue((int)DxfCode.Text, NodValue))
+                    Data = new ResultBuffer(new TypedValue((int)DxfCode.Text, NodValue))
                 };
 
                 // 往命名对象字典中存储自定义数据
-                nod.SetAt("OyXrecord", OyXrecord);
+                nod.SetAt(NodKey, OyXrecord);
                 transaction.AddNewlyCreatedDBObject(OyXrecord, true);
                 transaction.Commit();
                 // Now let's read the data back and print them out 
@@ -81,39 +79,30 @@ namespace Oy.CAD2006.Utils
                 //              );
 
             }
-            //}
-            //catch (Exception e)
-            //{
-            //    throw e;
-            //}
         }
 
 
         /// <summary>
         /// 读取字典
         /// </summary>
-        public void ReadFromNOD()
+        public static string ReadFromNOD(string NodKey)
         {
-            Document doc = Application.DocumentManager.MdiActiveDocument;
-            Database db = doc.Database;
-
-            using (Transaction tr = db.TransactionManager.StartTransaction())
+            Document document = Application.DocumentManager.MdiActiveDocument;
+            Database db = document.Database;
+            //try
+            //{
+            using (Transaction transaction = db.TransactionManager.StartTransaction())
             {
                 // 命名对象字典
-                DBDictionary nod = tr.GetObject(db.NamedObjectsDictionaryId,
+                DBDictionary nod = transaction.GetObject(db.NamedObjectsDictionaryId,
                     OpenMode.ForWrite) as DBDictionary;
 
-                // 查找自定义数据
-                if (nod.Contains("MyData"))
-                {
-                    ObjectId myDataId = nod.GetAt("MyData");
-                    Xrecord myXrecord = tr.GetObject(myDataId, OpenMode.ForRead) as Xrecord;
-                    foreach (TypedValue tv in myXrecord.Data)
-                    {
-                        doc.Editor.WriteMessage("type: {0}, value: {1}\n", tv.TypeCode, tv.Value);
-                    }
-                }
-                Forms.MessageBox.Show("读取成功");
+                //Now let's read the data back and print them out 
+                //to the Visual Studio's Output window
+                ObjectId myDataId = nod.GetAt(NodKey);
+                Xrecord readBack = (Xrecord)transaction.GetObject(
+                                              myDataId, OpenMode.ForRead);
+                return readBack.Data.AsArray()[0].Value.ToString();
             }
         }
     }
