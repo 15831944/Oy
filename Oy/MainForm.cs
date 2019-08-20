@@ -13,11 +13,23 @@ namespace Oy.CAD2006.GUI
         {
             InitializeComponent();
         }
+
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             readXrecord.PerformClick();
-        }
 
+
+            ///自动保存输入内容
+            foreach (Forms.Control control in this.panel1.Controls)
+            {
+                if (control is Forms.TextBox)
+                {
+                    (control as Forms.TextBox).TextChanged += WriteXrecord_Click;
+                }
+            }
+        }
+        
         /// <summary>
         /// 保存文件按钮
         /// </summary>
