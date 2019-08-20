@@ -176,57 +176,26 @@ namespace Oy.CAD2006.Utils
         /// <param name="filePath">文件路径</param>
         /// <param name="strOld">查找文本</param>
         /// <param name="strNew">替换文本</param>
-        public void WordReplace(string filePath, string strOld, string strNew)
+        public void WordReplace(string filePath, string[] strOld, string[] strNew)
         {
-            //实例化对象
-            Microsoft.Office.Interop.Word._Application app = new Microsoft.Office.Interop.Word.ApplicationClass();//new Microsoft.Office.Interop.Word.ApplicationClass();
 
 
+            if (strOld.Length==strNew.Length)
+            {
+                Spire.Doc.Document doc = new Spire.Doc.Document();
+                doc.LoadFromFile(filePath);
+                for (int i = 0; i < strOld.Length; i++)
+                {
+                    doc.Replace(strOld[i], strNew[i], false, false);
+                }
 
-            object nullobj = Type.Missing;
-
-
-
-            object file = filePath;
-
-
-
-            Microsoft.Office.Interop.Word._Document doc = app.Documents.Open(
-            ref file, ref nullobj, ref nullobj,
-            ref nullobj, ref nullobj, ref nullobj,
-            ref nullobj, ref nullobj, ref nullobj,
-            ref nullobj, ref nullobj, ref nullobj,
-            ref nullobj, ref nullobj, ref nullobj, ref nullobj) as Microsoft.Office.Interop.Word._Document;
-
-
-
-            app.Selection.Find.ClearFormatting();
-            app.Selection.Find.Replacement.ClearFormatting();
-            app.Selection.Find.Text = strOld;
-            app.Selection.Find.Replacement.Text = strNew;
-
-
-
-            object objReplace = Microsoft.Office.Interop.Word.WdReplace.wdReplaceAll;
-
-
-
-            app.Selection.Find.Execute(ref nullobj, ref nullobj, ref nullobj,
-                                       ref nullobj, ref nullobj, ref nullobj,
-                                       ref nullobj, ref nullobj, ref nullobj,
-                                       ref nullobj, ref objReplace, ref nullobj,
-                                       ref nullobj, ref nullobj, ref nullobj);
-
-
-
-
-            //清空Range对象
-            //Microsoft.Office.Interop.Word.Range range = null;
-
-            //保存
-            doc.Save();
-            doc.Close(ref nullobj, ref nullobj, ref nullobj);
-            app.Quit(ref nullobj, ref nullobj, ref nullobj);
+                doc.SaveToFile(filePath);
+                doc.Close();
+            }
+            else
+            {
+                Forms.MessageBox.Show("要替换的新旧字符串数量不同，取消操作");
+            }
         }
     }
     #endregion
