@@ -52,6 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Resources\Report.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Tools\ArxDbg\ArxDbg.2004.arx" />
     <None Include="Tools\ArxDbg\ArxDbg.2008.x64.arx" />
     <None Include="Tools\AutoNetLoad-mac.lsp" />

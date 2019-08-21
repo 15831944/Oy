@@ -108,11 +108,11 @@ namespace Oy.CAD2006.GUI
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            string[] strOld = { "[<姓>]", "[<名>]" };
-            string[] strNew = { "黄", "显强" };
-            string filePath = @"C:\Users\super\Desktop\新建 Microsoft Word Document.docx";
+            //string[] strOld = { "[<姓>]", "[<名>]" };
+            string[] strOld =  Utils.NamedObjectDictionary.tKey;
+            string[] strNew = Utils.NamedObjectDictionary.ReadFromNODAll();
             Utils.Word word = new Utils.Word();
-            word.WordReplace(filePath,strOld,strNew);
+            word.WordReplace(strOld,strNew);
             this.AddressTextBox.Text = "完成";
         }
 

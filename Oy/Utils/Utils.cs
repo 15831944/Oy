@@ -36,7 +36,6 @@ namespace Oy.CAD2006.Utils
     }
     #endregion
 
-
     #region:NOD
     class NamedObjectDictionary
     {
@@ -176,20 +175,20 @@ namespace Oy.CAD2006.Utils
         /// <param name="filePath">文件路径</param>
         /// <param name="strOld">查找文本</param>
         /// <param name="strNew">替换文本</param>
-        public void WordReplace(string filePath, string[] strOld, string[] strNew)
+        public void WordReplace(string[] strOld, string[] strNew)
         {
 
-
+            string filePath = @".\Resources\Report.docx";
             if (strOld.Length==strNew.Length)
             {
                 Spire.Doc.Document doc = new Spire.Doc.Document();
                 doc.LoadFromFile(filePath);
                 for (int i = 0; i < strOld.Length; i++)
                 {
-                    doc.Replace(strOld[i], strNew[i], false, false);
+                    doc.Replace("[<" + strOld[i] + ">]", strNew[i], false, false);
                 }
-
-                doc.SaveToFile(filePath);
+                string saveFilePath= new Utils.InterOperation().GetFilePath();
+                doc.SaveToFile(saveFilePath);
                 doc.Close();
             }
             else
