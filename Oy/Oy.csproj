@@ -97,12 +97,6 @@
     <PackageReference Include="FreeSpire.Doc">
       <Version>7.1.13</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Word">
-      <Version>15.0.4797.1003</Version>
-    </PackageReference>
-    <PackageReference Include="netDXF">
-      <Version>0.9.3</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="References\ObjectARX 2006\inc\AcDbMgd.dll" />
