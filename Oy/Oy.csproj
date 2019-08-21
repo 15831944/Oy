@@ -52,6 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Resources\Cover.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Authorisation.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Managing.docx" />
     <None Include="Resources\Report.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -101,6 +108,9 @@
     <Content Include="References\ObjectARX 2006\inc\AcDbMgd.dll" />
     <Content Include="References\ObjectARX 2006\inc\AcDbMgdHost.dll" />
     <Content Include="References\ObjectARX 2006\inc\AcMgd.dll" />
+    <Content Include="Resources\Certification.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\HXQ_favicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

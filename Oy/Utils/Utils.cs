@@ -150,9 +150,9 @@ namespace Oy.CAD2006.Utils
             {
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
                 FileName = "坐标表",//默认文件名
-                Filter = "Excel 2007 工作簿(*.xlsx)|*.xlsx|Word 2007 文档(*.docx)|*.docx|所有文件(*.*)|*.*",
+                Filter = "所有文件(*.*)|*.*|Excel 2007 工作簿(*.xlsx)|*.xlsx|Word 2007 文档(*.docx)|*.docx",
                 RestoreDirectory = true,
-                OverwritePrompt = false
+                OverwritePrompt = false,
             };
             Forms.DialogResult dialogResult = saveFileDialog.ShowDialog();
             saveFileDialog.Dispose();
@@ -178,22 +178,28 @@ namespace Oy.CAD2006.Utils
         public void WordReplace(string[] strOld, string[] strNew)
         {
 
-            string filePath = @".\Resources\Report.docx";
-            if (strOld.Length==strNew.Length)
+            string[] filePaths = { @".\Resources\Cover.docx"};
+            //string[] filePaths = { @".\Resources\Report.docx",@".\Resources\Authorisation.docx"};
+
+            foreach (string filePath in filePaths)
             {
-                Spire.Doc.Document doc = new Spire.Doc.Document();
-                doc.LoadFromFile(filePath);
-                for (int i = 0; i < strOld.Length; i++)
+                if (strOld.Length == strNew.Length)
                 {
-                    doc.Replace("[<" + strOld[i] + ">]", strNew[i], false, false);
+                    Spire.Doc.Document doc = new Spire.Doc.Document();
+                    doc.LoadFromFile(filePath);
+                    for (int i = 0; i < strOld.Length; i++)
+                    {
+                        doc.Replace("[<" + strOld[i] + ">]", strNew[i], false, false);
+                    }
+                    string saveFilePath = new InterOperation().GetFilePath();
+                    doc.SaveToFile(saveFilePath);
+                    doc.Close();
+                    doc.Dispose();
                 }
-                string saveFilePath= new Utils.InterOperation().GetFilePath();
-                doc.SaveToFile(saveFilePath);
-                doc.Close();
-            }
-            else
-            {
-                Forms.MessageBox.Show("要替换的新旧字符串数量不同，取消操作");
+                else
+                {
+                    Forms.MessageBox.Show("要替换的新旧字符串数量不同，取消操作");
+                }
             }
         }
     }

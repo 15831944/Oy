@@ -108,7 +108,6 @@ namespace Oy.CAD2006.GUI
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            //string[] strOld = { "[<姓>]", "[<名>]" };
             string[] strOld =  Utils.NamedObjectDictionary.tKey;
             string[] strNew = Utils.NamedObjectDictionary.ReadFromNODAll();
             Utils.Word word = new Utils.Word();
