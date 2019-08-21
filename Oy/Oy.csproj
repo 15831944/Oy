@@ -37,7 +37,7 @@
     <ApplicationIcon>Resources\HXQ_favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="lib\CommandMethod.cs" />
+    <Compile Include="lib\MyCommand.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +97,9 @@
     <PackageReference Include="FreeSpire.Doc">
       <Version>7.1.13</Version>
     </PackageReference>
+    <PackageReference Include="netDXF">
+      <Version>0.9.3</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="References\ObjectARX 2006\inc\AcDbMgd.dll" />
@@ -106,6 +109,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HXQ_favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutoCADCodePack-1.0.0\AutoCADCommands\AutoCADCommands.csproj">
+      <Project>{c5f6c326-952b-43e8-9830-311f190bab11}</Project>
+      <Name>AutoCADCommands</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

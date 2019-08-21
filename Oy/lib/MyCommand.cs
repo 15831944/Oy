@@ -3,6 +3,7 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
 using Oy.CAD2006.CommandMethod;
+using AutoCADCommands;
 
 [assembly: CommandClass(typeof(CommandMethod))]
 namespace Oy.CAD2006.CommandMethod
@@ -35,20 +36,35 @@ namespace Oy.CAD2006.CommandMethod
         public void RNOD() => Utils.NamedObjectDictionary.ReadFromNOD("asd");
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [CommandMethod("test1")]
-        public void Test1()
-        {
-            Document document = Application.DocumentManager.MdiActiveDocument;
-            Editor editor = document.Editor;
-            ObjectId objectId = editor.GetEntity("选取一个对象").ObjectId;
 
-            //Database database = document.Database;
-            Transaction transaction = document.Database.TransactionManager.StartTransaction();
-            string st = transaction.GetObject(objectId, OpenMode.ForRead).ToString();
-            editor.WriteMessage(st);
+
+
+        /// <summary>
+
+        /// Removes unnecessary colinear vertices on polyline.
+
+        /// </summary>
+
+        [CommandMethod("PolyClean5", CommandFlags.UsePickSet)]
+
+        public static void PolyClean5()
+
+        {
+
+            Interaction.WriteLine("Not implemented yet");
+
+            var ids = Interaction.GetSelection("\nSelect polyline", "LWPOLYLINE");
+
+            ids.QForEach<Polyline>(poly =>
+
+            {
+
+                Algorithms.PolyClean_RemoveColinearPoints(poly);
+
+            });
+
         }
+
     }
+    
 }
