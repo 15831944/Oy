@@ -17,6 +17,7 @@ namespace AutoCADCommands
     /// </summary>
     public static class App
     {
+
         /// <summary>
         /// 获取程序目录
         /// </summary>

@@ -51,7 +51,7 @@ namespace AutoCADCommands
 
         public static Tuple<ObjectId, ObjectId> BridgeEarFor(Curve cv, bool right, double size)
         {
-            var startDir = -cv.GetFirstDerivative(cv.StartParam);
+            var startDir = cv.GetFirstDerivative(cv.StartParam);
             var endDir = cv.GetFirstDerivative(cv.EndParam);
             var startRight = right ? false : true;
             var endRight = right ? true : false;
@@ -60,20 +60,21 @@ namespace AutoCADCommands
             return Tuple.Create(startEar, endEar);
         }
 
-        public static ObjectId[] Stairs(Point3d p1, Point3d p2, Point3d p3, double step)
-        {
-            var line1 = NoDraw.Pline(p1, p2);
-            var width = line1.GetDistToPoint(p3, true);
-            var line21 = line1.GetOffsetCurves(width)[0] as Polyline;
-            var line22 = line1.GetOffsetCurves(-width)[0] as Polyline;
-            var line2 = line21.GetDistToPoint(p3) < line22.GetDistToPoint(p3) ? line21 : line22;
-            var length = line1.Length;
-            var lines = Algorithms.Range(step, length, step)
-                .Select(pos => NoDraw.Pline(line1.GetPointAtDistX(pos), line2.GetPointAtDistX(pos))).ToList();
-            lines.Add(line1);
-            lines.Add(line2);
-            return lines.ToArray().AddToCurrentSpace();
-        }
+        
+        //public static ObjectId[] Stairs(Point3d p1, Point3d p2, Point3d p3, double step)
+        //{
+        //    var line1 = NoDraw.Pline(p1, p2);
+        //    var width = line1.GetDistToPoint(p3, true);
+        //    var line21 = line1.GetOffsetCurves(width)[0] as Polyline;
+        //    var line22 = line1.GetOffsetCurves(-width)[0] as Polyline;
+        //    var line2 = line21.GetDistToPoint(p3) < line22.GetDistToPoint(p3) ? line21 : line22;
+        //    var length = line1.Length;
+        //    var lines = Algorithms.Range(step, length, step)
+        //        .Select(pos => NoDraw.Pline(line1.GetPointAtDistX(pos), line2.GetPointAtDistX(pos))).ToList();
+        //    lines.Add(line1);
+        //    lines.Add(line2);
+        //    return lines.ToArray().AddToCurrentSpace();
+        //}
 
         public static ObjectId[] LineBundle(Polyline alignment, LineBundleDefinition[] bundle)
         {

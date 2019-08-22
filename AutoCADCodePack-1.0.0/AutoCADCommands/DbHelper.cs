@@ -75,16 +75,16 @@ namespace AutoCADCommands
         /// 确保一个图层可见 newly 20130730
         /// </summary>
         /// <param name="layerName">图层名</param>
-        public static void EnsureLayerOn(string layerName)
-        {
-            var id = GetLayerId(layerName);
-            id.QOpenForWrite<LayerTableRecord>(l =>
-            {
-                l.IsFrozen = false;
-                l.IsHidden = false;
-                l.IsOff = false;
-            });
-        }
+        //public static void EnsureLayerOn(string layerName)
+        //{
+        //    var id = GetLayerId(layerName);
+        //    id.QOpenForWrite<LayerTableRecord>(l =>
+        //    {
+        //        l.IsFrozen = false;
+        //        l.IsHidden = false;
+        //        l.IsOff = false;
+        //    });
+        //}
 
         /// <summary>
         /// 获取块表记录ID
@@ -238,19 +238,19 @@ namespace AutoCADCommands
         /// </summary>
         /// <param name="entId">组中实体ID</param>
         /// <returns>结果</returns>
-        public static ObjectId GetGroupId(ObjectId entId)
-        {
-            var groupDict = HostApplicationServices.WorkingDatabase.GroupDictionaryId.QOpenForRead<DBDictionary>();
-            var ent = entId.QOpenForRead<Entity>();
-            try
-            {
-                return groupDict.Cast<DBDictionaryEntry>().First(x => x.Value.QOpenForRead<Group>().Has(ent)).Value;
-            }
-            catch
-            {
-                return ObjectId.Null;
-            }
-        }
+        //public static ObjectId GetGroupId(ObjectId entId)
+        //{
+        //    var groupDict = HostApplicationServices.WorkingDatabase.GroupDictionaryId.QOpenForRead<DBDictionary>();
+        //    var ent = entId.QOpenForRead<Entity>();
+        //    try
+        //    {
+        //        return groupDict.Cast<DBDictionaryEntry>().First(x => x.Value.QOpenForRead<Group>().Has(ent)).Value;
+        //    }
+        //    catch
+        //    {
+        //        return ObjectId.Null;
+        //    }
+        //}
 
         /// <summary>
         /// 获取组中所有实体ID集合

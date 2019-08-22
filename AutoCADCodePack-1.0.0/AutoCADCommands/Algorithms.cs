@@ -557,10 +557,10 @@ namespace AutoCADCommands
         /// <returns>范围</returns>
         public static Extents3d GetExtents(this IEnumerable<ObjectId> entIds)
         {
-            Extents3d extent = entIds.First().QSelect(x => x.GeometricExtents);
+            Extents3d extent = entIds.First().QSelect(x => x.GeomExtents);
             foreach (var id in entIds)
             {
-                extent.AddExtents(id.QSelect(x => x.GeometricExtents));
+                extent.AddExtents(id.QSelect(x => x.GeomExtents));
             }
             return extent;
         }
@@ -572,10 +572,10 @@ namespace AutoCADCommands
         /// <returns>范围</returns>
         public static Extents3d GetExtents(this IEnumerable<Entity> ents)
         {
-            Extents3d extent = ents.First().GeometricExtents;
+            Extents3d extent = ents.First().GeomExtents;
             foreach (var ent in ents)
             {
-                extent.AddExtents(ent.GeometricExtents);
+                extent.AddExtents(ent.GeomExtents);
             }
             return extent;
         }
@@ -664,7 +664,7 @@ namespace AutoCADCommands
         /// <returns>中心点</returns>
         public static Point3d GetCenter(this ObjectId entId)
         {
-            var extent = entId.QSelect(x => x.GeometricExtents);
+            var extent = entId.QSelect(x => x.GeomExtents);
             return extent.GetCenter();
         }
 
@@ -675,7 +675,7 @@ namespace AutoCADCommands
         /// <returns>中心点</returns>
         public static Point3d GetCenter(this Entity ent)
         {
-            var extent = ent.GeometricExtents;
+            var extent = ent.GeomExtents;
             return extent.GetCenter();
         }
 
@@ -1203,49 +1203,49 @@ namespace AutoCADCommands
         /// </summary>
         /// <param name="poly">多段线</param>
         /// <param name="dir">方向</param>
-        public static int PolyClean_SetTopoDirection(Polyline poly, Direction dir)
-        {
-            int count = 0;
-            if (poly.StartPoint == poly.EndPoint)
-            {
-                return 0;
-            }
-            var delta = poly.EndPoint - poly.StartPoint;
-            switch (dir)
-            {
-                case Direction.West:
-                    if (delta.X > 0)
-                    {
-                        poly.ReverseCurve();
-                        count++;
-                    }
-                    break;
-                case Direction.North:
-                    if (delta.Y < 0)
-                    {
-                        poly.ReverseCurve();
-                        count++;
-                    }
-                    break;
-                case Direction.East:
-                    if (delta.X < 0)
-                    {
-                        poly.ReverseCurve();
-                        count++;
-                    }
-                    break;
-                case Direction.South:
-                    if (delta.Y > 0)
-                    {
-                        poly.ReverseCurve();
-                        count++;
-                    }
-                    break;
-                default:
-                    break;
-            }
-            return count;
-        }
+        //public static int PolyClean_SetTopoDirection(Polyline poly, Direction dir)
+        //{
+        //    int count = 0;
+        //    if (poly.StartPoint == poly.EndPoint)
+        //    {
+        //        return 0;
+        //    }
+        //    var delta = poly.EndPoint - poly.StartPoint;
+        //    switch (dir)
+        //    {
+        //        case Direction.West:
+        //            if (delta.X > 0)
+        //            {
+        //                poly.ReverseCurve();
+        //                count++;
+        //            }
+        //            break;
+        //        case Direction.North:
+        //            if (delta.Y < 0)
+        //            {
+        //                poly.ReverseCurve();
+        //                count++;
+        //            }
+        //            break;
+        //        case Direction.East:
+        //            if (delta.X < 0)
+        //            {
+        //                poly.ReverseCurve();
+        //                count++;
+        //            }
+        //            break;
+        //        case Direction.South:
+        //            if (delta.Y > 0)
+        //            {
+        //                poly.ReverseCurve();
+        //                count++;
+        //            }
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //    return count;
+        //}
 
         /// <summary>
         /// 方向
@@ -1598,46 +1598,46 @@ namespace AutoCADCommands
             return totalLength;
         }
 
-        public static List<Polyline> HatchToPline(Hatch ht) // newly 20130729
-        {
-            List<Polyline> plines = new List<Polyline>();
-            int loopCount = ht.NumberOfLoops;
-            //System.Diagnostics.Debug.Write(loopCount);
-            for (int index = 0; index < loopCount; )
-            {
-                if (ht.GetLoopAt(index).IsPolyline)
-                {
-                    var loop = ht.GetLoopAt(index).Polyline;
-                    var p = new Polyline();
-                    int i = 0;
-                    loop.Cast<BulgeVertex>().ToList().ForEach(y =>
-                    {
-                        p.AddVertexAt(i, y.Vertex, y.Bulge, 0, 0);
-                        i++;
-                    });
-                    plines.Add(p);
-                    break;
-                }
-                else
-                {
-                    var loop = ht.GetLoopAt(index).Curves;
-                    var p = new Polyline();
-                    int i = 0;
-                    loop.Cast<Curve2d>().ToList().ForEach(y =>
-                    {
-                        p.AddVertexAt(i, y.StartPoint, 0, 0, 0);
-                        i++;
-                        if (y == loop.Cast<Curve2d>().Last())
-                        {
-                            p.AddVertexAt(i, y.EndPoint, 0, 0, 0);
-                        }
-                    });
-                    plines.Add(p);
-                    break;
-                }
-            }
-            return plines;
-        }
+        //public static List<Polyline> HatchToPline(Hatch ht) // newly 20130729
+        //{
+        //    List<Polyline> plines = new List<Polyline>();
+        //    int loopCount = ht.NumberOfLoops;
+        //    //System.Diagnostics.Debug.Write(loopCount);
+        //    for (int index = 0; index < loopCount; )
+        //    {
+        //        if (ht.GetLoopAt(index).IsPolyline)
+        //        {
+        //            var loop = ht.GetLoopAt(index).Polyline;
+        //            var p = new Polyline();
+        //            int i = 0;
+        //            loop.Cast<BulgeVertex>().ToList().ForEach(y =>
+        //            {
+        //                p.AddVertexAt(i, y.Vertex, y.Bulge, 0, 0);
+        //                i++;
+        //            });
+        //            plines.Add(p);
+        //            break;
+        //        }
+        //        else
+        //        {
+        //            var loop = ht.GetLoopAt(index).Curves;
+        //            var p = new Polyline();
+        //            int i = 0;
+        //            loop.Cast<Curve2d>().ToList().ForEach(y =>
+        //            {
+        //                p.AddVertexAt(i, y.StartPoint, 0, 0, 0);
+        //                i++;
+        //                if (y == loop.Cast<Curve2d>().Last())
+        //                {
+        //                    p.AddVertexAt(i, y.EndPoint, 0, 0, 0);
+        //                }
+        //            });
+        //            plines.Add(p);
+        //            break;
+        //        }
+        //    }
+        //    return plines;
+        //}
 
         #endregion
     }

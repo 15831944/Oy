@@ -22,7 +22,7 @@ namespace AutoCADCommands
 
         public static IEnumerable<ObjectId> QWhere(this IEnumerable<ObjectId> ids, Func<Entity, bool> filter, Database db)
         {
-            using (Transaction trans = db.TransactionManager.StartOpenCloseTransaction())
+            using (Transaction trans = db.TransactionManager.StartTransaction())
             {
                 return ids.Select(x => trans.GetObject(x, OpenMode.ForRead) as Entity).ToList().Where(filter).Select(x => x.ObjectId);
             }
@@ -35,7 +35,7 @@ namespace AutoCADCommands
 
         public static ObjectId QPick(this IEnumerable<ObjectId> ids, Func<Entity, bool> filter, Database db)
         {
-            using (Transaction trans = db.TransactionManager.StartOpenCloseTransaction())
+            using (Transaction trans = db.TransactionManager.StartTransaction())
             {
                 try
                 {
@@ -55,7 +55,7 @@ namespace AutoCADCommands
 
         public static IEnumerable<TResult> QSelect<TResult>(this IEnumerable<ObjectId> ids, Func<Entity, TResult> mapper, Database db)
         {
-            using (Transaction trans = db.TransactionManager.StartOpenCloseTransaction())
+            using (Transaction trans = db.TransactionManager.StartTransaction())
             {
                 return ids.Select(x => trans.GetObject(x, OpenMode.ForRead) as Entity).ToList().Select(mapper);
             }
@@ -83,7 +83,7 @@ namespace AutoCADCommands
 
         public static DBObject QOpenForRead(this ObjectId dboId, Database db)
         {
-            using (Transaction trans = db.TransactionManager.StartOpenCloseTransaction())
+            using (Transaction trans = db.TransactionManager.StartTransaction())
             {
                 return trans.GetObject(dboId, OpenMode.ForRead);
             }
@@ -96,7 +96,7 @@ namespace AutoCADCommands
 
         public static T QOpenForRead<T>(this ObjectId dboId, Database db) where T : DBObject // newly 20130122
         {
-            using (Transaction trans = db.TransactionManager.StartOpenCloseTransaction())
+            using (Transaction trans = db.TransactionManager.StartTransaction())
             {
                 return trans.GetObject(dboId, OpenMode.ForRead) as T;
             }
@@ -229,7 +229,7 @@ namespace AutoCADCommands
 
         public static int QCount(this IEnumerable<ObjectId> ids, Func<Entity, bool> filter, Database db)
         {
-            using (Transaction trans = db.TransactionManager.StartOpenCloseTransaction())
+            using (Transaction trans = db.TransactionManager.StartTransaction())
             {
                 return ids.Select(x => trans.GetObject(x, OpenMode.ForRead) as Entity).ToList().Count(filter);
             }
@@ -242,7 +242,7 @@ namespace AutoCADCommands
 
         public static double QMin(this IEnumerable<ObjectId> ids, Func<Entity, double> mapper, Database db)
         {
-            using (Transaction trans = db.TransactionManager.StartOpenCloseTransaction())
+            using (Transaction trans = db.TransactionManager.StartTransaction())
             {
                 return ids.Select(x => trans.GetObject(x, OpenMode.ForRead) as Entity).ToList().Min(mapper);
             }
@@ -255,7 +255,7 @@ namespace AutoCADCommands
 
         public static double QMax(this IEnumerable<ObjectId> ids, Func<Entity, double> mapper, Database db)
         {
-            using (Transaction trans = db.TransactionManager.StartOpenCloseTransaction())
+            using (Transaction trans = db.TransactionManager.StartTransaction())
             {
                 return ids.Select(x => trans.GetObject(x, OpenMode.ForRead) as Entity).ToList().Max(mapper);
             }
@@ -268,7 +268,7 @@ namespace AutoCADCommands
 
         public static ObjectId QMinEntity(this IEnumerable<ObjectId> ids, Func<Entity, double> mapper, Database db)
         {
-            using (Transaction trans = db.TransactionManager.StartOpenCloseTransaction())
+            using (Transaction trans = db.TransactionManager.StartTransaction())
             {
                 var ents = ids.Select(x => trans.GetObject(x, OpenMode.ForRead) as Entity).ToList();
                 double value = ents.Min(mapper);
@@ -283,7 +283,7 @@ namespace AutoCADCommands
 
         public static ObjectId QMaxEntity(this IEnumerable<ObjectId> ids, Func<Entity, double> mapper, Database db)
         {
-            using (Transaction trans = db.TransactionManager.StartOpenCloseTransaction())
+            using (Transaction trans = db.TransactionManager.StartTransaction())
             {
                 var ents = ids.Select(x => trans.GetObject(x, OpenMode.ForRead) as Entity).ToList();
                 double value = ents.Max(mapper);
@@ -330,7 +330,7 @@ namespace AutoCADCommands
 
         private static IEnumerable<ObjectId> SelectAllInternal(this Database db, string block)
         {
-            using (Transaction trans = db.TransactionManager.StartOpenCloseTransaction())
+            using (Transaction trans = db.TransactionManager.StartTransaction())
             {
                 BlockTable bt = trans.GetObject(db.BlockTableId, OpenMode.ForRead) as BlockTable;
                 BlockTableRecord modelSpace = trans.GetObject(bt[block], OpenMode.ForRead) as BlockTableRecord;
