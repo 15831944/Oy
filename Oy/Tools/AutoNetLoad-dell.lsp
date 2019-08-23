@@ -1,1 +1,1 @@
-(COMMAND "NetLoad" "C:\\Users\\super\\Desktop\\Oy\\myNetLoad\\bin\\Debug\\myNetLoad.dll")
+(COMMAND "NetLoad" "C:\\Users\\super\\source\\repos\\iamHXQ\\Oy\\myNetLoad\\bin\\Debug\\myNetLoad.dll")
