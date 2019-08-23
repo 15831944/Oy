@@ -3,7 +3,6 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
 using Oy.CAD2006.CommandMethod;
-using AutoCADCommands;
 
 [assembly: CommandClass(typeof(CommandMethod))]
 namespace Oy.CAD2006.CommandMethod
@@ -34,37 +33,6 @@ namespace Oy.CAD2006.CommandMethod
         /// </summary>
         [CommandMethod("RNOD")]
         public void RNOD() => Utils.NamedObjectDictionary.ReadFromNOD("asd");
-
-
-
-
-
-        /// <summary>
-
-        /// Removes unnecessary colinear vertices on polyline.
-
-        /// </summary>
-
-        [CommandMethod("PolyClean5", CommandFlags.UsePickSet)]
-
-        public static void PolyClean5()
-
-        {
-
-            Interaction.WriteLine("Not implemented yet");
-
-            var ids = Interaction.GetSelection("\nSelect polyline", "LWPOLYLINE");
-
-            ids.QForEach<Polyline>(poly =>
-
-            {
-
-                Algorithms.PolyClean_RemoveColinearPoints(poly);
-
-            });
-
-        }
-
     }
     
 }
