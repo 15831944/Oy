@@ -427,13 +427,13 @@ namespace AutoCADCommands
         /// </summary>
         /// <param name="hatchName"></param>
         /// <param name="seed"></param>
-        public static ObjectId Hatch(string hatchName, Point3d seed)
-        {
-            ObjectId loop = Draw.Boundary(seed, BoundaryType.Polyline);
-            ObjectId result = Draw.Hatch(new ObjectId[] { loop }, hatchName);
-            loop.Erase(); // newly 20140521
-            return result;
-        }
+        //public static ObjectId Hatch(string hatchName, Point3d seed)
+        //{
+        //    ObjectId loop = Draw.Boundary(seed, BoundaryType.Polyline);
+        //    ObjectId result = Draw.Hatch(new ObjectId[] { loop }, hatchName);
+        //    loop.Erase(); // newly 20140521
+        //    return result;
+        //}
 
         /// <summary>
         /// 绘制图案填充：根据实体
@@ -495,7 +495,7 @@ namespace AutoCADCommands
                 hatch.SetHatchPattern(HatchPatternType.PreDefined, hatchName);
                 hatch.PatternAngle = angle; // 按.NET设计规范，属性必须能被以任意顺序设置。然而此处PatternAngle则必须在SetHatchPattern调用后设置，显然AutoCAD API的设计是不合理的。
                 hatch.HatchStyle = HatchStyle.Outer;
-                loopIds.ToList().ForEach(loop => hatch.AppendLoop(HatchLoopTypes.External, new ObjectIdCollection(new ObjectId[] { loop })));
+                loopIds.ToList().ForEach(loop => hatch.AppendLoop((int)HatchLoopTypes.External, new ObjectIdCollection(new ObjectId[] { loop })));
                 hatch.EvaluateHatch(true);
 
                 trans.Commit();
@@ -530,39 +530,39 @@ namespace AutoCADCommands
         /// <param name="seed"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static ObjectId Boundary(Point3d seed, BoundaryType type)
-        {
-            var loop = Application.DocumentManager.MdiActiveDocument.Editor.TraceBoundary(seed, false);
-            if (loop.Count > 0)
-            {
-                if (type == BoundaryType.Polyline)
-                {
-                    Polyline poly = loop[0] as Polyline;
-                    if (poly.Closed)
-                    {
-                        poly.AddVertexAt(poly.NumberOfVertices, poly.StartPoint.ToPoint2d(), 0, 0, 0);
-                        poly.Closed = false;
-                    }
-                    return Draw.AddToCurrentSpace(poly);
-                }
-                else // type == BoundaryType.Region
-                {
-                    var region = Autodesk.AutoCAD.DatabaseServices.Region.CreateFromCurves(loop);
-                    if (region.Count > 0)
-                    {
-                        return Draw.AddToCurrentSpace(region[0] as Region);
-                    }
-                    else
-                    {
-                        return ObjectId.Null;
-                    }
-                }
-            }
-            else
-            {
-                return ObjectId.Null;
-            }
-        }
+        //public static ObjectId Boundary(Point3d seed, BoundaryType type)
+        //{
+        //    var loop = Application.DocumentManager.MdiActiveDocument.Editor.TraceBoundary(seed, false);
+        //    if (loop.Count > 0)
+        //    {
+        //        if (type == BoundaryType.Polyline)
+        //        {
+        //            Polyline poly = loop[0] as Polyline;
+        //            if (poly.Closed)
+        //            {
+        //                poly.AddVertexAt(poly.NumberOfVertices, poly.StartPoint.ToPoint2d(), 0, 0, 0);
+        //                poly.Closed = false;
+        //            }
+        //            return Draw.AddToCurrentSpace(poly);
+        //        }
+        //        else // type == BoundaryType.Region
+        //        {
+        //            var region = Autodesk.AutoCAD.DatabaseServices.Region.CreateFromCurves(loop);
+        //            if (region.Count > 0)
+        //            {
+        //                return Draw.AddToCurrentSpace(region[0] as Region);
+        //            }
+        //            else
+        //            {
+        //                return ObjectId.Null;
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return ObjectId.Null;
+        //    }
+        //}
 
         /// <summary>
         /// 绘制面域
@@ -602,7 +602,7 @@ namespace AutoCADCommands
         {
             var textStyleId = DbHelper.GetTextStyleId(textStyle);
             var style = textStyleId.QOpenForRead<TextStyleTableRecord>();
-            DBText txt = new DBText { TextString = text, Position = pos, Rotation = rotation, TextStyleId = textStyleId, Height = height, Oblique = style.ObliquingAngle, WidthFactor = style.XScale };
+            DBText txt = new DBText { TextString = text, Position = pos, Rotation = rotation, TextStyle = textStyleId, Height = height, Oblique = style.ObliquingAngle, WidthFactor = style.XScale };
             if (centerAligned)
             {
                 txt.HorizontalMode = TextHorizontalMode.TextCenter;
@@ -626,7 +626,7 @@ namespace AutoCADCommands
         public static ObjectId MText(string text, double height, Point3d pos, double rotation = 0, bool centerAligned = false, double width = 0, string textStyle = Consts.TextStyleName)
         {
             var textStyleId = DbHelper.GetTextStyleId(textStyle);
-            MText mt = new MText { Contents = text, TextHeight = height, Location = pos, Rotation = rotation, TextStyleId = textStyleId, Width = width };
+            MText mt = new MText { Contents = text, TextHeight = height, Location = pos, Rotation = rotation, TextStyle = textStyleId, Width = width };
             ObjectId id = Draw.AddToCurrentSpace(mt);
             if (centerAligned)
             {
@@ -641,37 +641,37 @@ namespace AutoCADCommands
         /// </summary>
         /// <param name="points"></param>
         /// <returns></returns>
-        public static ObjectId Wipeout(IEnumerable<Point3d> points)
-        {
-            Wipeout wipe = new Autodesk.AutoCAD.DatabaseServices.Wipeout();
-            wipe.SetFrom(new Point2dCollection(points.Select(x => x.ToPoint2d()).ToArray()), Vector3d.ZAxis);
-            ObjectId result = Draw.AddToCurrentSpace(wipe);
-            result.Draworder(DraworderOperation.MoveToTop);
-            return result;
-        }
+        //public static ObjectId Wipeout(IEnumerable<Point3d> points)
+        //{
+        //    Wipeout wipe = new Autodesk.AutoCAD.DatabaseServices.Wipeout();
+        //    wipe.SetFrom(new Point2dCollection(points.Select(x => x.ToPoint2d()).ToArray()), Vector3d.ZAxis);
+        //    ObjectId result = Draw.AddToCurrentSpace(wipe);
+        //    result.Draworder(DraworderOperation.MoveToTop);
+        //    return result;
+        //}
 
         /// <summary>
         /// 绘制消隐：实体
         /// </summary>
         /// <param name="entId"></param>
         /// <returns></returns>
-        public static ObjectId Wipeout(ObjectId entId)
-        {
-            Extents3d extent = entId.QSelect(x => x.GeometricExtents);
-            return Wipeout(extent);
-        }
+        //public static ObjectId Wipeout(ObjectId entId)
+        //{
+        //    Extents3d extent = entId.QSelect(x => x.GeomExtents);
+        //    return Wipeout(extent);
+        //}
 
         /// <summary>
         /// 绘制消隐：范围
         /// </summary>
         /// <param name="extent"></param>
         /// <returns></returns>
-        public static ObjectId Wipeout(Extents3d extent)
-        {
-            Point3d a = new Point3d(extent.MinPoint.X, extent.MaxPoint.Y, 0);
-            Point3d b = new Point3d(extent.MaxPoint.X, extent.MinPoint.Y, 0);
-            return Wipeout(new Point3d[] { extent.MinPoint, a, extent.MaxPoint, b, extent.MinPoint });
-        }
+        //public static ObjectId Wipeout(Extents3d extent)
+        //{
+        //    Point3d a = new Point3d(extent.MinPoint.X, extent.MaxPoint.Y, 0);
+        //    Point3d b = new Point3d(extent.MaxPoint.X, extent.MinPoint.Y, 0);
+        //    return Wipeout(new Point3d[] { extent.MinPoint, a, extent.MaxPoint, b, extent.MinPoint });
+        //}
 
         /// <summary>
         /// 插入块参照
@@ -727,7 +727,7 @@ namespace AutoCADCommands
                 {
                     Entity entObj = trans.GetObject(ent, OpenMode.ForRead) as Entity;
                     entObj = entObj.Clone() as Entity;
-                    entObj.TransformBy(Matrix3d.Displacement(-basePoint.GetAsVector()));
+                    entObj.TransformBy(Matrix3d.Displacement(basePoint.GetAsVector()));
                     block.AppendEntity(entObj);
                 }
                 result = bt.Add(block);
@@ -743,36 +743,36 @@ namespace AutoCADCommands
         /// <param name="blockName"></param>
         /// <param name="sourceDwg"></param>
         /// <returns></returns>
-        public static ObjectId BlockInDwg(string blockName, string sourceDwg)
-        {
-            ObjectId result = ObjectId.Null;
-            Database db = HostApplicationServices.WorkingDatabase;
-            using (Transaction trans = db.TransactionManager.StartTransaction())
-            {
-                BlockTable blkTab = (BlockTable)trans.GetObject(db.BlockTableId, OpenMode.ForRead);
-                if (blkTab.Has(blockName))
-                {
-                    return blkTab[blockName];
-                }
-                else
-                {
-                    Database sourceDb = new Database(false, false);
-                    sourceDb.ReadDwgFile(sourceDwg, FileOpenMode.OpenForReadAndAllShare, true, string.Empty);
-                    ObjectId bId = DbHelper.GetBlockId(sourceDb, blockName);
-                    if (bId == ObjectId.Null)
-                    {
-                        result = ObjectId.Null;
-                    }
-                    else
-                    {
-                        Database tempDb = sourceDb.Wblock(bId);
-                        result = db.Insert(blockName, tempDb, false);
-                    }
-                    trans.Commit();
-                    return result;
-                }
-            }
-        }
+        //public static ObjectId BlockInDwg(string blockName, string sourceDwg)
+        //{
+        //    ObjectId result = ObjectId.Null;
+        //    Database db = HostApplicationServices.WorkingDatabase;
+        //    using (Transaction trans = db.TransactionManager.StartTransaction())
+        //    {
+        //        BlockTable blkTab = (BlockTable)trans.GetObject(db.BlockTableId, OpenMode.ForRead);
+        //        if (blkTab.Has(blockName))
+        //        {
+        //            return blkTab[blockName];
+        //        }
+        //        else
+        //        {
+        //            Database sourceDb = new Database(false, false);
+        //            sourceDb.ReadDwgFile(sourceDwg, FileOpenMode.OpenForReadAndAllShare, true, string.Empty);
+        //            ObjectId bId = DbHelper.GetBlockId(sourceDb, blockName);
+        //            if (bId == ObjectId.Null)
+        //            {
+        //                result = ObjectId.Null;
+        //            }
+        //            else
+        //            {
+        //                Database tempDb = sourceDb.Wblock(bId);
+        //                result = db.Insert(blockName, tempDb, false);
+        //            }
+        //            trans.Commit();
+        //            return result;
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// 定义块：以另一DWG整个作为
@@ -780,12 +780,12 @@ namespace AutoCADCommands
         /// <param name="blockName"></param>
         /// <param name="sourceDwg"></param>
         /// <returns></returns>
-        public static ObjectId BlockOfDwg(string blockName, string sourceDwg)
-        {
-            Database sourceDb = new Database(false, false);
-            sourceDb.ReadDwgFile(sourceDwg, FileOpenMode.OpenForReadAndAllShare, true, "");
-            return HostApplicationServices.WorkingDatabase.Insert(blockName, sourceDb, false);
-        }
+        //public static ObjectId BlockOfDwg(string blockName, string sourceDwg)
+        //{
+        //    Database sourceDb = new Database(false, false);
+        //    sourceDb.ReadDwgFile(sourceDwg, FileOpenMode.OpenForReadAndAllShare, true, "");
+        //    return HostApplicationServices.WorkingDatabase.Insert(blockName, sourceDb, false);
+        //}
 
         /// <summary>
         /// 绘制表格
@@ -798,38 +798,38 @@ namespace AutoCADCommands
         /// <param name="textHeight"></param>
         /// <param name="textStyle"></param>
         /// <returns></returns>
-        public static ObjectId Table(Point3d pos, string title, List<List<string>> contents, double rowHeight, double columnWidth, double textHeight, string textStyle = Consts.TextStyleName)
-        {
-            Table tb = new Table();
-            tb.TableStyle = HostApplicationServices.WorkingDatabase.Tablestyle;
-            int numRow = contents.Count + 1;
-            tb.InsertRows(0, rowHeight, numRow);
-            int numCol = contents.Max(row => row.Count);
-            tb.InsertColumns(0, columnWidth, numCol);
-            tb.DeleteRows(numRow, 1);
-            tb.DeleteColumns(numCol, 1);
-            tb.Position = pos;
-            tb.SetRowHeight(rowHeight);
-            tb.SetColumnWidth(columnWidth);
-            tb.Cells.TextHeight = textHeight;
-            tb.Cells.TextStyleId = DbHelper.GetTextStyleId(textStyle);
+        //public static ObjectId Table(Point3d pos, string title, List<List<string>> contents, double rowHeight, double columnWidth, double textHeight, string textStyle = Consts.TextStyleName)
+        //{
+        //    Table tb = new Table();
+        //    tb.TableStyle = HostApplicationServices.WorkingDatabase.Tablestyle;
+        //    int numRow = contents.Count + 1;
+        //    tb.InsertRows(0, rowHeight, numRow);
+        //    int numCol = contents.Max(row => row.Count);
+        //    tb.InsertColumns(0, columnWidth, numCol);
+        //    tb.DeleteRows(numRow, 1);
+        //    tb.DeleteColumns(numCol, 1);
+        //    tb.Position = pos;
+        //    tb.SetRowHeight(rowHeight);
+        //    tb.SetColumnWidth(columnWidth);
+        //    tb.Cells.TextHeight = textHeight;
+        //    tb.Cells.TextStyleId = DbHelper.GetTextStyleId(textStyle);
 
-            tb.MergeCells(CellRange.Create(tb, 0, 0, 0, numCol - 1));
-            tb.Cells[0, 0].TextString = title;
-            for (int i = 0; i < tb.Rows.Count - 1; i++)
-            {
-                for (int j = 0; j < tb.Columns.Count; j++)
-                {
-                    if (j < contents[i].Count)
-                    {
-                        tb.Cells[i + 1, j].TextString = contents[i][j];
-                        tb.Cells[i + 1, j].Alignment = CellAlignment.MiddleCenter;
-                    }
-                }
-            }
+        //    tb.MergeCells(CellRange.Create(tb, 0, 0, 0, numCol - 1));
+        //    tb.Cells[0, 0].TextString = title;
+        //    for (int i = 0; i < tb.Rows.Count - 1; i++)
+        //    {
+        //        for (int j = 0; j < tb.Columns.Count; j++)
+        //        {
+        //            if (j < contents[i].Count)
+        //            {
+        //                tb.Cells[i + 1, j].TextString = contents[i][j];
+        //                tb.Cells[i + 1, j].Alignment = CellAlignment.MiddleCenter;
+        //            }
+        //        }
+        //    }
 
-            return Draw.AddToCurrentSpace(tb);
-        }
+        //    return Draw.AddToCurrentSpace(tb);
+        //}
 
         /// <summary>
         /// 绘制多边形网格
@@ -873,18 +873,18 @@ namespace AutoCADCommands
         /// </summary>
         /// <param name="ent"></param>
         /// <returns></returns>
-        public static ObjectId AddToModelSpace(this Entity ent)
-        {
-            ObjectId id;
-            Database db = HostApplicationServices.WorkingDatabase;
-            using (Transaction trans = db.TransactionManager.StartTransaction())
-            {
-                id = ((BlockTableRecord)trans.GetObject(SymbolUtilityServices.GetBlockModelSpaceId(db), OpenMode.ForWrite, false)).AppendEntity(ent);
-                trans.AddNewlyCreatedDBObject(ent, true);
-                trans.Commit();
-            }
-            return id;
-        }
+        //public static ObjectId AddToModelSpace(this Entity ent)
+        //{
+        //    ObjectId id;
+        //    Database db = HostApplicationServices.WorkingDatabase;
+        //    using (Transaction trans = db.TransactionManager.StartTransaction())
+        //    {
+        //        id = ((BlockTableRecord)trans.GetObject(SymbolUtilityServices.GetBlockModelSpaceId(db), OpenMode.ForWrite, false)).AppendEntity(ent);
+        //        trans.AddNewlyCreatedDBObject(ent, true);
+        //        trans.Commit();
+        //    }
+        //    return id;
+        //}
 
         /// <summary>
         /// 添加到当前空间
@@ -1071,7 +1071,7 @@ namespace AutoCADCommands
         {
             var textStyleId = DbHelper.GetTextStyleId(textStyle);
             var style = textStyleId.QOpenForRead<TextStyleTableRecord>();
-            DBText txt = new DBText { TextString = text, Position = pos, Rotation = rotation, TextStyleId = textStyleId, Height = height, Oblique = style.ObliquingAngle, WidthFactor = style.XScale };
+            DBText txt = new DBText { TextString = text, Position = pos, Rotation = rotation, TextStyle = textStyleId, Height = height, Oblique = style.ObliquingAngle, WidthFactor = style.XScale };
             if (centerAligned) // todo: centerAligned=true会使DT消失
             {
                 txt.HorizontalMode = TextHorizontalMode.TextCenter;
@@ -1408,21 +1408,21 @@ namespace AutoCADCommands
         /// </summary>
         /// <param name="entIds"></param>
         /// <returns></returns>
-        public static int Ungroup(IEnumerable<ObjectId> entIds)
-        {
-            var groupDict = HostApplicationServices.WorkingDatabase.GroupDictionaryId.QOpenForRead<DBDictionary>();
-            int count = 0;
-            foreach (var entry in groupDict)
-            {
-                var group = entry.Value.QOpenForRead<Group>();
-                if (entIds.Any(x => group.Has(x.QOpenForRead<Entity>())))
-                {
-                    Ungroup(entry.Value);
-                    count++;
-                }
-            }
-            return count;
-        }
+        //public static int Ungroup(IEnumerable<ObjectId> entIds)
+        //{
+        //    var groupDict = HostApplicationServices.WorkingDatabase.GroupDictionaryId.QOpenForRead<DBDictionary>();
+        //    int count = 0;
+        //    foreach (var entry in groupDict)
+        //    {
+        //        var group = entry.Value.QOpenForRead<Group>();
+        //        if (entIds.Any(x => group.Has(x.QOpenForRead<Entity>())))
+        //        {
+        //            Ungroup(entry.Value);
+        //            count++;
+        //        }
+        //    }
+        //    return count;
+        //}
 
         #endregion
 
@@ -1630,7 +1630,7 @@ namespace AutoCADCommands
             using (Transaction trans = HostApplicationServices.WorkingDatabase.TransactionManager.StartTransaction())
             {
                 MText mt = trans.GetObject(mtId, OpenMode.ForWrite) as MText;
-                mt.TextStyleId = textstyleId;
+                mt.TextStyle = textstyleId;
                 trans.Commit();
             }
         }

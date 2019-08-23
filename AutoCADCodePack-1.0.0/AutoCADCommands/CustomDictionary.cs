@@ -64,7 +64,7 @@ namespace AutoCADCommands
                     DBDictionary dictRoot = trans.GetObject(nod.GetAt(DictionaryRoot), OpenMode.ForRead) as DBDictionary;
                     foreach (var entry in dictRoot)
                     {
-                        yield return entry.Key;
+                        yield return "";
                     }
                 }
             }
@@ -75,7 +75,7 @@ namespace AutoCADCommands
             DBDictionary dict = dictId.QOpenForRead<DBDictionary>();
             foreach (var entry in dict)
             {
-                yield return entry.Key;
+                yield return "";
             }
         }
 
@@ -242,7 +242,7 @@ namespace AutoCADCommands
                 DBDictionary dictRoot = trans.GetObject(dbo.ExtensionDictionary, OpenMode.ForRead) as DBDictionary;
                 foreach (var entry in dictRoot)
                 {
-                    yield return entry.Key;
+                    yield return "";
                 }
             }
         }

@@ -22,56 +22,56 @@ namespace AutoCADCommands
         /// <summary>
         /// View or edit custom dictionaries of DWG
         /// </summary>
-        [CommandMethod("ViewGlobalDict")]
-        public static void ViewGlobalDict()
-        {
-            DictionaryViewer dv = new DictionaryViewer(
-                CustomDictionary.GetDictionaryNames,
-                CustomDictionary.GetEntryNames,
-                CustomDictionary.GetValue,
-                CustomDictionary.SetValue
-            );
-            Application.ShowModalWindow(dv);
-        }
+        //[CommandMethod("ViewGlobalDict")]
+        //public static void ViewGlobalDict()
+        //{
+        //    DictionaryViewer dv = new DictionaryViewer(
+        //        CustomDictionary.GetDictionaryNames,
+        //        CustomDictionary.GetEntryNames,
+        //        CustomDictionary.GetValue,
+        //        CustomDictionary.SetValue
+        //    );
+        //    Application.ShowModalWindow(dv);
+        //}
 
         /// <summary>
         /// View or edit custom dictionaries of entity
         /// </summary>
-        [CommandMethod("ViewObjectDict")]
-        public static void ViewObjectDict()
-        {
-            ObjectId id = Interaction.GetEntity("\nSelect entity");
-            if (id == ObjectId.Null)
-            {
-                return;
-            }
-            DictionaryViewer dv = new DictionaryViewer(  // Currying
-                () => CustomObjectDictionary.GetDictionaryNames(id),
-                x => CustomObjectDictionary.GetEntryNames(id, x),
-                (x, y) => CustomObjectDictionary.GetValue(id, x, y),
-                (x, y, z) => CustomObjectDictionary.SetValue(id, x, y, z)
-            );
-            Application.ShowModalWindow(dv);
-        }
+        //[CommandMethod("ViewObjectDict")]
+        //public static void ViewObjectDict()
+        //{
+        //    ObjectId id = Interaction.GetEntity("\nSelect entity");
+        //    if (id == ObjectId.Null)
+        //    {
+        //        return;
+        //    }
+        //    DictionaryViewer dv = new DictionaryViewer(  // Currying
+        //        () => CustomObjectDictionary.GetDictionaryNames(id),
+        //        x => CustomObjectDictionary.GetEntryNames(id, x),
+        //        (x, y) => CustomObjectDictionary.GetValue(id, x, y),
+        //        (x, y, z) => CustomObjectDictionary.SetValue(id, x, y, z)
+        //    );
+        //    Application.ShowModalWindow(dv);
+        //}
 
         /// <summary>
         /// Eliminate zero-length polylines
         /// </summary>
-        [CommandMethod("PolyClean0", CommandFlags.UsePickSet)]
-        public static void PolyClean0()
-        {
-            ObjectId[] ids = Interaction.GetSelection("\nSelect polyline", "LWPOLYLINE");
-            int n = 0;
-            ids.QForEach<Polyline>(poly =>
-            {
-                if (poly.Length == 0)
-                {
-                    poly.Erase();
-                    n++;
-                }
-            });
-            Interaction.WriteLine("{0} eliminated.", n);
-        }
+        //[CommandMethod("PolyClean0", CommandFlags.UsePickSet)]
+        //public static void PolyClean0()
+        //{
+        //    ObjectId[] ids = Interaction.GetSelection("\nSelect polyline", "LWPOLYLINE");
+        //    int n = 0;
+        //    ids.QForEach<Polyline>(poly =>
+        //    {
+        //        if (poly.Length == 0)
+        //        {
+        //            poly.Erase();
+        //            n++;
+        //        }
+        //    });
+        //    Interaction.WriteLine("{0} eliminated.", n);
+        //}
 
         /// <summary>
         /// Remove duplicated vertices on polyline
@@ -162,29 +162,29 @@ namespace AutoCADCommands
         /// <summary>
         /// Regulate polyline direction
         /// </summary>
-        [CommandMethod("PolyClean4", CommandFlags.UsePickSet)]
-        public static void PolyClean4()
-        {
-            double value = Interaction.GetValue("\nDirection：1-R to L；2-B to T；3-L to R；4-T to B");
-            if (double.IsNaN(value))
-            {
-                return;
-            }
-            int n = (int)value;
-            if (!new int[] { 1, 2, 3, 4 }.Contains(n))
-            {
-                return;
-            }
-            Algorithms.Direction dir = (Algorithms.Direction)n;
+        //[CommandMethod("PolyClean4", CommandFlags.UsePickSet)]
+        //public static void PolyClean4()
+        //{
+        //    double value = Interaction.GetValue("\nDirection：1-R to L；2-B to T；3-L to R；4-T to B");
+        //    if (double.IsNaN(value))
+        //    {
+        //        return;
+        //    }
+        //    int n = (int)value;
+        //    if (!new int[] { 1, 2, 3, 4 }.Contains(n))
+        //    {
+        //        return;
+        //    }
+        //    Algorithms.Direction dir = (Algorithms.Direction)n;
 
-            ObjectId[] ids = Interaction.GetSelection("\nSelect polyline", "LWPOLYLINE");
-            int m = 0;
-            ids.QForEach<Polyline>(poly =>
-            {
-                m += Algorithms.PolyClean_SetTopoDirection(poly, dir);
-            });
-            Interaction.WriteLine("{0} handled.", m);
-        }
+        //    ObjectId[] ids = Interaction.GetSelection("\nSelect polyline", "LWPOLYLINE");
+        //    int m = 0;
+        //    ids.QForEach<Polyline>(poly =>
+        //    {
+        //        m += Algorithms.PolyClean_SetTopoDirection(poly, dir);
+        //    });
+        //    Interaction.WriteLine("{0} handled.", m);
+        //}
 
         /// <summary>
         /// Remove unnecessary colinear vertices on polyline
@@ -203,113 +203,113 @@ namespace AutoCADCommands
         /// <summary>
         /// Break polylines at their intersecting points.
         /// </summary>
-        [CommandMethod("PolySplit", CommandFlags.UsePickSet)]
-        public static void PolySplit()
-        {
-            ObjectId[] ids = Interaction.GetSelection("\nSelect polyline", "LWPOLYLINE");
-            List<Polyline> newPolys = new List<Polyline>();
-            ProgressMeter pm = new ProgressMeter();
-            pm.Start("Processing...");
-            pm.SetLimit(ids.Length);
-            ids.QOpenForWrite<Polyline>(list =>
-            {
-                foreach (var poly in list)
-                {
-                    Point3dCollection intersectPoints = new Point3dCollection();
-                    foreach (var poly1 in list)
-                    {
-                        if (poly1 != poly)
-                        {
-                            poly.IntersectWith3264(poly1, Intersect.OnBothOperands, intersectPoints);
-                        }
-                    }
-                    var ipParams = intersectPoints.Cast<Point3d>().Select(ip => poly.GetParamAtPointX(ip)).OrderBy(param => param).ToArray();
-                    if (intersectPoints.Count > 0)
-                    {
-                        var curves = poly.GetSplitCurves(new DoubleCollection(ipParams));
-                        foreach (var curve in curves)
-                        {
-                            newPolys.Add(curve as Polyline);
-                        }
-                    }
-                    else // mod 20130227 不管有无交点，都要添加到newPolys，否则孤立线将消失。
-                    {
-                        newPolys.Add(poly.Clone() as Polyline);
-                    }
-                    pm.MeterProgress();
-                }
-            });
-            pm.Stop();
-            if (newPolys.Count > 0)
-            {
-                newPolys.ToArray().AddToCurrentSpace();
-                ids.QForEach(x => x.Erase());
-            }
-            Interaction.WriteLine("Broke {0} to {1}.", ids.Length, newPolys.Count);
-        }
+        //[CommandMethod("PolySplit", CommandFlags.UsePickSet)]
+        //public static void PolySplit()
+        //{
+        //    ObjectId[] ids = Interaction.GetSelection("\nSelect polyline", "LWPOLYLINE");
+        //    List<Polyline> newPolys = new List<Polyline>();
+        //    ProgressMeter pm = new ProgressMeter();
+        //    pm.Start("Processing...");
+        //    pm.SetLimit(ids.Length);
+        //    ids.QOpenForWrite<Polyline>(list =>
+        //    {
+        //        foreach (var poly in list)
+        //        {
+        //            Point3dCollection intersectPoints = new Point3dCollection();
+        //            foreach (var poly1 in list)
+        //            {
+        //                if (poly1 != poly)
+        //                {
+        //                    poly.IntersectWith3264(poly1, Intersect.OnBothOperands, intersectPoints);
+        //                }
+        //            }
+        //            var ipParams = intersectPoints.Cast<Point3d>().Select(ip => poly.GetParamAtPointX(ip)).OrderBy(param => param).ToArray();
+        //            if (intersectPoints.Count > 0)
+        //            {
+        //                var curves = poly.GetSplitCurves(new DoubleCollection(ipParams));
+        //                foreach (var curve in curves)
+        //                {
+        //                    newPolys.Add(curve as Polyline);
+        //                }
+        //            }
+        //            else // mod 20130227 不管有无交点，都要添加到newPolys，否则孤立线将消失。
+        //            {
+        //                newPolys.Add(poly.Clone() as Polyline);
+        //            }
+        //            pm.MeterProgress();
+        //        }
+        //    });
+        //    pm.Stop();
+        //    if (newPolys.Count > 0)
+        //    {
+        //        newPolys.ToArray().AddToCurrentSpace();
+        //        ids.QForEach(x => x.Erase());
+        //    }
+        //    Interaction.WriteLine("Broke {0} to {1}.", ids.Length, newPolys.Count);
+        //}
 
         private static double _polyTrimExtendEpsilon = 20;
 
         /// <summary>
         /// Handle polylines that are a small distance exceed, unreach, or mis-intersect to others
         /// </summary>
-        [CommandMethod("PolyTrimExtend", CommandFlags.UsePickSet)]
-        public static void PolyTrimExtend() // mod 20130228
-        {
-            double epsilon = Interaction.GetValue("\nEpsilon", _polyTrimExtendEpsilon);
-            if (double.IsNaN(epsilon))
-            {
-                return;
-            }
-            _polyTrimExtendEpsilon = epsilon;
-            ObjectId[] ids = Interaction.GetSelection("\nSelect polyline", "LWPOLYLINE");
-            var visibleLayers = DbHelper.GetAllLayerIds().QOpenForRead<LayerTableRecord>().Where(x => !x.IsHidden && !x.IsFrozen && !x.IsOff).Select(x => x.Name).ToList();
-            ids = ids.QWhere(x => visibleLayers.Contains(x.Layer) && x.Visible == true).ToArray(); // newly 20130729
+        //[CommandMethod("PolyTrimExtend", CommandFlags.UsePickSet)]
+        //public static void PolyTrimExtend() // mod 20130228
+        //{
+        //    double epsilon = Interaction.GetValue("\nEpsilon", _polyTrimExtendEpsilon);
+        //    if (double.IsNaN(epsilon))
+        //    {
+        //        return;
+        //    }
+        //    _polyTrimExtendEpsilon = epsilon;
+        //    ObjectId[] ids = Interaction.GetSelection("\nSelect polyline", "LWPOLYLINE");
+        //    var visibleLayers = DbHelper.GetAllLayerIds().QOpenForRead<LayerTableRecord>().Where(x => !x.IsHidden && !x.IsFrozen && !x.IsOff).Select(x => x.Name).ToList();
+        //    ids = ids.QWhere(x => visibleLayers.Contains(x.Layer) && x.Visible == true).ToArray(); // newly 20130729
 
-            ProgressMeter pm = new ProgressMeter();
-            pm.Start("Processing...");
-            pm.SetLimit(ids.Length);
-            ids.QOpenForWrite<Polyline>(list =>
-            {
-                foreach (var poly in list)
-                {
-                    int[] indices = { 0, poly.NumberOfVertices - 1 };
-                    foreach (int index in indices)
-                    {
-                        Point3d end = poly.GetPoint3dAt(index);
-                        foreach (var poly1 in list)
-                        {
-                            if (poly1 != poly)
-                            {
-                                Point3d closest = poly1.GetClosestPointTo(end, false);
-                                double dist = closest.DistanceTo(end);
-                                double dist1 = poly1.StartPoint.DistanceTo(end);
-                                double dist2 = poly1.EndPoint.DistanceTo(end);
+        //    ProgressMeter pm = new ProgressMeter();
+        //    pm.Start("Processing...");
+        //    pm.SetLimit(ids.Length);
+        //    ids.QOpenForWrite<Polyline>(list =>
+        //    {
+        //        foreach (var poly in list)
+        //        {
+        //            int[] indices = { 0, poly.NumberOfVertices - 1 };
+        //            foreach (int index in indices)
+        //            {
+        //                Point3d end = poly.GetPoint3dAt(index);
+        //                foreach (var poly1 in list)
+        //                {
+        //                    if (poly1 != poly)
+        //                    {
+        //                        Point3d closest = poly1.GetClosestPointTo(end, false);
+        //                        double dist = closest.DistanceTo(end);
+        //                        double dist1 = poly1.StartPoint.DistanceTo(end);
+        //                        double dist2 = poly1.EndPoint.DistanceTo(end);
 
-                                double distance = poly1.GetDistToPoint(end);
-                                if (poly1.GetDistToPoint(end) > 0)
-                                {
-                                    if (dist1 <= dist2 && dist1 <= dist && dist1 < epsilon)
-                                    {
-                                        poly.SetPointAt(index, new Point2d(poly1.StartPoint.X, poly1.StartPoint.Y));
-                                    }
-                                    else if (dist2 <= dist1 && dist2 <= dist && dist2 < epsilon)
-                                    {
-                                        poly.SetPointAt(index, new Point2d(poly1.EndPoint.X, poly1.EndPoint.Y));
-                                    }
-                                    else if (dist <= dist1 && dist <= dist2 && dist < epsilon)
-                                    {
-                                        poly.SetPointAt(index, new Point2d(closest.X, closest.Y));
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    pm.MeterProgress();
-                }
-            });
-            pm.Stop();
-        }
+        //                        double distance = poly1.GetDistToPoint(end);
+        //                        if (poly1.GetDistToPoint(end) > 0)
+        //                        {
+        //                            if (dist1 <= dist2 && dist1 <= dist && dist1 < epsilon)
+        //                            {
+        //                                poly.SetPointAt(index, new Point2d(poly1.StartPoint.X, poly1.StartPoint.Y));
+        //                            }
+        //                            else if (dist2 <= dist1 && dist2 <= dist && dist2 < epsilon)
+        //                            {
+        //                                poly.SetPointAt(index, new Point2d(poly1.EndPoint.X, poly1.EndPoint.Y));
+        //                            }
+        //                            else if (dist <= dist1 && dist <= dist2 && dist < epsilon)
+        //                            {
+        //                                poly.SetPointAt(index, new Point2d(closest.X, closest.Y));
+        //                            }
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //            pm.MeterProgress();
+        //        }
+        //    });
+        //    pm.Stop();
+        //}
 
         /// <summary>
         /// Save selection for later load.
@@ -341,44 +341,44 @@ namespace AutoCADCommands
         /// <summary>
         /// Load previously saved selection.
         /// </summary>
-        [CommandMethod("LoadSelection")]
-        public static void LoadSelection()
-        {
-            string name = Gui.GetChoice("Which selection to load?", CustomDictionary.GetEntryNames("Selections").ToArray());
-            if (name == string.Empty)
-            {
-                return;
-            }
-            string dictValue = CustomDictionary.GetValue("Selections", name);
-            var handles = dictValue.Split('|').Select(x => new Handle(Convert.ToInt64(x))).ToList();
-            List<ObjectId> ids = new List<ObjectId>();
-            handles.ForEach(x =>
-            {
-                ObjectId id = ObjectId.Null;
-                if (HostApplicationServices.WorkingDatabase.TryGetObjectId(x, out id))
-                {
-                    ids.Add(id);
-                }
-            });
-            Interaction.SetPickSet(ids.ToArray());
-        }
+        //[CommandMethod("LoadSelection")]
+        //public static void LoadSelection()
+        //{
+        //    string name = Gui.GetChoice("Which selection to load?", CustomDictionary.GetEntryNames("Selections").ToArray());
+        //    if (name == string.Empty)
+        //    {
+        //        return;
+        //    }
+        //    string dictValue = CustomDictionary.GetValue("Selections", name);
+        //    var handles = dictValue.Split('|').Select(x => new Handle(Convert.ToInt64(x))).ToList();
+        //    List<ObjectId> ids = new List<ObjectId>();
+        //    handles.ForEach(x =>
+        //    {
+        //        ObjectId id = ObjectId.Null;
+        //        if (HostApplicationServices.WorkingDatabase.TryGetObjectId(x, out id))
+        //        {
+        //            ids.Add(id);
+        //        }
+        //    });
+        //    Interaction.SetPickSet(ids.ToArray());
+        //}
 
         /// <summary>
         /// Convert MText to Text
         /// </summary>
-        [CommandMethod("MT2DT", CommandFlags.UsePickSet)]
-        public static void MT2DT() // newly 20130815
-        {
-            var ids = Interaction.GetSelection("\nSelect MText", "MTEXT");
-            var mts = ids.QOpenForRead<MText>().Select(mt =>
-            {
-                var dt = NoDraw.Text(mt.Text, mt.TextHeight, mt.Location, mt.Rotation, false, mt.TextStyleName);
-                dt.Layer = mt.Layer;
-                return dt;
-            }).ToArray();
-            ids.QForEach(x => x.Erase());
-            mts.AddToCurrentSpace();
-        }
+        //[CommandMethod("MT2DT", CommandFlags.UsePickSet)]
+        //public static void MT2DT() // newly 20130815
+        //{
+        //    var ids = Interaction.GetSelection("\nSelect MText", "MTEXT");
+        //    var mts = ids.QOpenForRead<MText>().Select(mt =>
+        //    {
+        //        var dt = NoDraw.Text(mt.Text, mt.TextHeight, mt.Location, mt.Rotation, false, mt.TextStyleName);
+        //        dt.Layer = mt.Layer;
+        //        return dt;
+        //    }).ToArray();
+        //    ids.QForEach(x => x.Erase());
+        //    mts.AddToCurrentSpace();
+        //}
 
         /// <summary>
         /// Convert Text to MText
@@ -437,50 +437,50 @@ namespace AutoCADCommands
         /// <summary>
         /// Detect non-simple polylines that are intersect with themselves.
         /// </summary>
-        [CommandMethod("DetectSelfIntersection")]
-        public static void DetectSelfIntersection() // mod 20130202
-        {
-            ObjectId[] ids = QuickSelection.SelectAll("LWPOLYLINE").ToArray();
-            ProgressMeter meter = new ProgressMeter();
-            meter.Start("Detecting...");
-            meter.SetLimit(ids.Length);
-            var results = ids.QWhere(x =>
-            {
-                bool result = (x as Polyline).IsSelfIntersecting();
-                meter.MeterProgress();
-                System.Windows.Forms.Application.DoEvents();
-                return result;
-            }).ToList();
-            meter.Stop();
-            if (results.Count() > 0)
-            {
-                Interaction.WriteLine("{0} detected.", results.Count());
-                Interaction.ZoomHighlightView(results);
-            }
-            else
-            {
-                Interaction.WriteLine("0 detected.");
-            }
-        }
+        //[CommandMethod("DetectSelfIntersection")]
+        //public static void DetectSelfIntersection() // mod 20130202
+        //{
+        //    ObjectId[] ids = QuickSelection.SelectAll("LWPOLYLINE").ToArray();
+        //    ProgressMeter meter = new ProgressMeter();
+        //    meter.Start("Detecting...");
+        //    meter.SetLimit(ids.Length);
+        //    var results = ids.QWhere(x =>
+        //    {
+        //        bool result = (x as Polyline).IsSelfIntersecting();
+        //        meter.MeterProgress();
+        //        System.Windows.Forms.Application.DoEvents();
+        //        return result;
+        //    }).ToList();
+        //    meter.Stop();
+        //    if (results.Count() > 0)
+        //    {
+        //        Interaction.WriteLine("{0} detected.", results.Count());
+        //        Interaction.ZoomHighlightView(results);
+        //    }
+        //    else
+        //    {
+        //        Interaction.WriteLine("0 detected.");
+        //    }
+        //}
 
         /// <summary>
         /// Find entity by handle value
         /// </summary>
-        [CommandMethod("ShowObject")]
-        public static void ShowObject()
-        {
-            ObjectId[] ids = QuickSelection.SelectAll().ToArray();
-            double handle1 = Interaction.GetValue("Handle of entity");
-            if (double.IsNaN(handle1))
-            {
-                return;
-            }
-            long handle2 = Convert.ToInt64(handle1);
-            var id = HostApplicationServices.WorkingDatabase.GetObjectId(false, new Handle(handle2), 0);
-            var col = new ObjectId[] { id };
-            Interaction.HighlightObjects(col);
-            Interaction.ZoomObjects(col);
-        }
+        //[CommandMethod("ShowObject")]
+        //public static void ShowObject()
+        //{
+        //    ObjectId[] ids = QuickSelection.SelectAll().ToArray();
+        //    double handle1 = Interaction.GetValue("Handle of entity");
+        //    if (double.IsNaN(handle1))
+        //    {
+        //        return;
+        //    }
+        //    long handle2 = Convert.ToInt64(handle1);
+        //    var id = HostApplicationServices.WorkingDatabase.GetObjectId(false, new Handle(handle2), 0);
+        //    var col = new ObjectId[] { id };
+        //    Interaction.HighlightObjects(col);
+        //    Interaction.ZoomObjects(col);
+        //}
 
         /// <summary>
         /// Show the shortest line to link given point to existing lines, polylines, or arcs.
@@ -524,7 +524,7 @@ namespace AutoCADCommands
                 Interaction.WriteLine("[Point {0}] coord: {1}; bulge: {2}", i, poly.GetPointAtParameter(i), poly.GetBulgeAt(i));
             }
             List<ObjectId> txtIds = new List<ObjectId>();
-            double height = poly.GeometricExtents.MaxPoint.DistanceTo(poly.GeometricExtents.MinPoint) / 50.0;
+            double height = poly.GeomExtents.MaxPoint.DistanceTo(poly.GeomExtents.MinPoint) / 50.0;
             for (int i = 0; i < poly.NumberOfVertices; i++)
             {
                 txtIds.Add(Draw.MText(i.ToString(), height, poly.GetPointAtParameter(i), 0, true));
@@ -536,70 +536,70 @@ namespace AutoCADCommands
         /// <summary>
         /// Select entities on given layer
         /// </summary>
-        [CommandMethod("SelectByLayer")]
-        public static void SelectByLayer()
-        {
-            string[] options = DbHelper.GetAllLayerNames();
-            string[] opt = Gui.GetChoices("Specify layers", options);
-            if (opt.Length < 1)
-            {
-                return;
-            }
-            var ids = QuickSelection.SelectAll().QWhere(x => opt.Contains(x.Layer)).ToArray();
-            Interaction.SetPickSet(ids);
-        }
+        //[CommandMethod("SelectByLayer")]
+        //public static void SelectByLayer()
+        //{
+        //    string[] options = DbHelper.GetAllLayerNames();
+        //    string[] opt = Gui.GetChoices("Specify layers", options);
+        //    if (opt.Length < 1)
+        //    {
+        //        return;
+        //    }
+        //    var ids = QuickSelection.SelectAll().QWhere(x => opt.Contains(x.Layer)).ToArray();
+        //    Interaction.SetPickSet(ids);
+        //}
 
         /// <summary>
         /// Mark layer names of selected entities on the drawing by MText.
         /// </summary>
-        [CommandMethod("ShowLayerName")]
-        public static void ShowLayerName()
-        {
-            double height = 10;
-            string[] range = { "By entities", "By layers" };
-            int result = Gui.GetOption("Choose one way", range);
-            if (result == -1)
-            {
-                return;
-            }
-            ObjectId[] ids;
-            if (result == 0)
-            {
-                ids = Interaction.GetSelection("\nSelect entities");
-                ids.QWhere(x => !x.Layer.Contains("_Label")).QSelect(x => x.Layer).Distinct().Select(x => string.Format("{0}_Label", x)).ToList().ForEach(x => DbHelper.GetLayerId(x));
-            }
-            else
-            {
-                var layers = DbHelper.GetAllLayerNames().Where(x => !x.Contains("_Label")).ToArray();
-                string layer = Gui.GetChoice("Select a layer", layers);
-                ids = QuickSelection.SelectAll().QWhere(x => x.Layer == layer).ToArray();
-                DbHelper.GetLayerId(string.Format("{0}_Label", layer));
-            }
-            var texts = new List<MText>();
-            ids.QForEach<Entity>(ent =>
-            {
-                string layerName = ent.Layer;
-                if (!layerName.Contains("_Label"))
-                {
-                    Point3d center = ent.GetCenter();
-                    MText text = NoDraw.MText(layerName, height, center, 0, true);
-                    text.Layer = string.Format("{0}_Label", layerName);
-                    texts.Add(text);
-                }
-            });
-            texts.ToArray().AddToCurrentSpace();
-        }
+        //[CommandMethod("ShowLayerName")]
+        //public static void ShowLayerName()
+        //{
+        //    double height = 10;
+        //    string[] range = { "By entities", "By layers" };
+        //    int result = Gui.GetOption("Choose one way", range);
+        //    if (result == -1)
+        //    {
+        //        return;
+        //    }
+        //    ObjectId[] ids;
+        //    if (result == 0)
+        //    {
+        //        ids = Interaction.GetSelection("\nSelect entities");
+        //        ids.QWhere(x => !x.Layer.Contains("_Label")).QSelect(x => x.Layer).Distinct().Select(x => string.Format("{0}_Label", x)).ToList().ForEach(x => DbHelper.GetLayerId(x));
+        //    }
+        //    else
+        //    {
+        //        var layers = DbHelper.GetAllLayerNames().Where(x => !x.Contains("_Label")).ToArray();
+        //        string layer = Gui.GetChoice("Select a layer", layers);
+        //        ids = QuickSelection.SelectAll().QWhere(x => x.Layer == layer).ToArray();
+        //        DbHelper.GetLayerId(string.Format("{0}_Label", layer));
+        //    }
+        //    var texts = new List<MText>();
+        //    ids.QForEach<Entity>(ent =>
+        //    {
+        //        string layerName = ent.Layer;
+        //        if (!layerName.Contains("_Label"))
+        //        {
+        //            Point3d center = ent.GetCenter();
+        //            MText text = NoDraw.MText(layerName, height, center, 0, true);
+        //            text.Layer = string.Format("{0}_Label", layerName);
+        //            texts.Add(text);
+        //        }
+        //    });
+        //    texts.ToArray().AddToCurrentSpace();
+        //}
 
-        [CommandMethod("InspectObject")]
-        public static void InspectObject()
-        {
-            var id = Interaction.GetEntity("\nSelect objects");
-            if (id.IsNull)
-            {
-                return;
-            }
-            Gui.PropertyPalette(id.QOpenForRead());
-        }
+        //[CommandMethod("InspectObject")]
+        //public static void InspectObject()
+        //{
+        //    var id = Interaction.GetEntity("\nSelect objects");
+        //    if (id.IsNull)
+        //    {
+        //        return;
+        //    }
+        //    Gui.PropertyPalette(id.QOpenForRead());
+        //}
 
         #endregion
 
@@ -665,21 +665,21 @@ namespace AutoCADCommands
             Interaction.ZoomExtents();
         }
 
-        [CommandMethod("TestWipe")]
-        public void TestWipe()
-        {
-            ObjectId id = Interaction.GetEntity("\nEntity");
-            Draw.Wipeout(id);
-        }
+        //[CommandMethod("TestWipe")]
+        //public void TestWipe()
+        //{
+        //    ObjectId id = Interaction.GetEntity("\nEntity");
+        //    Draw.Wipeout(id);
+        //}
 
-        [CommandMethod("TestRegion")]
-        public void TestRegion()
-        {
-            ObjectId id = Interaction.GetEntity("\nEntity");
-            Draw.Region(id);
-            Point3d point = Interaction.GetPoint("\nPick one point");
-            Draw.Boundary(point, BoundaryType.Region);
-        }
+        //[CommandMethod("TestRegion")]
+        //public void TestRegion()
+        //{
+        //    ObjectId id = Interaction.GetEntity("\nEntity");
+        //    Draw.Region(id);
+        //    Point3d point = Interaction.GetPoint("\nPick one point");
+        //    Draw.Boundary(point, BoundaryType.Region);
+        //}
 
         [CommandMethod("TestOffset")]
         public void TestOffset()
@@ -687,7 +687,7 @@ namespace AutoCADCommands
             ObjectId id = Interaction.GetEntity("\nPolyline");
             Polyline poly = id.QOpenForRead<Polyline>();
             double value = Interaction.GetValue("\nOffset");
-            poly.OffsetPoly(Enumerable.Range(0, poly.NumberOfVertices).Select(x => value).ToArray()).AddToModelSpace();
+            poly.OffsetPoly(Enumerable.Range(0, poly.NumberOfVertices).Select(x => value).ToArray()).AddToCurrentSpace();
         }
 
         [CommandMethod("TestSelection")]
@@ -700,42 +700,42 @@ namespace AutoCADCommands
             Interaction.WriteLine("{0} entities selected.", ids.Count());
         }
 
-        [CommandMethod("TestGraph")]
-        public void TestGraph()
-        {
-            GraphOption opt = new GraphOption { xDelta = 20, yDelta = 0.5, yRatio = 0.5, SampleCount = 500 };
-            GraphPlotter gp = new GraphPlotter(opt);
-            gp.Plot(Math.Sin, new Interv(5, 102));
-            gp.Plot(x => Math.Cos(x) + 1, new Interv(10, 90), 3);
-            ObjectId graph = gp.GetGraphBlock();
-            BlockReference br = new BlockReference(Point3d.Origin, graph);
-            Point3d first = Interaction.GetPoint("\nSpecify extent point 1");
-            Interaction.InsertScalingEntity(br, first, "\nSpecify extent point 2");
-        }
+        //[CommandMethod("TestGraph")]
+        //public void TestGraph()
+        //{
+        //    GraphOption opt = new GraphOption { xDelta = 20, yDelta = 0.5, yRatio = 0.5, SampleCount = 500 };
+        //    GraphPlotter gp = new GraphPlotter(opt);
+        //    gp.Plot(Math.Sin, new Interv(5, 102));
+        //    gp.Plot(x => Math.Cos(x) + 1, new Interv(10, 90), 3);
+        //    ObjectId graph = gp.GetGraphBlock();
+        //    BlockReference br = new BlockReference(Point3d.Origin, graph);
+        //    Point3d first = Interaction.GetPoint("\nSpecify extent point 1");
+        //    Interaction.InsertScalingEntity(br, first, "\nSpecify extent point 2");
+        //}
 
-        [CommandMethod("TestJigDrag")]
-        public void TestJigDrag()
-        {
-            Circle cir = new Circle(new Point3d(), Vector3d.ZAxis, 10.0);
-            var v = JigDrag.StartDrag("\nCenter:", rst => 
-            { 
-                cir.Center = rst.Point; 
-                rst.Draw(cir); 
-            });
-            if (v.Status != PromptStatus.OK)
-            {
-                return;
-            }
-            v = JigDrag.StartDrag(new JigPromptDistanceOptions("\nRadius:"), rst =>
-            {
-                cir.Radius = rst.Dist == 0.0 ? 1e-6 : rst.Dist;
-                rst.Draw(cir);
-            });
-            if (v.Status == PromptStatus.OK)
-            {
-                cir.AddToCurrentSpace();
-            }
-        }
+        //[CommandMethod("TestJigDrag")]
+        //public void TestJigDrag()
+        //{
+        //    Circle cir = new Circle(new Point3d(), Vector3d.ZAxis, 10.0);
+        //    var v = JigDrag.StartDrag("\nCenter:", rst => 
+        //    { 
+        //        cir.Center = rst.Point; 
+        //        rst.Draw(cir); 
+        //    });
+        //    if (v.Status != PromptStatus.OK)
+        //    {
+        //        return;
+        //    }
+        //    v = JigDrag.StartDrag(new JigPromptDistanceOptions("\nRadius:"), rst =>
+        //    {
+        //        cir.Radius = rst.Dist == 0.0 ? 1e-6 : rst.Dist;
+        //        rst.Draw(cir);
+        //    });
+        //    if (v.Status == PromptStatus.OK)
+        //    {
+        //        cir.AddToCurrentSpace();
+        //    }
+        //}
 
         [CommandMethod("TestQOpen")]
         public void TestQOpen()
@@ -764,14 +764,14 @@ namespace AutoCADCommands
             Interaction.WriteLine("{0} groups", groupDict.Count);
         }
 
-        [CommandMethod("TestUngroup")]
-        public void TestUngroup()
-        {
-            ObjectId[] ids = Interaction.GetSelection("\nSelect entities");
-            Modify.Ungroup(ids);
-            DBDictionary groupDict = HostApplicationServices.WorkingDatabase.GroupDictionaryId.QOpenForRead<DBDictionary>();
-            Interaction.WriteLine("{0} groups.", groupDict.Count);
-        }
+        //[CommandMethod("TestUngroup")]
+        //public void TestUngroup()
+        //{
+        //    ObjectId[] ids = Interaction.GetSelection("\nSelect entities");
+        //    Modify.Ungroup(ids);
+        //    DBDictionary groupDict = HostApplicationServices.WorkingDatabase.GroupDictionaryId.QOpenForRead<DBDictionary>();
+        //    Interaction.WriteLine("{0} groups.", groupDict.Count);
+        //}
 
         [CommandMethod("TestHatch")]
         public void TestHatch()
@@ -878,16 +878,16 @@ namespace AutoCADCommands
             Draw.Text("FontAbc", 100, Point3d.Origin, 0, true);
         }
 
-        [CommandMethod("TestTable")]
-        public void TestTable()
-        {
-            List<List<string>> contents = new List<List<string>> { 
-                new List<string>{ "1", "4", "9" }, 
-                new List<string>{ "1", "8", "27" }, 
-                new List<string>{ "1", "16", "81" }, 
-            };
-            Draw.Table(Point3d.Origin, "Numbers", contents, 5, 20, 2.5);
-        }
+        //[CommandMethod("TestTable")]
+        //public void TestTable()
+        //{
+        //    List<List<string>> contents = new List<List<string>> { 
+        //        new List<string>{ "1", "4", "9" }, 
+        //        new List<string>{ "1", "8", "27" }, 
+        //        new List<string>{ "1", "16", "81" }, 
+        //    };
+        //    Draw.Table(Point3d.Origin, "Numbers", contents, 5, 20, 2.5);
+        //}
 
         //[CommandMethod("PythonConsole")]
         //public void PythonConsole()
@@ -927,19 +927,19 @@ namespace AutoCADCommands
             Draw.Divide(cv, num, new DBPoint());
         }
 
-        [CommandMethod("TestBoundary")]
-        public void TestBoundary()
-        {
-            Point3d point = Interaction.GetPoint("\nPick one point");
-            Draw.Boundary(point, BoundaryType.Polyline);
-        }
+        //[CommandMethod("TestBoundary")]
+        //public void TestBoundary()
+        //{
+        //    Point3d point = Interaction.GetPoint("\nPick one point");
+        //    Draw.Boundary(point, BoundaryType.Polyline);
+        //}
 
-        [CommandMethod("TestHatch3")]
-        public void TestHatch3()
-        {
-            Point3d seed = Interaction.GetPoint("\nPick one point");
-            Draw.Hatch("SOLID", seed);
-        }
+        //[CommandMethod("TestHatch3")]
+        //public void TestHatch3()
+        //{
+        //    Point3d seed = Interaction.GetPoint("\nPick one point");
+        //    Draw.Hatch("SOLID", seed);
+        //}
 
         [CommandMethod("TestHatch4")]
         public void TestHatch4()

@@ -36,14 +36,17 @@
   <ItemGroup>
     <Reference Include="AcDbMgd">
       <HintPath>..\..\Oy\References\ObjectARX 2006\inc\AcDbMgd.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="AcMgd">
       <HintPath>..\..\Oy\References\ObjectARX 2006\inc\AcMgd.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="AdWindows">
       <HintPath>..\Reference\AutoCAD\AdWindows.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualC" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
