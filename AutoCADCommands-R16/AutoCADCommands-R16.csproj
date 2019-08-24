@@ -63,6 +63,7 @@
     <Compile Include="Migrated\QuickSelection.cs" />
     <Compile Include="Migrated\SymbolPack.cs" />
     <Compile Include="Migrated\Tuples.cs" />
+    <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Migrated\KnownIssues.txt" />
