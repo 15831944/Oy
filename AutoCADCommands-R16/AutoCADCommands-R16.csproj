@@ -47,6 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms.cs" />
+    <Compile Include="App.cs" />
+    <Compile Include="CustomDictionary.cs" />
+    <Compile Include="Extends.cs" />
+    <Compile Include="Layouts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuickSelection.cs" />
     <Compile Include="Tuples.cs" />
