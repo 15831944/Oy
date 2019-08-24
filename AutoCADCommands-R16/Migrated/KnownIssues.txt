@@ -1,0 +1,11 @@
+﻿1. Algorithm.GetExtents()方法依赖Entity.GeometryExtents，后者对空块实体抛出异常。
+
+2.下列内容未迁移至R16版本
+	Commands.cs
+	DbHelper.cs
+	Gui.cs
+	Interaction.cs
+	JigDrag.cs
+	SymbolPack.cs
+	Test.cs
+	GUIs

@@ -47,14 +47,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Algorithms.cs" />
-    <Compile Include="App.cs" />
-    <Compile Include="CustomDictionary.cs" />
+    <Compile Include="Migrated\Algorithms.cs" />
+    <Compile Include="Migrated\App.cs" />
+    <Compile Include="Migrating\Commands.cs" />
+    <Compile Include="Migrated\CustomDictionary.cs" />
+    <Compile Include="Migrated\DbHelper.cs" />
     <Compile Include="Extends.cs" />
-    <Compile Include="Layouts.cs" />
+    <Compile Include="Migrated\Layouts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuickSelection.cs" />
-    <Compile Include="Tuples.cs" />
+    <Compile Include="Migrated\QuickSelection.cs" />
+    <Compile Include="Migrated\SymbolPack.cs" />
+    <Compile Include="Migrated\Tuples.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Migrated\KnownIssues.txt" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
