@@ -734,7 +734,9 @@ namespace AutoCADCommands
                 {
                     Entity entObj = trans.GetObject(ent, OpenMode.ForRead) as Entity;
                     entObj = entObj.Clone() as Entity;
-                    entObj.TransformBy(Matrix3d.Displacement(-basePoint.GetAsVector()));
+                    //TODO:有待完成内容,修改后效果不明
+                    //entObj.TransformBy(Matrix3d.Displacement(-basePoint.GetAsVector()));
+                    entObj.TransformBy(Matrix3d.Displacement(basePoint.GetAsVector().Negate()));
                     block.AppendEntity(entObj);
                 }
                 result = bt.Add(block);

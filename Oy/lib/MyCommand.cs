@@ -34,5 +34,4 @@ namespace Oy.CAD2006.CommandMethod
         [CommandMethod("RNOD")]
         public void RNOD() => Utils.NamedObjectDictionary.ReadFromNOD("asd");
     }
-    
 }

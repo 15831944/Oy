@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Geometry;
+using System.ComponentModel;
 using Autodesk.AutoCAD.Runtime;
+using Autodesk.AutoCAD.EditorInput;
 
 namespace AutoCADCommands
 {
-    static class Extends
+    static class ExtendMethods
     {
         //TODO:还有未完成的代码,Algorithms.cs 有大量调用
+        //拓展方法
         public static  void ReverseCurve(this Curve curve)
         {
 
@@ -19,6 +23,7 @@ namespace AutoCADCommands
         //使用this object 代替 this DBDictionaryEntry
         //并将原字段Key 改为方法Key()
         //后续最好新建一个DBDictionaryEntry类
+        //拓展方法
         public static string Key(this object curve)
         {
             return String.Empty;
@@ -31,28 +36,30 @@ namespace AutoCADCommands
         {
             return ObjectId.Null;
         }
+
+        //TODO:还有未完成的代码,Commands.cs 有小量调用
+        //拓展方法
+        public static DBObjectCollection TraceBoundary(this Editor editor, Point3d seedPoint, bool detectIslands)
+        {
+            return new DBObjectCollection();
+        }
+
+
+        //TODO:还有未完成的代码,Commands.cs 有小量调用
+        //拓展方法
+        //
+        // 摘要:
+        //     Gets the current Viewport entity (it does not work with ViewportTableRecords).
+        //
+        // 返回结果:
+        //     The current Viewport entity.
+        public static ViewTableRecord GetCurrentView(this Editor editor)
+        {
+            return new ViewTableRecord();
+        }
     }
 }
-public void ReadDwgFile(IntPtr drawingFile, bool allowCPConversion, string password);
-public void ReadDwgFile(IntPtr drawingFile, bool allowCPConversion, string password);
-
-
-public void ReadDwgFile(string fileName, FileShare fileSharing, bool allowCPConversion, string password);
-public void ReadDwgFile(string fileName, FileShare fileSharing, bool allowCPConversion, string password);
-
-
-public void ReadDwgFile(string fileName, FileOpenMode mode, bool allowCPConversion, string password);
 
 
 
-namespace Autodesk.AutoCAD.DatabaseServices
-{
-    [Wrapper("AcDbDatabase::OpenMode")]
-    public enum FileOpenMode
-    {
-        OpenForReadAndReadShare = 1,
-        OpenForReadAndWriteNoShare = 2,
-        OpenForReadAndAllShare = 3,
-        OpenTryForReadShare = 4
-    }
-}
+
