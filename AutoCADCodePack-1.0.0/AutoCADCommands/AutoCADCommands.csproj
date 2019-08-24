@@ -34,18 +34,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="acdbmgd">
-      <HintPath>..\Reference\AutoCAD\acdbmgd.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="AcDbMgd">
+      <HintPath>..\..\Oy\References\ObjectARX 2006\inc\AcDbMgd.dll</HintPath>
     </Reference>
-    <Reference Include="acmgd">
-      <HintPath>..\Reference\AutoCAD\acmgd.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="AcMgd">
+      <HintPath>..\..\Oy\References\ObjectARX 2006\inc\AcMgd.dll</HintPath>
     </Reference>
     <Reference Include="AdWindows">
       <HintPath>..\Reference\AutoCAD\AdWindows.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualC" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
