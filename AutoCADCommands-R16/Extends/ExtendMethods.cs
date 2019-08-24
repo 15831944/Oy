@@ -57,6 +57,19 @@ namespace AutoCADCommands
         {
             return new ViewTableRecord();
         }
+
+        //TODO:还有未完成的代码,Commands.cs 有小量调用
+        //
+        // 摘要:
+        //     Uses the information from the ViewTableRecord value to set the view.
+        //
+        // 参数:
+        //   value:
+        //     ViewTableRecord to read data from.
+        public static void SetCurrentView(this Editor editor, ViewTableRecord value)
+        {
+
+        }
     }
 }
 

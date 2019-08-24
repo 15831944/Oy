@@ -58,10 +58,7 @@
     <Compile Include="Migrated\DbHelper.cs" />
     <Compile Include="Extends\ExtendMethods.cs" />
     <Compile Include="Migrated\Layouts.cs" />
-    <Compile Include="Migrating\Gui.cs" />
     <Compile Include="Migrating\Interaction.cs" />
-    <Compile Include="Migrating\JigDrag.cs" />
-    <Compile Include="Migrating\Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Migrated\QuickSelection.cs" />
     <Compile Include="Migrated\SymbolPack.cs" />

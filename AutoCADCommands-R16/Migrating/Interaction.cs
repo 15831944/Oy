@@ -146,7 +146,7 @@ namespace AutoCADCommands
         public static double GetValue(string message, double? defaultValue = null)
         {
             Editor ed = Application.DocumentManager.MdiActiveDocument.Editor;
-            PromptDoubleResult res = defaultValue == null 
+            PromptDoubleResult res = defaultValue == null
                 ? ed.GetDouble(new PromptDoubleOptions(message) { AllowNone = true })
                 : ed.GetDouble(new PromptDoubleOptions(message) { DefaultValue = defaultValue.Value, AllowNone = true });
             if (res.Status == PromptStatus.OK)
@@ -224,20 +224,20 @@ namespace AutoCADCommands
         /// <param name="message">提示</param>
         /// <param name="startPoint">起点</param>
         /// <returns>终点</returns>
-        public static Point3d GetLineEndPoint(string message, Point3d startPoint)
-        {
-            Editor ed = Application.DocumentManager.MdiActiveDocument.Editor;
-            LineJig jig = new LineJig(startPoint, message);
-            PromptResult res = ed.Drag(jig);
-            if (res.Status == PromptStatus.OK)
-            {
-                return jig.EndPoint;
-            }
-            else
-            {
-                return Algorithms.NullPoint3d;
-            }
-        }
+        //public static Point3d GetLineEndPoint(string message, Point3d startPoint)
+        //{
+        //    Editor ed = Application.DocumentManager.MdiActiveDocument.Editor;
+        //    LineJig jig = new LineJig(startPoint, message);
+        //    PromptResult res = ed.Drag(jig);
+        //    if (res.Status == PromptStatus.OK)
+        //    {
+        //        return jig.EndPoint;
+        //    }
+        //    else
+        //    {
+        //        return Algorithms.NullPoint3d;
+        //    }
+        //}
 
         /// <summary>
         /// 获取对角点
@@ -583,7 +583,7 @@ namespace AutoCADCommands
         //    doc.SendCommand(command);
         //}
 #endif
-
+        //TODO:暂时删除
         /// <summary>
         /// 显示任务对话框
         /// </summary>
@@ -595,45 +595,45 @@ namespace AutoCADCommands
         /// <param name="footer">脚注</param>
         /// <param name="expanded">详细说明</param>
         /// <returns>用户选择</returns>
-        public static bool TaskDialog(string mainInstruction, string yesChoice, string noChoice, string title = "AutoCAD", string content = "", string footer = "", string expanded = "")
-        {
-            //WPF任务对话框
-            TaskDialog td = new TaskDialog();
-            td.WindowTitle = title;
-            td.MainInstruction = mainInstruction;
-            td.ContentText = content;
-            td.MainIcon = TaskDialogIcon.Information;
-            td.FooterIcon = TaskDialogIcon.Warning;
-            td.FooterText = footer;
-            td.CollapsedControlText = "详细信息";
-            td.ExpandedControlText = "详细信息";
-            td.ExpandedByDefault = false;
-            td.ExpandedText = expanded;
-            td.AllowDialogCancellation = false;
-            td.UseCommandLinks = true;
-            td.Buttons.Add(new TaskDialogButton(1, yesChoice));
-            td.Buttons.Add(new TaskDialogButton(2, noChoice));
-            td.DefaultButton = 1;
-            int[] btnId = null;
-            td.Callback = delegate(ActiveTaskDialog atd, TaskDialogCallbackArgs e, object sender)
-            {
-                if (e.Notification == TaskDialogNotification.ButtonClicked)
-                {
-                    btnId = new int[3];
-                    btnId[e.ButtonId] = 1;
-                }
-                return false;
-            };
-            td.Show(Application.MainWindow.Handle);
-            if (btnId.ToList().IndexOf(1) == 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //public static bool TaskDialog(string mainInstruction, string yesChoice, string noChoice, string title = "AutoCAD", string content = "", string footer = "", string expanded = "")
+        //{
+        //    //WPF任务对话框
+        //    TaskDialog td = new TaskDialog();
+        //    td.WindowTitle = title;
+        //    td.MainInstruction = mainInstruction;
+        //    td.ContentText = content;
+        //    td.MainIcon = TaskDialogIcon.Information;
+        //    td.FooterIcon = TaskDialogIcon.Warning;
+        //    td.FooterText = footer;
+        //    td.CollapsedControlText = "详细信息";
+        //    td.ExpandedControlText = "详细信息";
+        //    td.ExpandedByDefault = false;
+        //    td.ExpandedText = expanded;
+        //    td.AllowDialogCancellation = false;
+        //    td.UseCommandLinks = true;
+        //    td.Buttons.Add(new TaskDialogButton(1, yesChoice));
+        //    td.Buttons.Add(new TaskDialogButton(2, noChoice));
+        //    td.DefaultButton = 1;
+        //    int[] btnId = null;
+        //    td.Callback = delegate(ActiveTaskDialog atd, TaskDialogCallbackArgs e, object sender)
+        //    {
+        //        if (e.Notification == TaskDialogNotification.ButtonClicked)
+        //        {
+        //            btnId = new int[3];
+        //            btnId[e.ButtonId] = 1;
+        //        }
+        //        return false;
+        //    };
+        //    td.Show(Application.MainWindow.Handle);
+        //    if (btnId.ToList().IndexOf(1) == 1)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
         /// <summary>
         /// 高亮实体
@@ -641,7 +641,9 @@ namespace AutoCADCommands
         /// <param name="entIds">实体集</param>
         public static void HighlightObjects(IEnumerable<ObjectId> entIds)
         {
-            entIds.QForEach<Entity>(x => x.Highlight());
+            //TODO:有待完成代码
+            //entIds.QForEach<Entity>(x => x.Highlight());
+            entIds.QForEach<Entity>(x => x.Highlight(new FullSubentityPath(), true));
         }
 
         /// <summary>
@@ -650,7 +652,9 @@ namespace AutoCADCommands
         /// <param name="entIds">实体集</param>
         public static void UnhighlightObjects(IEnumerable<ObjectId> entIds)
         {
-            entIds.QForEach<Entity>(x => x.Unhighlight());
+            //TODO:有待完成代码
+            //entIds.QForEach<Entity>(x => x.Unhighlight());
+            entIds.QForEach<Entity>(x => x.Unhighlight(new FullSubentityPath(), true));
         }
 
         /// <summary>
@@ -768,8 +772,10 @@ namespace AutoCADCommands
                     // Create an extents object using a line
                     using (Line acLine = new Line(pMin, pMax))
                     {
-                        eExtents = new Extents3d(acLine.Bounds.Value.MinPoint,
-                                                 acLine.Bounds.Value.MaxPoint);
+                        //TODO:有待修改内容
+                        //eExtents = new Extents3d(acLine.Bounds.Value.MinPoint,
+                        //                         acLine.Bounds.Value.MaxPoint);
+                        eExtents = new Extents3d(pMin, pMax);
                     }
 
                     // Calculate the ratio between the width and height of the current view
@@ -835,20 +841,20 @@ namespace AutoCADCommands
         /// </summary>
         /// <param name="ent">实体</param>
         /// <returns>实体ID</returns>
-        public static ObjectId InsertEntity(Entity ent)
-        {
-            Editor ed = Application.DocumentManager.MdiActiveDocument.Editor;
-            PositionJig jig = new PositionJig(ent);
-            PromptResult res = ed.Drag(jig);
-            if (res.Status == PromptStatus.OK)
-            {
-                return jig.Ent.AddToCurrentSpace();
-            }
-            else
-            {
-                return ObjectId.Null;
-            }
-        }
+        //public static ObjectId InsertEntity(Entity ent)
+        //{
+        //    Editor ed = Application.DocumentManager.MdiActiveDocument.Editor;
+        //    PositionJig jig = new PositionJig(ent);
+        //    PromptResult res = ed.Drag(jig);
+        //    if (res.Status == PromptStatus.OK)
+        //    {
+        //        return jig.Ent.AddToCurrentSpace();
+        //    }
+        //    else
+        //    {
+        //        return ObjectId.Null;
+        //    }
+        //}
 
         /// <summary>
         /// 可视化插入可缩放实体
@@ -857,21 +863,21 @@ namespace AutoCADCommands
         /// <param name="basePoint">基点</param>
         /// <param name="message">提示信息</param>
         /// <returns>实体ID</returns>
-        public static ObjectId InsertScalingEntity(Entity ent, Point3d basePoint, string message = "\n指定对角点")
-        {
-            Editor ed = Application.DocumentManager.MdiActiveDocument.Editor;
-            //ScalingJig jig = new ScalingJig(ent, basePoint, message);
-            ScaleJig jig = new ScaleJig(ent, basePoint, message);
-            PromptResult res = ed.Drag(jig);
-            if (res.Status == PromptStatus.OK)
-            {
-                return jig.Ent.AddToCurrentSpace();
-            }
-            else
-            {
-                return ObjectId.Null;
-            }
-        }
+        //public static ObjectId InsertScalingEntity(Entity ent, Point3d basePoint, string message = "\n指定对角点")
+        //{
+        //    Editor ed = Application.DocumentManager.MdiActiveDocument.Editor;
+        //    //ScalingJig jig = new ScalingJig(ent, basePoint, message);
+        //    ScaleJig jig = new ScaleJig(ent, basePoint, message);
+        //    PromptResult res = ed.Drag(jig);
+        //    if (res.Status == PromptStatus.OK)
+        //    {
+        //        return jig.Ent.AddToCurrentSpace();
+        //    }
+        //    else
+        //    {
+        //        return ObjectId.Null;
+        //    }
+        //}
 
         /// <summary>
         /// 可视化插入可旋转实体
@@ -880,20 +886,20 @@ namespace AutoCADCommands
         /// <param name="center">中心</param>
         /// <param name="message">提示信息</param>
         /// <returns>实体ID</returns>
-        public static ObjectId InsertRotationEntity(Entity ent, Point3d center, string message = "\n指定方向")
-        {
-            Editor ed = Application.DocumentManager.MdiActiveDocument.Editor;
-            RotationJig jig = new RotationJig(ent, center, message);
-            PromptResult res = ed.Drag(jig);
-            if (res.Status == PromptStatus.OK)
-            {
-                return jig.Ent.AddToCurrentSpace();
-            }
-            else
-            {
-                return ObjectId.Null;
-            }
-        }
+        //public static ObjectId InsertRotationEntity(Entity ent, Point3d center, string message = "\n指定方向")
+        //{
+        //    Editor ed = Application.DocumentManager.MdiActiveDocument.Editor;
+        //    RotationJig jig = new RotationJig(ent, center, message);
+        //    PromptResult res = ed.Drag(jig);
+        //    if (res.Status == PromptStatus.OK)
+        //    {
+        //        return jig.Ent.AddToCurrentSpace();
+        //    }
+        //    else
+        //    {
+        //        return ObjectId.Null;
+        //    }
+        //}
 
         /// <summary>
         /// 操作系统保存文件对话框
@@ -980,30 +986,30 @@ namespace AutoCADCommands
         /// </summary>
         /// <param name="message">提示</param>
         /// <returns>多段线</returns>
-        public static Polyline GetPromptPolyline(string message) // newly 20130806
-        {
-            var point = Interaction.GetPoint(message);
-            if (point.IsNull())
-            {
-                return null;
-            }
-            var poly = NoDraw.Pline(new[] { point });
-            var prev = point;
-            var tempIds = new List<ObjectId>();
-            while (true)
-            {
-                point = Interaction.GetLineEndPoint(message, prev);
-                if (point.IsNull())
-                {
-                    break;
-                }
-                tempIds.Add(Draw.Line(prev, point));
-                poly.AddVertexAt(poly.NumberOfVertices, point.ToPoint2d(), 0, 0, 0);
-                prev = point;
-            }
-            tempIds.QForEach(x => x.Erase());
-            return poly;
-        }
+        //public static Polyline GetPromptPolyline(string message) // newly 20130806
+        //{
+        //    var point = Interaction.GetPoint(message);
+        //    if (point.IsNull())
+        //    {
+        //        return null;
+        //    }
+        //    var poly = NoDraw.Pline(new[] { point });
+        //    var prev = point;
+        //    var tempIds = new List<ObjectId>();
+        //    while (true)
+        //    {
+        //        point = Interaction.GetLineEndPoint(message, prev);
+        //        if (point.IsNull())
+        //        {
+        //            break;
+        //        }
+        //        tempIds.Add(Draw.Line(prev, point));
+        //        poly.AddVertexAt(poly.NumberOfVertices, point.ToPoint2d(), 0, 0, 0);
+        //        prev = point;
+        //    }
+        //    tempIds.QForEach(x => x.Erase());
+        //    return poly;
+        //}
 
         /// <summary>
         /// 多个实体，输入编号逐个查看
@@ -1041,245 +1047,252 @@ namespace AutoCADCommands
             }
         }
     }
-
-    internal class LineJig : EntityJig
-    {
-        private Point3d _startPoint;
-        private Point3d _endPoint;
-        private string _message;
-
-        public Point3d EndPoint { get { return _endPoint; } }
-
-        public LineJig(Point3d startPoint, string message)
-            : base(new Line(startPoint, Point3d.Origin))
-        {
-            _startPoint = startPoint;
-            _message = message;
-        }
-
-        protected override SamplerStatus Sampler(JigPrompts prompts)
-        {
-            JigPromptOptions jigPromptGeometryOptions
-            JigPromptPointOptions jppo = new JigPromptPointOptions(_message);
-            jppo.Keywords.Add(""); // mod 20140527
-            jppo.Cursor = CursorType.RubberBand;
-            jppo.BasePoint = _startPoint;
-            jppo.UseBasePoint = true;
-            Point3d endPoint = prompts.AcquirePoint(jppo).Value;
-            if (endPoint.IsNull())
-            {
-                return SamplerStatus.Cancel;
-            }
-            else if (endPoint != _endPoint)
-            {
-                _endPoint = endPoint;
-                return SamplerStatus.OK;
-            }
-            else
-            {
-                return SamplerStatus.NoChange;
-            }
-        }
-
-        protected override bool Update()
-        {
-            try
-            {
-                Line line = Entity as Line;
-                line.EndPoint = _endPoint;
-            }
-            catch
-            {
-            }
-            return true;
-        }
-    }
-
-    internal class PositionJig : EntityJig
-    {
-        private Entity _ent;
-        private Point3d _pos = Point3d.Origin;
-        private Vector3d _move;
-
-        public Entity Ent { get { return _ent; } }
-
-        public PositionJig(Entity ent)
-            : base(ent)
-        {
-            _ent = ent;
-        }
-
-        protected override SamplerStatus Sampler(JigPrompts prompts)
-        {
-            JigPromptPointOptions jppo = new JigPromptPointOptions("\n指定位置");
-            jppo.Keywords.Add(""); // mod 20140527
-            jppo.Cursor = CursorType.EntitySelect;
-            jppo.UseBasePoint = false;
-            jppo.UserInputControls = UserInputControls.NullResponseAccepted;
-            Point3d pos = prompts.AcquirePoint(jppo).Value;
-            if (pos.IsNull())
-            {
-                return SamplerStatus.Cancel;
-            }
-            else if (pos != _pos)
-            {
-                _move = pos - _pos;
-                _pos = pos;
-                return SamplerStatus.OK;
-            }
-            else
-            {
-                _move = pos - _pos;
-                return SamplerStatus.NoChange;
-            }
-        }
-
-        protected override bool Update()
-        {
-            try
-            {
-                _ent.TransformBy(Matrix3d.Displacement(_move));
-            }
-            catch
-            {
-            }
-            return true;
-        }
-    }
-
-    internal class ScaleJig : EntityJig
-    {
-        private Entity _ent;
-        private Point3d _pos = Point3d.Origin;
-        private Vector3d _move;
-        private Point3d _basePoint;
-        private string _message;
-        private Extents3d _extents;
-        //private double _scale;
-        private double _mag;
-
-        public Entity Ent { get { return _ent; } }
-
-        public ScaleJig(Entity ent, Point3d basePoint, string message)
-            : base(ent)
-        {
-            _ent = ent;
-            _basePoint = basePoint;
-            _message = message;
-            _extents = _ent.GeometricExtents;
-            //_scale = 1;
-            _mag = 1;
-        }
-
-        protected override SamplerStatus Sampler(JigPrompts prompts)
-        {
-            JigPromptPointOptions jppo = new JigPromptPointOptions(_message);
-            jppo.Keywords.Add(""); // mod 20140527
-            jppo.Cursor = CursorType.EntitySelect;
-            jppo.UseBasePoint = false;
-            jppo.UserInputControls = UserInputControls.NullResponseAccepted;
-            Point3d corner = prompts.AcquirePoint(jppo).Value;
-            Point3d pos = Point3d.Origin + 0.5 * (_basePoint.GetAsVector() + corner.GetAsVector());
-            var extents = _ent.GeometricExtents;
-            double scale = Math.Min(
-                Math.Abs(corner.X - _basePoint.X) / (extents.MaxPoint.X - extents.MinPoint.X),
-                Math.Abs(corner.Y - _basePoint.Y) / (extents.MaxPoint.Y - extents.MinPoint.Y));
-            if (scale < Consts.Epsilon) // 在一开始scale势必很小。过小的scale会导致矩阵运算出现非等比缩放变换，从而被CAD拒绝，导致异常。
-            {
-                scale = Consts.Epsilon;
-            }
-            if (pos.IsNull())
-            {
-                return SamplerStatus.Cancel;
-            }
-            else if (pos != _pos)
-            {
-                _move = pos - _pos;
-                _pos = pos;
-                //_mag = scale / _scale;
-                //_scale = scale;
-                _mag = scale;
-                return SamplerStatus.OK;
-            }
-            else
-            {
-                _move = pos - _pos;
-                return SamplerStatus.NoChange;
-            }
-        }
-
-        protected override bool Update()
-        {
-            try
-            {
-                _ent.TransformBy(Matrix3d.Displacement(_move));
-                _ent.TransformBy(Matrix3d.Scaling(_mag, _pos)); // 必须先平移，再缩放。
-            }
-            catch
-            {
-            }
-            return true;
-        }
-    }
-
-    internal class RotationJig : EntityJig
-    {
-        private Point3d _center;
-        private Point3d _end;
-        private string _message;
-        private double _angle;
-
-        public Entity Ent { get { return Entity; } }
-
-        public RotationJig(Entity ent, Point3d center, string message)
-            : base(ent)
-        {
-            _center = center;
-            _message = message;
-        }
-
-        protected override SamplerStatus Sampler(JigPrompts prompts)
-        {
-            JigPromptPointOptions jppo = new JigPromptPointOptions(_message);
-            jppo.Keywords.Add(""); // mod 20140527
-            jppo.Cursor = CursorType.EntitySelect;
-            jppo.BasePoint = _center;
-            jppo.UseBasePoint = true;
-            jppo.UserInputControls = UserInputControls.NullResponseAccepted;
-            Point3d end = prompts.AcquirePoint(jppo).Value;
-            if (end.IsNull())
-            {
-                return SamplerStatus.Cancel;
-            }
-            else if (end != _end)
-            {
-                _end = end;
-                return SamplerStatus.OK;
-            }
-            else
-            {
-                return SamplerStatus.NoChange;
-            }
-        }
-
-        protected override bool Update()
-        {
-            try
-            {
-                Vector3d dir = _end - _center;
-                double angle = dir.GetAngleTo(Vector3d.YAxis);
-                if (dir.X > 0)
-                {
-                    angle = Math.PI * 2 - angle;
-                }
-                Entity.TransformBy(Matrix3d.Rotation(angle - _angle, Vector3d.ZAxis, _center));
-                _angle = angle;
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-    }
 }
+
+    //internal class LineJig : EntityJig
+    //{
+    //    private Point3d _startPoint;
+    //    private Point3d _endPoint;
+    //    private string _message;
+
+    //    public Point3d EndPoint { get { return _endPoint; } }
+
+    //    public LineJig(Point3d startPoint, string message)
+    //        : base(new Line(startPoint, Point3d.Origin))
+    //    {
+    //        _startPoint = startPoint;
+    //        _message = message;
+    //    }
+
+
+    //    //TODO:待处理
+    //    //protected override SamplerStatus Sampler(JigPrompts prompts)
+    //    //{
+    //        //JigPromptOptions jigPromptGeometryOptions
+    //        //JigPromptPointOptions jppo = new JigPromptPointOptions(_message);
+    //        //jppo.Keywords.Add(""); // mod 20140527
+    //        //jppo.Cursor = CursorType.RubberBand;
+    //        //jppo.BasePoint = _startPoint;
+    //        //jppo.UseBasePoint = true;
+    //        //Point3d endPoint = prompts.AcquirePoint(jppo).Value;
+    //        //if (endPoint.IsNull())
+    //        //{
+    //        //    return SamplerStatus.Cancel;
+    //        //}
+    //        //else if (endPoint != _endPoint)
+    //        //{
+    //        //    _endPoint = endPoint;
+    //        //    return SamplerStatus.OK;
+    //        //}
+    //        //else
+    //        //{
+    //        //    return SamplerStatus.NoChange;
+    //        //}
+    //    //}
+
+    //    protected override bool Update()
+    //    {
+    //        try
+    //        {
+    //            Line line = Entity as Line;
+    //            line.EndPoint = _endPoint;
+    //        }
+    //        catch
+    //        {
+    //        }
+    //        return true;
+    //    }
+    //}
+
+//    internal class PositionJig : EntityJig
+//    {
+//        private Entity _ent;
+//        private Point3d _pos = Point3d.Origin;
+//        private Vector3d _move;
+
+//        public Entity Ent { get { return _ent; } }
+
+//        public PositionJig(Entity ent)
+//            : base(ent)
+//        {
+//            _ent = ent;
+//        }
+
+//        //TODO:待处理
+//        //protected override SamplerStatus Sampler(JigPrompts prompts)
+//        //{
+//        //    JigPromptPointOptions jppo = new JigPromptPointOptions("\n指定位置");
+//        //    jppo.Keywords.Add(""); // mod 20140527
+//        //    jppo.Cursor = CursorType.EntitySelect;
+//        //    jppo.UseBasePoint = false;
+//        //    jppo.UserInputControls = UserInputControls.NullResponseAccepted;
+//        //    Point3d pos = prompts.AcquirePoint(jppo).Value;
+//        //    if (pos.IsNull())
+//        //    {
+//        //        return SamplerStatus.Cancel;
+//        //    }
+//        //    else if (pos != _pos)
+//        //    {
+//        //        _move = pos - _pos;
+//        //        _pos = pos;
+//        //        return SamplerStatus.OK;
+//        //    }
+//        //    else
+//        //    {
+//        //        _move = pos - _pos;
+//        //        return SamplerStatus.NoChange;
+//        //    }
+//        //}
+
+//        protected override bool Update()
+//        {
+//            try
+//            {
+//                _ent.TransformBy(Matrix3d.Displacement(_move));
+//            }
+//            catch
+//            {
+//            }
+//            return true;
+//        }
+//    }
+
+//    internal class ScaleJig : EntityJig
+//    {
+//        private Entity _ent;
+//        private Point3d _pos = Point3d.Origin;
+//        private Vector3d _move;
+//        private Point3d _basePoint;
+//        private string _message;
+//        private Extents3d _extents;
+//        //private double _scale;
+//        private double _mag;
+
+//        public Entity Ent { get { return _ent; } }
+
+//        public ScaleJig(Entity ent, Point3d basePoint, string message)
+//            : base(ent)
+//        {
+//            _ent = ent;
+//            _basePoint = basePoint;
+//            _message = message;
+//            //TODO:将GeometricExtents改为GeomExtents
+//            _extents = _ent.GeomExtents;
+//            //_scale = 1;
+//            _mag = 1;
+//        }
+
+//        protected override SamplerStatus Sampler(JigPrompts prompts)
+//        {
+//            JigPromptPointOptions jppo = new JigPromptPointOptions(_message);
+//            jppo.Keywords.Add(""); // mod 20140527
+//            jppo.Cursor = CursorType.EntitySelect;
+//            jppo.UseBasePoint = false;
+//            jppo.UserInputControls = UserInputControls.NullResponseAccepted;
+//            Point3d corner = prompts.AcquirePoint(jppo).Value;
+//            Point3d pos = Point3d.Origin + 0.5 * (_basePoint.GetAsVector() + corner.GetAsVector());
+//            //TODO:将GeometricExtents改为GeomExtents
+//            var extents = _ent.GeomExtents;
+//            double scale = Math.Min(
+//                Math.Abs(corner.X - _basePoint.X) / (extents.MaxPoint.X - extents.MinPoint.X),
+//                Math.Abs(corner.Y - _basePoint.Y) / (extents.MaxPoint.Y - extents.MinPoint.Y));
+//            if (scale < Consts.Epsilon) // 在一开始scale势必很小。过小的scale会导致矩阵运算出现非等比缩放变换，从而被CAD拒绝，导致异常。
+//            {
+//                scale = Consts.Epsilon;
+//            }
+//            if (pos.IsNull())
+//            {
+//                return SamplerStatus.Cancel;
+//            }
+//            else if (pos != _pos)
+//            {
+//                _move = pos - _pos;
+//                _pos = pos;
+//                //_mag = scale / _scale;
+//                //_scale = scale;
+//                _mag = scale;
+//                return SamplerStatus.OK;
+//            }
+//            else
+//            {
+//                _move = pos - _pos;
+//                return SamplerStatus.NoChange;
+//            }
+//        }
+
+//        protected override bool Update()
+//        {
+//            try
+//            {
+//                _ent.TransformBy(Matrix3d.Displacement(_move));
+//                _ent.TransformBy(Matrix3d.Scaling(_mag, _pos)); // 必须先平移，再缩放。
+//            }
+//            catch
+//            {
+//            }
+//            return true;
+//        }
+//    }
+
+//    internal class RotationJig : EntityJig
+//    {
+//        private Point3d _center;
+//        private Point3d _end;
+//        private string _message;
+//        private double _angle;
+
+//        public Entity Ent { get { return Entity; } }
+
+//        public RotationJig(Entity ent, Point3d center, string message)
+//            : base(ent)
+//        {
+//            _center = center;
+//            _message = message;
+//        }
+
+//        //TODO:待处理
+//        //protected override SamplerStatus Sampler(JigPrompts prompts)
+//        //{
+//        //    JigPromptPointOptions jppo = new JigPromptPointOptions(_message);
+//        //    jppo.Keywords.Add(""); // mod 20140527
+//        //    jppo.Cursor = CursorType.EntitySelect;
+//        //    jppo.BasePoint = _center;
+//        //    jppo.UseBasePoint = true;
+//        //    jppo.UserInputControls = UserInputControls.NullResponseAccepted;
+//        //    Point3d end = prompts.AcquirePoint(jppo).Value;
+//        //    if (end.IsNull())
+//        //    {
+//        //        return SamplerStatus.Cancel;
+//        //    }
+//        //    else if (end != _end)
+//        //    {
+//        //        _end = end;
+//        //        return SamplerStatus.OK;
+//        //    }
+//        //    else
+//        //    {
+//        //        return SamplerStatus.NoChange;
+//        //    }
+//        //}
+
+//        protected override bool Update()
+//        {
+//            try
+//            {
+//                Vector3d dir = _end - _center;
+//                double angle = dir.GetAngleTo(Vector3d.YAxis);
+//                if (dir.X > 0)
+//                {
+//                    angle = Math.PI * 2 - angle;
+//                }
+//                Entity.TransformBy(Matrix3d.Rotation(angle - _angle, Vector3d.ZAxis, _center));
+//                _angle = angle;
+//                return true;
+//            }
+//            catch
+//            {
+//                return false;
+//            }
+//        }
+//    }
+//}
