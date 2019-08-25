@@ -112,7 +112,7 @@ namespace Oy.CAD2006.Utils
 
 
     #region InterOperation
-    class InterOperation
+    class Interaction
     {
         /// <summary>
         /// 打开文件
@@ -120,11 +120,17 @@ namespace Oy.CAD2006.Utils
         /// <param name="FilePath"></param>
         /// <param name="text"></param>
         /// <param name="caption"></param>
-        public void SaveFileDialog(string FilePath)
+        public static void OpenFile(string FilePath,bool WithDialog=false)
         {
-            Forms.DialogResult dialogResult = Forms.MessageBox.Show("是否打开文件?", "打开文件", Forms.MessageBoxButtons.YesNo, Forms.MessageBoxIcon.Question);
-            //打卡excel文件
-            if (dialogResult.Equals(Forms.DialogResult.Yes))
+            if (WithDialog is true)
+            {
+                Forms.DialogResult dialogResult = Forms.MessageBox.Show("是否打开文件?", "打开文件", Forms.MessageBoxButtons.YesNo, Forms.MessageBoxIcon.Question);
+                if (dialogResult.Equals(Forms.DialogResult.Yes))
+                {
+                    Process.Start(FilePath);
+                }
+            }
+            else
             {
                 Process.Start(FilePath);
             }
@@ -134,10 +140,11 @@ namespace Oy.CAD2006.Utils
         /// 弹出重试对话框
         /// </summary>
         /// <returns></returns>
-        public System.Windows.Forms.DialogResult RetryDialog()
+        public static bool RetrySaveDialog()
         {
-            var dialogResult = System.Windows.Forms.MessageBox.Show("文件在被使用", "无法保存", Forms.MessageBoxButtons.RetryCancel, Forms.MessageBoxIcon.Asterisk);
-            return dialogResult;
+            Forms.DialogResult dialogResult = Forms.MessageBox.Show("文件在被使用", "无法保存", Forms.MessageBoxButtons.RetryCancel, Forms.MessageBoxIcon.Asterisk);
+            if (dialogResult == Forms.DialogResult.Retry) return true;
+            return false;
         }
 
         /// <summary>
@@ -191,7 +198,7 @@ namespace Oy.CAD2006.Utils
                     {
                         doc.Replace("[<" + strOld[i] + ">]", strNew[i], false, false);
                     }
-                    string saveFilePath = new InterOperation().GetFilePath();
+                    string saveFilePath = new Interaction().GetFilePath();
                     doc.SaveToFile(saveFilePath);
                     doc.Close();
                     doc.Dispose();

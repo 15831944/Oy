@@ -311,13 +311,16 @@ namespace AutoCADCommands
         {
             CustomDictionary.SetValue("dict1", "A", "apple");
             CustomDictionary.SetValue("dict1", "B", "orange");
-            CustomDictionary.SetValue("dict1", "A", "banana");
-            CustomDictionary.SetValue("dict2", "A", "peach");
+            CustomDictionary.SetValue("dict2", "A", "banana");
+            CustomDictionary.SetValue("dict2", "B", "peach");
+
             foreach (var dict in CustomDictionary.GetDictionaryNames())
             {
                 Interaction.WriteLine(dict);
+                Interaction.WriteLine("第一行");
             }
             Interaction.WriteLine(CustomDictionary.GetValue("dict1", "A"));
+            Interaction.WriteLine("第二行");
         }
 
         [CommandMethod("TestDimension")]
@@ -367,7 +370,7 @@ namespace AutoCADCommands
             Vector3d size = new Vector3d(value, value, 0);
             ObjectId[] ids = Interaction.GetWindowSelection(point - size, point + size);
             Interaction.WriteLine("{0} entities selected.", ids.Count());
-        }
+        }   
 
 
 

@@ -37,12 +37,12 @@ namespace Oy.CAD2006.GUI
         /// <param name="e"></param>
         private void SaveFIleButton_Click(object sender, EventArgs e)
         {
-            string filePath = new Utils.InterOperation().GetFilePath();
+            string filePath = new Utils.Interaction().GetFilePath();
             AddressTextBox.Text = filePath;
             if (filePath != null)
             {
-                lib.Excel excel = new lib.Excel();
-                excel.SaveExcel(filePath);
+                lib.Excel2 excel2 = new lib.Excel2(filePath,"汇总表");
+                excel2.Save();
             }
 
         }

@@ -81,19 +81,20 @@ namespace AutoCADCommands
 
         internal static void SetEntry(ObjectId dictId, string key, string value)
         {
-            using (Transaction trans = HostApplicationServices.WorkingDatabase.TransactionManager.StartTransaction())
-            {
-                DBDictionary dict = trans.GetObject(dictId, OpenMode.ForWrite) as DBDictionary;
-                if (dict.Contains(key))
+                using (Transaction trans = HostApplicationServices.WorkingDatabase.TransactionManager.StartTransaction())
                 {
-                    trans.GetObject(dict.GetAt(key), OpenMode.ForWrite).Erase();
-                }
+                    DBDictionary dict = trans.GetObject(dictId, OpenMode.ForWrite) as DBDictionary;
+                //TODO:此行内容导致报错，暂时关闭
+                //if (dict.Contains(key))
+                //{
+                //trans.GetObject(dict.GetAt(key), OpenMode.ForWrite).Erase();
+                //}
                 Xrecord entry = new Xrecord();
-                entry.Data = new ResultBuffer(new TypedValue(1000, value));
-                ObjectId entryId = dict.SetAt(key, entry);
-                trans.AddNewlyCreatedDBObject(entry, true);
-                trans.Commit();
-            }
+                    entry.Data = new ResultBuffer(new TypedValue(1000, value));
+                    ObjectId entryId = dict.SetAt(key, entry);
+                    trans.AddNewlyCreatedDBObject(entry, true);
+                    trans.Commit();
+                }
         }
 
         internal static string GetEntry(ObjectId dictId, string key)
