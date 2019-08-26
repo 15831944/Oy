@@ -120,7 +120,7 @@ namespace Oy.CAD2006.Utils
         /// <param name="FilePath"></param>
         /// <param name="text"></param>
         /// <param name="caption"></param>
-        public static void OpenFile(string FilePath,bool WithDialog=false)
+        public static void OpenFile(string FilePath, bool WithDialog = false)
         {
             if (WithDialog is true)
             {
@@ -185,7 +185,7 @@ namespace Oy.CAD2006.Utils
         public void WordReplace(string[] strOld, string[] strNew)
         {
 
-            string[] filePaths = { @".\Resources\Cover.docx"};
+            string[] filePaths = { @".\Resources\Cover.docx" };
             //string[] filePaths = { @".\Resources\Report.docx",@".\Resources\Authorisation.docx"};
 
             foreach (string filePath in filePaths)
@@ -212,7 +212,9 @@ namespace Oy.CAD2006.Utils
     }
     #endregion
 
-
-
-
+    public static class ConfigArray
+    {
+        public static string[] ColumnNameArray = { "序列号", "地块号", "圈号", "界址点号", "纵坐标（X）", "横坐标（Y）", "指向点号", "距离" };
+        public static double[] TestPoints = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    };
 }

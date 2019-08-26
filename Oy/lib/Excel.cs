@@ -91,24 +91,43 @@ namespace Oy.CAD2006.lib
         private ExcelPackage excelPackage;
         private ExcelWorkbook excelWorkbook;
         private ExcelWorksheet excelWorksheet;
-        private double DefaultColWidth=9.71;
-        private double LargerColWidth=15.71;
+        private double DefaultColWidth = 9.71;
+        private double LargerColWidth = 15.71;
         private double DefaultRowHeight = 13.5;
         private TableStyles DefaultTableStyles = TableStyles.None;
         private ExcelBorderStyle DefaultExcelBorderStyle = ExcelBorderStyle.Thin;
+        private string DefaultFont = "宋体";
+        private ExcelHorizontalAlignment ExcelHorizontalAlignment = ExcelHorizontalAlignment.Center;
+        private ExcelVerticalAlignment ExcelVerticalAlignment = ExcelVerticalAlignment.Center;
+        private string[] ColumnNameArray = Utils.ConfigArray.ColumnNameArray;
+        private int EndRow => excelWorksheet.Dimension.End.Row;
 
-        public Excel2(string FilePath,string WorkSheetName ="Sheet")
+        /// <summary>
+        /// 构造函数，默认表名为"Sheet"
+        /// </summary>
+        /// <param name="FilePath"></param>
+        /// <param name="WorkSheetName"></param>
+        public Excel2(string FilePath, string WorkSheetName = "Sheet")
         {
+            //初始化
             this.filePath = FilePath;
             this.excelPackage = new ExcelPackage();
             this.excelWorkbook = this.excelPackage.Workbook;
             this.excelWorksheet = this.excelWorkbook.Worksheets.Add(WorkSheetName);
-
+            //列宽
             this.excelWorksheet.DefaultColWidth = this.DefaultColWidth;
             this.excelWorksheet.DefaultRowHeight = this.DefaultRowHeight;
             this.excelWorksheet.Column(5).Width = LargerColWidth;
             this.excelWorksheet.Column(6).Width = LargerColWidth;
-            tableRow();
+            this.excelWorksheet.Column(7).Width = DefaultColWidth;
+            //宋体，居中
+            this.excelWorksheet.Cells.Style.Font.Name = DefaultFont;
+            this.excelWorksheet.Cells.Style.HorizontalAlignment = ExcelHorizontalAlignment;
+            this.excelWorksheet.Cells.Style.VerticalAlignment = ExcelVerticalAlignment;
+            InfoRow1();
+            InfoRow2(4);
+            TableRow(EndRow+1,2,3,Utils.ConfigArray.TestPoints);
+            Forms.MessageBox.Show(EndRow.ToString());
         }
 
         /// <summary>
@@ -130,18 +149,63 @@ namespace Oy.CAD2006.lib
             }
         }
 
-        protected internal void tableRow()
+
+        /// <summary>
+        /// 合并一行
+        /// </summary>
+        /// <param name="Row"></param>
+        private void MergeRow(int Row)
+        {
+            excelWorksheet.Cells[Row, 1, Row, 8].Merge = true;
+        }
+
+
+        /// <summary>
+        /// 最前面三行信息栏
+        /// </summary>
+        /// 
+        private void InfoRow1()
+        {
+            MergeRow(1);
+            MergeRow(2);
+            MergeRow(3);
+        }
+
+
+        /// <summary>
+        /// 二号信息栏
+        /// </summary>
+        /// <param name="Row"></param>
+        private void InfoRow2(int Row)
+        {
+            excelWorksheet.Cells[Row, 1, Row, 3].Merge = true;
+            excelWorksheet.Cells[Row, 4, Row, 5].Merge = true;
+            excelWorksheet.Cells[Row, 6, Row, 8].Merge = true;
+            excelWorksheet.Cells[excelWorksheet.MergedCells[Row, 1]].Value = "多边形编号:1";
+            excelWorksheet.Cells[excelWorksheet.MergedCells[Row, 4]].Value = "界址点数:16";
+            excelWorksheet.Cells[excelWorksheet.MergedCells[Row, 6]].Value = "用地面积(㎡)：164";
+        }
+
+
+        /// <summary>
+        /// 一个table
+        /// </summary>
+        /// <param name="FromRow"></param>
+        private void TableRow(int FromRow,int dikuaihao,int quanhao,double[] points)
         {
             string tableNamePrefix = "Table";
             string polylineNumber = "1";
-            string circleNumber = "1";
-            int rowID = 1;
-            double area =0;
+            double area = 0;
+
+            int FromCol = 1;
+            int HowManyLines = points.Length+1;
+            int ToRow = FromRow+HowManyLines;
+            int ToCol = 8;
 
             //表范围
-            ExcelRange excelRange = excelWorksheet.Cells[1,1,8,8];
+            ExcelRange excelRange = excelWorksheet.Cells[FromRow, FromCol, ToRow, ToCol];
             //新建表
-            ExcelTable excelTable = excelWorksheet.Tables.Add(excelRange, tableNamePrefix+polylineNumber);
+            ExcelTable excelTable = excelWorksheet.Tables.Add(excelRange, tableNamePrefix + polylineNumber);
             //表样式
             excelTable.TableStyle = DefaultTableStyles;
             excelTable.ShowFilter = false;
@@ -150,11 +214,23 @@ namespace Oy.CAD2006.lib
             excelRange.Style.Border.Right.Style = DefaultExcelBorderStyle;
             excelRange.Style.Border.Bottom.Style = DefaultExcelBorderStyle;
             excelRange.Style.Border.Left.Style = DefaultExcelBorderStyle;
-            excelRange.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-            excelRange.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
-
-            excelWorksheet.Cells.Value = 1;
+            //写入列名
+            for (int i = 0; i < ColumnNameArray.Length; i++)
+            {
+                excelTable.Columns[i].Name = ColumnNameArray[i];
+            }
+            for (int i = 1; i < HowManyLines; i++)
+            {
+                excelWorksheet.Cells[FromRow + i, 1].Value = i;
+                excelWorksheet.Cells[FromRow + i, 2].Value = dikuaihao;
+                excelWorksheet.Cells[FromRow + i, 3].Value = quanhao;
+                excelWorksheet.Cells[FromRow + i, 4].Value = i;
+                excelWorksheet.Cells[FromRow + i, 5].Value = points[i-1];
+                excelWorksheet.Cells[FromRow + i, 6].Value = points[i-1];
+                excelWorksheet.Cells[FromRow + i, 7].Value = i+1;
+                excelWorksheet.Cells[FromRow + i, 8].Value = 123.456789;
+            }
         }
     }
 }
