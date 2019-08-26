@@ -1,4 +1,6 @@
 ﻿using OfficeOpenXml;
+using OfficeOpenXml.Table;
+using OfficeOpenXml.Style;
 using System;
 using System.Data;
 using System.IO;
@@ -89,6 +91,11 @@ namespace Oy.CAD2006.lib
         private ExcelPackage excelPackage;
         private ExcelWorkbook excelWorkbook;
         private ExcelWorksheet excelWorksheet;
+        private double DefaultColWidth=9.71;
+        private double LargerColWidth=15.71;
+        private double DefaultRowHeight = 13.5;
+        private TableStyles DefaultTableStyles = TableStyles.None;
+        private ExcelBorderStyle DefaultExcelBorderStyle = ExcelBorderStyle.Thin;
 
         public Excel2(string FilePath,string WorkSheetName ="Sheet")
         {
@@ -96,6 +103,11 @@ namespace Oy.CAD2006.lib
             this.excelPackage = new ExcelPackage();
             this.excelWorkbook = this.excelPackage.Workbook;
             this.excelWorksheet = this.excelWorkbook.Worksheets.Add(WorkSheetName);
+
+            this.excelWorksheet.DefaultColWidth = this.DefaultColWidth;
+            this.excelWorksheet.DefaultRowHeight = this.DefaultRowHeight;
+            this.excelWorksheet.Column(5).Width = LargerColWidth;
+            this.excelWorksheet.Column(6).Width = LargerColWidth;
             tableRow();
         }
 
@@ -120,7 +132,29 @@ namespace Oy.CAD2006.lib
 
         protected internal void tableRow()
         {
+            string tableNamePrefix = "Table";
+            string polylineNumber = "1";
+            string circleNumber = "1";
+            int rowID = 1;
+            double area =0;
 
+            //表范围
+            ExcelRange excelRange = excelWorksheet.Cells[1,1,8,8];
+            //新建表
+            ExcelTable excelTable = excelWorksheet.Tables.Add(excelRange, tableNamePrefix+polylineNumber);
+            //表样式
+            excelTable.TableStyle = DefaultTableStyles;
+            excelTable.ShowFilter = false;
+            //Range样式
+            excelRange.Style.Border.Top.Style = DefaultExcelBorderStyle;
+            excelRange.Style.Border.Right.Style = DefaultExcelBorderStyle;
+            excelRange.Style.Border.Bottom.Style = DefaultExcelBorderStyle;
+            excelRange.Style.Border.Left.Style = DefaultExcelBorderStyle;
+            excelRange.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            excelRange.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+
+            excelWorksheet.Cells.Value = 1;
         }
     }
 }
