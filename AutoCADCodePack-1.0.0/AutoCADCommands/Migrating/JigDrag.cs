@@ -2,15 +2,12 @@
 // JigDrag类来源于明经通道
 //
 
-using System;
-using Autodesk.AutoCAD.ApplicationServices;
-using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.GraphicsInterface;
-using Autodesk.AutoCAD.Runtime;
-using System.Windows.Forms;
+using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace AutoCADCommands
 {

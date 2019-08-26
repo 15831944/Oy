@@ -179,8 +179,6 @@ namespace AutoCADCommands
             CustomDictionary.SetValue("Selections", name, dictValue);
         }
 
-
-
         /// <summary>
         /// Convert Text to MText
         /// </summary>
@@ -317,10 +315,8 @@ namespace AutoCADCommands
             foreach (var dict in CustomDictionary.GetDictionaryNames())
             {
                 Interaction.WriteLine(dict);
-                Interaction.WriteLine("第一行");
             }
             Interaction.WriteLine(CustomDictionary.GetValue("dict1", "A"));
-            Interaction.WriteLine("第二行");
         }
 
         [CommandMethod("TestDimension")]

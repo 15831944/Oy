@@ -12,19 +12,17 @@ namespace Autodesk.AutoCAD.DatabaseServices
     {
         public Wipeout()
         {
-
+            System.Windows.Forms.MessageBox.Show("未完成类Wipeout");
         }
         //
         protected internal Wipeout(IntPtr unmanagedObjPtr, bool autoDelete)
         {
-
         }
 
         public bool HasFrame { get; set; }
 
         public void SetFrom(Point2dCollection points, Vector3d normal)
         {
-
         }
     }
 }

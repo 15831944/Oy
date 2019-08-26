@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
@@ -62,9 +63,9 @@ namespace AutoCADCommands
                 else
                 {
                     DBDictionary dictRoot = trans.GetObject(nod.GetAt(DictionaryRoot), OpenMode.ForRead) as DBDictionary;
-                    foreach (var entry in dictRoot)
+                    foreach (DictionaryEntry entry in dictRoot)
                     {
-                        yield return entry.Key();
+                        yield return entry.Key.ToString();
                     }
                 }
             }
@@ -73,9 +74,9 @@ namespace AutoCADCommands
         internal static IEnumerable<string> GetEntryNames(ObjectId dictId)
         {
             DBDictionary dict = dictId.QOpenForRead<DBDictionary>();
-            foreach (var entry in dict)
+            foreach (DictionaryEntry entry in dict)
             {
-                yield return entry.Key();
+                   yield return entry.Key.ToString();
             }
         }
 
@@ -241,9 +242,9 @@ namespace AutoCADCommands
             {
                 DBObject dbo = trans.GetObject(id, OpenMode.ForRead);
                 DBDictionary dictRoot = trans.GetObject(dbo.ExtensionDictionary, OpenMode.ForRead) as DBDictionary;
-                foreach (var entry in dictRoot)
+                foreach (DictionaryEntry entry in dictRoot)
                 {
-                    yield return entry.Key();
+                    yield return entry.Key.ToString();
                 }
             }
         }

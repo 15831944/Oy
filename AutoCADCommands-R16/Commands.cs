@@ -46,11 +46,11 @@ namespace AutoCADCommands
                 var objNew = obj.Clone() as Entity;
                 if (objNew is DBPoint)
                 {
-                    (objNew as DBPoint).Position = cv.GetPointAtParam(x);
+                    (objNew as DBPoint).Position = cv.GetPointAtDist(x);
                 }
                 else if (objNew is BlockReference)
                 {
-                    (objNew as BlockReference).Position = cv.GetPointAtParam(x);
+                    (objNew as BlockReference).Position = cv.GetPointAtDist(x);
                 }
                 return objNew;
             }).ToArray();
@@ -71,16 +71,17 @@ namespace AutoCADCommands
             double m = (end - start) / length;
             int n = Convert.ToInt32(m);
             var inserts = Enumerable.Range(1, n).Select(x => start + x * length).ToList();
-            var objs = inserts.Select(x =>
+
+           var objs = inserts.Select(x =>
             {
                 var objNew = obj.Clone() as Entity;
                 if (objNew is DBPoint)
                 {
-                    (objNew as DBPoint).Position = cv.GetPointAtParam(x);
+                    (objNew as DBPoint).Position = cv.GetPointAtDist(x);
                 }
                 else if (objNew is BlockReference)
                 {
-                    (objNew as BlockReference).Position = cv.GetPointAtParam(x);
+                    (objNew as BlockReference).Position = cv.GetPointAtDist(x);
                 }
                 return objNew;
             }).ToArray();
@@ -534,7 +535,7 @@ namespace AutoCADCommands
         /// <returns></returns>
         public static ObjectId Boundary(Point3d seed, BoundaryType type)
         {
-            var loop = Application.DocumentManager.MdiActiveDocument.Editor.TraceBoundary(seed, false);
+               var loop = Application.DocumentManager.MdiActiveDocument.Editor.TraceBoundary(seed, false);
             if (loop.Count > 0)
             {
                 if (type == BoundaryType.Polyline)
