@@ -1,88 +1,15 @@
-﻿using OfficeOpenXml;
+﻿using Autodesk.AutoCAD.Geometry;
+using OfficeOpenXml;
 using OfficeOpenXml.Table;
 using OfficeOpenXml.Style;
 using System;
 using System.Data;
 using System.IO;
 using Forms = System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Oy.CAD2006.lib
 {
-    #region
-    /// <summary>
-    /// Excel类
-    /// </summary>
-    class Excel
-    {
-        #region:data table 版本
-        /// <summary>
-        /// 保存
-        /// </summary>
-        /// <param name="FilePath"></param>
-        //protected internal void SaveExcel(string FilePath)
-        //{
-        //    ExcelPackage package = new ExcelPackage();
-        //    ExcelWorksheet excelWorksheet = package.Workbook.Worksheets.Add("汇总表");
-        //    excelWorksheet.Cells["A1"].LoadFromDataTable(GetDataTable(), false);
-        //    try
-        //    {
-        //        package.SaveAs(new FileInfo(FilePath));
-        //        //询问是否打开文件
-        //        Utils.Interaction.OpenFile(FilePath, true);
-        //    }
-
-        //    //TODO:可删
-        //    catch (Exception)
-        //    {
-        //        //重试操作
-        //        bool Retry = Utils.Interaction.RetrySaveDialog();
-        //        if (Retry is true) SaveExcel(FilePath);
-        //    }
-
-        //    finally
-        //    {
-        //        package.Dispose();
-        //    }
-        //}
-
-        /// <summary>
-        /// /生成DataTable
-        /// </summary>
-        /// <returns></returns>
-        private DataTable GetDataTable()
-        {
-            DataTable table = new DataTable();
-            //table.Columns.Add("序列号", Type.GetType("System.Int32"));
-            //table.Columns.Add("地块号", Type.GetType("System.Int32"));
-            //table.Columns.Add("圈号", Type.GetType("System.Int32"));
-            //table.Columns.Add("界址点号", Type.GetType("System.Int32"));
-            //table.Columns.Add("纵坐标(X)", Type.GetType("System.Double"));
-            //table.Columns.Add("横坐标(Y)", Type.GetType("System.Double"));
-            //table.Columns.Add("指向点号", Type.GetType("System.Int32"));
-            //table.Columns.Add("距离", Type.GetType("System.Double"));
-
-            table.Columns.Add("序列号", 0.GetType());
-            table.Columns.Add("地块号", 0.GetType());
-            table.Columns.Add("圈号", 0.GetType());
-            table.Columns.Add("界址点号", 0.GetType());
-            table.Columns.Add("纵坐标(X)", 0.0.GetType());
-            table.Columns.Add("横坐标(Y)", 0.0.GetType());
-            table.Columns.Add("指向点号", 0.GetType());
-            table.Columns.Add("距离", 0.0.GetType());
-
-            table.Rows.Add(new object[] { 1, 1, 1, 1, 111.111, 222.2222, 2, 10 });
-            table.Rows.Add(new object[] { 1, 1, 1, 1, 111.111, 222.2222, 2, 10 });
-            table.Rows.Add(new object[] { 2, 1, 1, 2, 333.300, 444.440, 3, 20 });
-            table.Rows.Add(new object[] { 3, 1, 1, 3, 555.000, 666.666, 4, 30 });
-            table.Rows.Add(new object[] { 4, 1, 1, 4, 777.7, 888.88, 5, 40 });
-            return table;
-        }
-        #endregion
-
-    }
-
-    #endregion
-
     class Excel2
     {
         private int row;
@@ -120,14 +47,18 @@ namespace Oy.CAD2006.lib
             this.excelWorksheet.Column(5).Width = LargerColWidth;
             this.excelWorksheet.Column(6).Width = LargerColWidth;
             this.excelWorksheet.Column(7).Width = DefaultColWidth;
+            //小数点位数
+            this.excelWorksheet.Column(5).Style.Numberformat.Format = "0.0000";
+            this.excelWorksheet.Column(6).Style.Numberformat.Format = "0.0000";
+            this.excelWorksheet.Column(8).Style.Numberformat.Format = "0.00";
             //宋体，居中
             this.excelWorksheet.Cells.Style.Font.Name = DefaultFont;
             this.excelWorksheet.Cells.Style.HorizontalAlignment = ExcelHorizontalAlignment;
             this.excelWorksheet.Cells.Style.VerticalAlignment = ExcelVerticalAlignment;
-            InfoRow1();
-            InfoRow2(4);
-            TableRow(EndRow+1,2,3,Utils.ConfigArray.TestPoints);
-            Forms.MessageBox.Show(EndRow.ToString());
+
+            InfoHeader();
+            TableRow(Utils.ConfigArray.TestPoints,5,6,7);
+            TableRow(Utils.ConfigArray.TestPoints,6,6,7);
         }
 
         /// <summary>
@@ -156,7 +87,11 @@ namespace Oy.CAD2006.lib
         /// <param name="Row"></param>
         private void MergeRow(int Row)
         {
+            //后续需要处理
             excelWorksheet.Cells[Row, 1, Row, 8].Merge = true;
+            ExcelRange excelRange = excelWorksheet.Cells[excelWorksheet.MergedCells[Row, 1]];
+            excelRange.Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+            excelRange.Style.Font.Bold=true;
         }
 
 
@@ -164,8 +99,11 @@ namespace Oy.CAD2006.lib
         /// 最前面三行信息栏
         /// </summary>
         /// 
-        private void InfoRow1()
+        private void InfoHeader()
         {
+            excelWorksheet.Cells[1, 1].Value = "项目名称:";
+            excelWorksheet.Cells[2, 1].Value = "项目编号:";
+            excelWorksheet.Cells[3, 1].Value = "多边形个数:";
             MergeRow(1);
             MergeRow(2);
             MergeRow(3);
@@ -191,21 +129,21 @@ namespace Oy.CAD2006.lib
         /// 一个table
         /// </summary>
         /// <param name="FromRow"></param>
-        private void TableRow(int FromRow,int dikuaihao,int quanhao,double[] points)
+        private void TableRow(Point3d[] point3Ds, int AreaID, int CircleID, int StartBoundaryPointID)
         {
+            InfoRow2(EndRow + 2);
             string tableNamePrefix = "Table";
-            string polylineNumber = "1";
-            double area = 0;
 
+            int FromRow = EndRow + 1;
             int FromCol = 1;
-            int HowManyLines = points.Length+1;
+            int HowManyLines = point3Ds.Length+1;
             int ToRow = FromRow+HowManyLines;
             int ToCol = 8;
 
             //表范围
             ExcelRange excelRange = excelWorksheet.Cells[FromRow, FromCol, ToRow, ToCol];
             //新建表
-            ExcelTable excelTable = excelWorksheet.Tables.Add(excelRange, tableNamePrefix + polylineNumber);
+            ExcelTable excelTable = excelWorksheet.Tables.Add(excelRange, tableNamePrefix + AreaID);
             //表样式
             excelTable.TableStyle = DefaultTableStyles;
             excelTable.ShowFilter = false;
@@ -220,20 +158,21 @@ namespace Oy.CAD2006.lib
             {
                 excelTable.Columns[i].Name = ColumnNameArray[i];
             }
-            for (int i = 1; i < HowManyLines; i++)
+
+            //写入数据
+            Utils.ArrangedPoint3d[] arrangedPoint3DArray = new Utils.ArrangedPoint3DArray(point3Ds, AreaID, CircleID, StartBoundaryPointID).GetResults();
+            for (int i = 0; i < arrangedPoint3DArray.Length; i++)
             {
-                excelWorksheet.Cells[FromRow + i, 1].Value = i;
-                excelWorksheet.Cells[FromRow + i, 2].Value = dikuaihao;
-                excelWorksheet.Cells[FromRow + i, 3].Value = quanhao;
-                excelWorksheet.Cells[FromRow + i, 4].Value = i;
-                excelWorksheet.Cells[FromRow + i, 5].Value = points[i-1];
-                excelWorksheet.Cells[FromRow + i, 6].Value = points[i-1];
-                excelWorksheet.Cells[FromRow + i, 7].Value = i+1;
-                excelWorksheet.Cells[FromRow + i, 8].Value = 123.456789;
+                Utils.ArrangedPoint3d arrangedPoint3D = arrangedPoint3DArray[i];
+                excelWorksheet.Cells[FromRow + i + 1, 1].Value = i+1;
+                excelWorksheet.Cells[FromRow + i + 1, 2].Value = arrangedPoint3D.AreaID;
+                excelWorksheet.Cells[FromRow + i + 1, 3].Value = arrangedPoint3D.CircleID;
+                excelWorksheet.Cells[FromRow + i + 1, 4].Value = arrangedPoint3D.BoundaryPointID;
+                excelWorksheet.Cells[FromRow + i + 1, 5].Value = arrangedPoint3D.X;
+                excelWorksheet.Cells[FromRow + i + 1, 6].Value = arrangedPoint3D.Y;
+                excelWorksheet.Cells[FromRow + i + 1, 7].Value = arrangedPoint3D.PointTO;
+                excelWorksheet.Cells[FromRow + i + 1, 8].Value = arrangedPoint3D.Distence;
             }
-            excelWorksheet.Cells[FromRow + 1, 4].Copy(excelWorksheet.Cells[FromRow + HowManyLines-1, 7]);
-            excelWorksheet.Cells[FromRow + HowManyLines, 1].Value = HowManyLines;
-            excelWorksheet.Cells[FromRow + 1, 2, FromRow + 1, 8].Copy(excelWorksheet.Cells[FromRow + HowManyLines, 2, FromRow + HowManyLines, 8]);
         }
     }
 }

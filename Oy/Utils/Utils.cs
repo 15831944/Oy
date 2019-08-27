@@ -1,8 +1,10 @@
 ﻿using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Geometry;
 using System;
 using System.Diagnostics;
 using Forms = System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Oy.CAD2006.Utils
 {
@@ -215,11 +217,114 @@ namespace Oy.CAD2006.Utils
     public static class ConfigArray
     {
         public static string[] ColumnNameArray = { "序列号", "地块号", "圈号", "界址点号", "纵坐标（X）", "横坐标（Y）", "指向点号", "距离" };
-        public static double[] TestPoints = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        public static Point3d[] TestPoints = 
+            {
+            new Point3d(3095550.875,40555852.6016,0),
+            new Point3d(3095539.8399,40555852.5772,0),
+            new Point3d(3095539.8399,40555852.5219,0),
+            new Point3d(3095526.7366,40555852.4436,0),
+            new Point3d(3095520.6082,40555852.3724,0),
+            new Point3d(3095518.308,40555852.3357,0),
+            new Point3d(3095513.847,40555852.2379,0),
+            new Point3d(3095508.9408,40555852.1369,0),
+            new Point3d(3095505.4739,40555852.0288,0),
+            new Point3d(3095504.9238,40555851.8527,0),
+             };
     };
 
-    public static class loop
+    public class ArrangedPoint3d
     {
-        public static loop()
+        #region 属性
+        /// <summary>
+        /// X点坐标
+        /// </summary>
+        public double X => this.Point3D.X;
+        /// <summary>
+        /// Y点坐标
+        /// </summary>
+        public double Y => this.Point3D.Y;
+
+        /// <summary>
+        /// 地块号
+        /// </summary>
+        public int AreaID;
+        /// <summary>
+        /// 全号
+        /// </summary>
+        public int CircleID;
+        /// <summary>
+        /// 界址点号
+        /// </summary>
+        public int BoundaryPointID;
+        /// <summary>
+        /// 指向点号
+        /// </summary>
+        public int PointTO;
+        /// <summary>
+        /// 距离
+        /// </summary>
+        public double Distence;
+        private Point3d Point3D;
+
+        #endregion
+
+        public ArrangedPoint3d(Point3d point3D)
+        {
+            this.Point3D = point3D;
+        }
     }
+
+
+    public class ArrangedPoint3DArray
+    {
+        List<ArrangedPoint3d> arrangedPoint3Ds=new List<ArrangedPoint3d>();
+
+        public ArrangedPoint3DArray(Point3d[] point3Ds, int AreaID, int CircleID, int StartBoundaryPointID)
+        {
+            for (int i = 0; i < point3Ds.Length; i++)
+            {
+                ArrangedPoint3d arrangedPoint3D = new ArrangedPoint3d(point3Ds[i]);
+
+                //界址点号赋值
+                arrangedPoint3D.BoundaryPointID = StartBoundaryPointID + i;
+
+                //指向点号赋值
+                arrangedPoint3D.PointTO = arrangedPoint3D.BoundaryPointID + 1;
+                if (arrangedPoint3D.PointTO == point3Ds.Length+ StartBoundaryPointID)
+                {
+                    arrangedPoint3D.PointTO = StartBoundaryPointID;
+                }
+
+                //地块号赋值
+                arrangedPoint3D.AreaID = AreaID;
+                //圈号赋值
+                arrangedPoint3D.CircleID = CircleID;
+
+                //计算到下一个点的距离
+                if (i<point3Ds.Length-1)
+                {
+                    arrangedPoint3D.Distence = point3Ds[i].DistanceTo(point3Ds[i + 1]);
+                }
+                else
+                {
+                    arrangedPoint3D.Distence = point3Ds[i].DistanceTo(point3Ds[0]);
+                }
+
+                //添加到list中
+                this.arrangedPoint3Ds.Add(arrangedPoint3D);
+            }
+            //回圈
+            arrangedPoint3Ds.Add(arrangedPoint3Ds[0]);
+        }
+
+        /// <summary>
+        /// 返回结果
+        /// </summary>
+        /// <returns></returns>
+        public ArrangedPoint3d[] GetResults()
+        {
+            return arrangedPoint3Ds.ToArray();
+        }
+    }
+
 }
