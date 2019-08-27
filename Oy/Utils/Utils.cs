@@ -213,23 +213,35 @@ namespace Oy.CAD2006.Utils
         }
     }
     #endregion
-
     public static class ConfigArray
     {
         public static string[] ColumnNameArray = { "序列号", "地块号", "圈号", "界址点号", "纵坐标（X）", "横坐标（Y）", "指向点号", "距离" };
+
         public static Point3d[] TestPoints = 
-            {
-            new Point3d(3095550.875,40555852.6016,0),
-            new Point3d(3095539.8399,40555852.5772,0),
-            new Point3d(3095539.8399,40555852.5219,0),
-            new Point3d(3095526.7366,40555852.4436,0),
-            new Point3d(3095520.6082,40555852.3724,0),
-            new Point3d(3095518.308,40555852.3357,0),
-            new Point3d(3095513.847,40555852.2379,0),
-            new Point3d(3095508.9408,40555852.1369,0),
-            new Point3d(3095505.4739,40555852.0288,0),
-            new Point3d(3095504.9238,40555851.8527,0),
-             };
+        {
+        new Point3d(3095550.875,40555852.6016,0),
+        new Point3d(3095539.8399,40555852.5772,0),
+        new Point3d(3095539.8399,40555852.5219,0),
+        new Point3d(3095526.7366,40555852.4436,0),
+        new Point3d(3095520.6082,40555852.3724,0),
+        new Point3d(3095518.308,40555852.3357,0),
+        new Point3d(3095513.847,40555852.2379,0),
+        new Point3d(3095508.9408,40555852.1369,0),
+        new Point3d(3095505.4739,40555852.0288,0),
+        new Point3d(3095504.9238,40555851.8527,0),
+        };
+
+        public static TableData[] tableDataArray =
+        {
+        new TableData(TestPoints, 45.67, 1, 2, 1, "1"),
+        new TableData(TestPoints, 23423.123, 2, 1, 21, "2"),
+        new TableData(TestPoints, 245.123, 3, 1, 31, "3"),
+        new TableData(TestPoints, 245.123, 4, 1, 31, "4"),
+        new TableData(TestPoints, 245.123, 5, 1, 31, "5"),
+        new TableData(TestPoints, 245.123, 6, 1, 31, "6"),
+        new TableData(TestPoints, 312233.34, 7, 1, 41, "7")
+        };
+
     };
 
     public class ArrangedPoint3d

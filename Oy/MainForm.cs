@@ -2,6 +2,7 @@
 using ApplicationServices = Autodesk.AutoCAD.ApplicationServices;
 using EditorInput = Autodesk.AutoCAD.EditorInput;
 using Forms = System.Windows.Forms;
+
 namespace Oy.CAD2006.GUI
 {
     public partial class MainForm : Forms.Form
@@ -41,7 +42,8 @@ namespace Oy.CAD2006.GUI
             AddressTextBox.Text = filePath;
             if (filePath != null)
             {
-                lib.Excel2 excel2 = new lib.Excel2(filePath,"汇总表");
+                Points2Excel excel2 = new Points2Excel(filePath,Utils.ConfigArray.tableDataArray,
+                    "潘桥街道横塘村城中村改造工程二期(低效用地)", "NZ-2019-123");
                 excel2.Save();
             }
 
