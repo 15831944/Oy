@@ -217,4 +217,9 @@ namespace Oy.CAD2006.Utils
         public static string[] ColumnNameArray = { "序列号", "地块号", "圈号", "界址点号", "纵坐标（X）", "横坐标（Y）", "指向点号", "距离" };
         public static double[] TestPoints = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     };
+
+    public static class loop
+    {
+        public static loop()
+    }
 }

@@ -231,6 +231,9 @@ namespace Oy.CAD2006.lib
                 excelWorksheet.Cells[FromRow + i, 7].Value = i+1;
                 excelWorksheet.Cells[FromRow + i, 8].Value = 123.456789;
             }
+            excelWorksheet.Cells[FromRow + 1, 4].Copy(excelWorksheet.Cells[FromRow + HowManyLines-1, 7]);
+            excelWorksheet.Cells[FromRow + HowManyLines, 1].Value = HowManyLines;
+            excelWorksheet.Cells[FromRow + 1, 2, FromRow + 1, 8].Copy(excelWorksheet.Cells[FromRow + HowManyLines, 2, FromRow + HowManyLines, 8]);
         }
     }
 }
