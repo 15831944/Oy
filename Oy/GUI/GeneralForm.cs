@@ -1,7 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using Forms=System.Windows.Forms;
 using ApplicationServices = Autodesk.AutoCAD.ApplicationServices;
 using EditorInput = Autodesk.AutoCAD.EditorInput;
-using Forms = System.Windows.Forms;
 
 namespace Oy.CAD2006.GUI
 {
@@ -11,7 +17,7 @@ namespace Oy.CAD2006.GUI
         {
             InitializeComponent();
         }
-        private void MainForm_Load(object sender, EventArgs e)
+        private void TempForm_Load(object sender, EventArgs e)
         {
             readXrecord.PerformClick();
 
@@ -23,7 +29,6 @@ namespace Oy.CAD2006.GUI
                     (control as Forms.TextBox).TextChanged += WriteXrecord_Click;
                 }
             }
-
         }
 
         #region:单击事件

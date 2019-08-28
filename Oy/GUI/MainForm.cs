@@ -14,6 +14,13 @@ namespace Oy.CAD2006.GUI
         public MainForm()
         {
             InitializeComponent();
+            //KeyPreview = true;
+            //MaximizeBox = false;
+            //MinimizeBox = false;
+            StartPosition = FormStartPosition.CenterScreen;
+            //ShowInTaskbar = false;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+
             AddFormToTagPage(new GeneralForm(), GeneralTabPage);
         }
 
@@ -28,6 +35,15 @@ namespace Oy.CAD2006.GUI
             tabPage.Controls.Add(form);
             form.Show();               //让窗体form显示出来
             form.FormBorderStyle = FormBorderStyle.None;  //外边框干掉
+        }
+
+        //ESC快捷键
+        private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Escape)
+            {
+                this.Close();   //关闭窗口
+            }
         }
     }
 }

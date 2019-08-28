@@ -37,13 +37,13 @@
     <ApplicationIcon>Resources\HXQ_favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="lib\MyCommand.cs" />
     <Compile Include="GUI\GeneralForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUI\GeneralForm.Designer.cs">
       <DependentUpon>GeneralForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="lib\MyCommand.cs" />
     <Compile Include="lib\Document.cs" />
     <Compile Include="lib\Points2Excel.cs" />
     <Compile Include="lib\AutoCAD.cs" />
@@ -76,11 +76,11 @@
     <None Include="Resources\Template.xls" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GUI\GeneralForm.resx">
-      <DependentUpon>GeneralForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GUI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\GeneralForm.resx">
+      <DependentUpon>GeneralForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -160,7 +160,7 @@ namespace Oy.CAD2006.Utils
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
                 FileName = "坐标表",//默认文件名
                 Filter = "所有文件(*.*)|*.*|Excel 2007 工作簿(*.xlsx)|*.xlsx|Word 2007 文档(*.docx)|*.docx",
-                RestoreDirectory = true,
+                RestoreDirectory = false,
                 OverwritePrompt = false,
             };
             Forms.DialogResult dialogResult = saveFileDialog.ShowDialog();

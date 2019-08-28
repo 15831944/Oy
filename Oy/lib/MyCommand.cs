@@ -16,7 +16,7 @@ namespace Oy.CAD2006.CommandMethod
         //mainForm.ShowDialog(Application.MainWindow);
         //mainForm.Dispose();
         [CommandMethod("TT")]
-        public void OpenMainForm() => Application.ShowModalDialog(new GUI.MainForm());
+        public void OpenMainForm() => Application.ShowModelessDialog(new GUI.MainForm());
 
 
         [CommandMethod("Greating")]
