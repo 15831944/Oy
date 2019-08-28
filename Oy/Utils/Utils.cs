@@ -49,10 +49,10 @@ namespace Oy.CAD2006.Utils
         public static void WriteToNOD(string NodKey, string NodValue)
         {
             Document document = Application.DocumentManager.MdiActiveDocument;
-            document.LockDocument();
-            Database db = document.Database;
-            using (Transaction transaction = db.TransactionManager.StartTransaction())
+            using (document.LockDocument())
             {
+                Database db = document.Database;
+                Transaction transaction = db.TransactionManager.StartTransaction();
                 // 命名对象字典
                 DBDictionary nod = transaction.GetObject(db.NamedObjectsDictionaryId,
                     OpenMode.ForWrite) as DBDictionary;
