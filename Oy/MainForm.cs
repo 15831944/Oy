@@ -13,6 +13,7 @@ namespace Oy.CAD2006.GUI
         public MainForm()
         {
             InitializeComponent();
+
         }
 
 
@@ -29,6 +30,7 @@ namespace Oy.CAD2006.GUI
                     (control as Forms.TextBox).TextChanged += WriteXrecord_Click;
                 }
             }
+
         }
         
         /// <summary>
@@ -122,6 +124,21 @@ namespace Oy.CAD2006.GUI
             this.infoBox9.Text = dateTimePicker1.Value.Year.ToString() + "年";
             this.infoBox10.Text = dateTimePicker1.Value.Month.ToString() + "月";
             this.infoBox11.Text = dateTimePicker1.Value.Day.ToString() + "日";
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            Forms.TabPage tab = new Forms.TabPage();
+            tab.Name = "bomo";
+            tab.Text = "选项卡1";
+            Forms.Form form = new Forms.Form();
+            form.TopLevel = false;      //设置为非顶级控件
+            tab.Controls.Add(form);
+            tabControl1.TabPages.Add(tab);
+            form.Show();               //让窗体form显示出来
+
+            form.FormBorderStyle = Forms.FormBorderStyle.None;  //外边框干掉
+            //WindowState=Forms.FormWindowState.Minimized; //铺满整个TabPage
         }
     }
 }
