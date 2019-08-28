@@ -67,14 +67,14 @@ namespace Oy.CAD2006.GUI
         }
         private void HideButton_Click(object sender, EventArgs e)
         {
-            Hide(); // this is not mandatory
+            Parent.Parent.Parent.Hide(); // this is not mandatory
             ApplicationServices.Document document = ApplicationServices.Application.DocumentManager.MdiActiveDocument;
             EditorInput.PromptSelectionResult promptSelectionResult = document.Editor.GetSelection();
             if (promptSelectionResult.Status == EditorInput.PromptStatus.OK)
             {
                 document.Editor.WriteMessage(promptSelectionResult.Value.Count.ToString() + "\n");
             }
-            Show(); // this is mandatory if the form have been hidden
+            Parent.Parent.Parent.Show(); // this is mandatory if the form have been hidden
         }
 
         private void WriteXrecord_Click(object sender, EventArgs e)

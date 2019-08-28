@@ -14,11 +14,11 @@ namespace Oy.CAD2006.GUI
         public MainForm()
         {
             InitializeComponent();
-            //KeyPreview = true;
-            //MaximizeBox = false;
-            //MinimizeBox = false;
+            KeyPreview = true;
+            MaximizeBox = false;
+            MinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
-            //ShowInTaskbar = false;
+            ShowInTaskbar = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;
 
             AddFormToTagPage(new GeneralForm(), GeneralTabPage);
