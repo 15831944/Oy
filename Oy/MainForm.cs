@@ -128,13 +128,13 @@ namespace Oy.CAD2006.GUI
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            Forms.TabPage tab = new Forms.TabPage();
+            var tab = this.tabPage1;
             tab.Name = "bomo";
             tab.Text = "选项卡1";
             Forms.Form form = new Forms.Form();
             form.TopLevel = false;      //设置为非顶级控件
+            tab.Controls.Add(new Forms.Button());
             tab.Controls.Add(form);
-            tabControl1.TabPages.Add(tab);
             form.Show();               //让窗体form显示出来
 
             form.FormBorderStyle = Forms.FormBorderStyle.None;  //外边框干掉
