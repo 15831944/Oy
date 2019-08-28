@@ -5,22 +5,15 @@ using Forms = System.Windows.Forms;
 
 namespace Oy.CAD2006.GUI
 {
-    public partial class MainForm : Forms.Form
+    public partial class GeneralForm : Forms.Form
     {
-        /// <summary>
-        /// 初始化form
-        /// </summary>
-        public MainForm()
+        public GeneralForm()
         {
             InitializeComponent();
-
         }
-
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             readXrecord.PerformClick();
-
 
             ///自动保存输入内容
             foreach (Forms.Control control in this.panel1.Controls)
@@ -32,19 +25,15 @@ namespace Oy.CAD2006.GUI
             }
 
         }
-        
-        /// <summary>
-        /// 保存文件按钮
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+
+        #region:单击事件
         private void SaveFIleButton_Click(object sender, EventArgs e)
         {
             string filePath = new Utils.Interaction().GetFilePath();
             AddressTextBox.Text = filePath;
             if (filePath != null)
             {
-                Points2Excel excel2 = new Points2Excel(filePath,Utils.ConfigArray.tableDataArray,
+                Points2Excel excel2 = new Points2Excel(filePath, Utils.ConfigArray.tableDataArray,
                     "潘桥街道横塘村城中村改造工程二期(低效用地)", "NZ-2019-123");
                 excel2.Save();
             }
@@ -71,11 +60,6 @@ namespace Oy.CAD2006.GUI
                 Forms.MessageBox.Show("未输入内容");
             }
         }
-
-
-
-        #region:buttonClickEvent
-        #region:hideButton_Click
         private void HideButton_Click(object sender, EventArgs e)
         {
             Hide(); // this is not mandatory
@@ -87,7 +71,6 @@ namespace Oy.CAD2006.GUI
             }
             Show(); // this is mandatory if the form have been hidden
         }
-        #endregion:hideButton_Click
 
         private void WriteXrecord_Click(object sender, EventArgs e)
         {
@@ -108,37 +91,21 @@ namespace Oy.CAD2006.GUI
             }
         }
 
-        #endregion
-
         private void Button1_Click(object sender, EventArgs e)
         {
-            string[] strOld =  Utils.NamedObjectDictionary.tKey;
+            string[] strOld = Utils.NamedObjectDictionary.tKey;
             string[] strNew = Utils.NamedObjectDictionary.ReadFromNODAll();
             Utils.Word word = new Utils.Word();
-            word.WordReplace(strOld,strNew);
+            word.WordReplace(strOld, strNew);
             this.AddressTextBox.Text = "完成";
         }
+        #endregion
 
         private void DateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             this.infoBox9.Text = dateTimePicker1.Value.Year.ToString() + "年";
             this.infoBox10.Text = dateTimePicker1.Value.Month.ToString() + "月";
             this.infoBox11.Text = dateTimePicker1.Value.Day.ToString() + "日";
-        }
-
-        private void Button2_Click(object sender, EventArgs e)
-        {
-            var tab = this.tabPage1;
-            tab.Name = "bomo";
-            tab.Text = "选项卡1";
-            Forms.Form form = new Forms.Form();
-            form.TopLevel = false;      //设置为非顶级控件
-            tab.Controls.Add(new Forms.Button());
-            tab.Controls.Add(form);
-            form.Show();               //让窗体form显示出来
-
-            form.FormBorderStyle = Forms.FormBorderStyle.None;  //外边框干掉
-            //WindowState=Forms.FormWindowState.Minimized; //铺满整个TabPage
         }
     }
 }
