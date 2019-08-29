@@ -59,10 +59,10 @@ namespace Oy.CAD2006.CommandMethod
                 tableDataList.Add(tableData);
             }
 
-            string filePath = new Utils.Interaction().GetFilePath();
-            if (filePath != null)
+            string saveFilePath = new Utils.Interaction().GetFilePath();
+            if (saveFilePath != null)
             {
-                Points2Excel excel2 = new Points2Excel(filePath, tableDataList.ToArray(),
+                Points2Excel excel2 = new Points2Excel(saveFilePath, tableDataList.ToArray(),
                     "潘桥街道横塘村城中村改造工程二期(低效用地)", "NZ-2019-123");
                 excel2.Save();
             }

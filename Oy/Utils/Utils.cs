@@ -188,10 +188,10 @@ namespace Oy.CAD2006.Utils
         public void WordReplace(string[] strOld, string[] strNew)
         {
 
-            string[] filePaths = { @".\Resources\Cover.docx" };
+            string[] SampleFilePaths = { @".\Resources\Cover.docx" };
             //string[] filePaths = { @".\Resources\Report.docx",@".\Resources\Authorisation.docx"};
 
-            foreach (string filePath in filePaths)
+            foreach (string filePath in SampleFilePaths)
             {
                 if (strOld.Length == strNew.Length)
                 {
@@ -202,9 +202,12 @@ namespace Oy.CAD2006.Utils
                         doc.Replace("[<" + strOld[i] + ">]", strNew[i], false, false);
                     }
                     string saveFilePath = new Interaction().GetFilePath();
-                    doc.SaveToFile(saveFilePath);
-                    doc.Close();
-                    doc.Dispose();
+                    if (saveFilePath !=null)
+                    {
+                        doc.SaveToFile(saveFilePath);
+                        doc.Close();
+                        doc.Dispose();
+                    }
                 }
                 else
                 {

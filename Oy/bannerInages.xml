@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<bannerImages>
+  <bannerImage name="新闻资讯">
+    <cssName>sub_banner2</cssName>
+  </bannerImage>
+  <bannerImage name="技术研发">
+    <cssName>sub_banner3</cssName>
+  </bannerImage>
+  <bannerImage name="人才培养">
+    <cssName>sub_banner4</cssName>
+  </bannerImage>
+  <bannerImage name="合作伙伴">
+    <cssName>sub_banner6</cssName>
+  </bannerImage>
+  <bannerImage name="联系我们">
+    <cssName>sub_banner7</cssName>
+  </bannerImage>
+  <bannerImage name="资源下载">
+    <cssName>sub_banner8</cssName>
+  </bannerImage>
+</bannerImages>

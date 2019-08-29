@@ -34,11 +34,11 @@ namespace Oy.CAD2006.GUI
         #region:单击事件
         private void SaveFIleButton_Click(object sender, EventArgs e)
         {
-            string filePath = new Utils.Interaction().GetFilePath();
-            AddressTextBox.Text = filePath;
-            if (filePath != null)
+            string saveFilePath = new Utils.Interaction().GetFilePath();
+            AddressTextBox.Text = saveFilePath;
+            if (saveFilePath != null)
             {
-                Points2Excel excel2 = new Points2Excel(filePath, Utils.ConfigArray.tableDataArray,
+                Points2Excel excel2 = new Points2Excel(saveFilePath, Utils.ConfigArray.tableDataArray,
                     "潘桥街道横塘村城中村改造工程二期(低效用地)", "NZ-2019-123");
                 excel2.Save();
             }
