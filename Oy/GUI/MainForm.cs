@@ -20,6 +20,7 @@ namespace Oy.CAD2006.GUI
             StartPosition = FormStartPosition.CenterScreen;
             ShowInTaskbar = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Text = "HXQ-瓯越制图辅助系统";
 
             AddFormToTagPage(new GeneralForm(), GeneralTabPage);
         }

@@ -16,7 +16,7 @@ namespace Oy.CAD2006.CommandMethod
         //mainForm.ShowDialog(Application.MainWindow);
         //mainForm.Dispose();
         [CommandMethod("TT")]
-        public void OpenMainForm() => Application.ShowModelessDialog(new GUI.MainForm());
+        public void OpenMainForm() => Application.ShowModalDialog( Application.MainWindow, new GUI.MainForm());
 
 
         [CommandMethod("Greating")]
@@ -40,9 +40,7 @@ namespace Oy.CAD2006.CommandMethod
         [CommandMethod("test")]
         public void Test()
         {
-
-
-            ObjectId[] objectId =Interaction.GetSelection("选择多段线", "LWPOLYLINE");
+            ObjectId[] objectId =Interaction.GetSelection("\n选择多段线", "LWPOLYLINE");
             var ents = objectId.QSelect(x => x).ToList();
             List<TableData> tableDataList = new List<TableData>();
 
@@ -66,6 +64,21 @@ namespace Oy.CAD2006.CommandMethod
                     "潘桥街道横塘村城中村改造工程二期(低效用地)", "NZ-2019-123");
                 excel2.Save();
             }
+        }
+
+
+
+
+        
+        [CommandMethod("test2")]
+        public void Test2()
+        {
+            ObjectId[] ids = Interaction.GetSelection("\n选择多段线", "LWPOLYLINE");
+            double epsilon = Interaction.GetValue("\n最小距离",0.05);//过滤距离,默认大小需要设置文件
+            ids.QForEach<Polyline>(poly =>
+            {
+                int count = Algorithms.PolyClean_ReducePoints(poly, epsilon);
+            });
         }
     }
 }

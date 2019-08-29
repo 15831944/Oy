@@ -94,7 +94,7 @@
             this.panel1.Controls.Add(this.infoLabel1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(282, 360);
+            this.panel1.Size = new System.Drawing.Size(282, 413);
             this.panel1.TabIndex = 42;
             // 
             // infoLabel0
@@ -111,7 +111,7 @@
             this.dateTimePicker1.Location = new System.Drawing.Point(74, 330);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(205, 21);
-            this.dateTimePicker1.TabIndex = 32;
+            this.dateTimePicker1.TabIndex = 20;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.DateTimePicker1_ValueChanged);
             // 
             // infoBox0
@@ -273,7 +273,7 @@
             this.infoBox9.Location = new System.Drawing.Point(74, 249);
             this.infoBox9.Name = "infoBox9";
             this.infoBox9.Size = new System.Drawing.Size(205, 21);
-            this.infoBox9.TabIndex = 16;
+            this.infoBox9.TabIndex = 17;
             this.infoBox9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // infoLabel3
@@ -291,7 +291,7 @@
             this.infoBox10.Location = new System.Drawing.Point(74, 276);
             this.infoBox10.Name = "infoBox10";
             this.infoBox10.Size = new System.Drawing.Size(205, 21);
-            this.infoBox10.TabIndex = 17;
+            this.infoBox10.TabIndex = 18;
             this.infoBox10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // infoLabel2
@@ -309,7 +309,7 @@
             this.infoBox11.Location = new System.Drawing.Point(74, 303);
             this.infoBox11.Name = "infoBox11";
             this.infoBox11.Size = new System.Drawing.Size(205, 21);
-            this.infoBox11.TabIndex = 18;
+            this.infoBox11.TabIndex = 19;
             this.infoBox11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // infoLabel1
@@ -408,6 +408,7 @@
             this.Controls.Add(this.AddressTextBox);
             this.Controls.Add(this.SaveFileButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "GeneralForm";
             this.Text = "GeneralForm";
             this.Load += new System.EventHandler(this.TempForm_Load);

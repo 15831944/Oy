@@ -114,7 +114,9 @@
     <Content Include="Resources\Certification.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\HXQ_favicon.ico" />
+    <Content Include="Resources\HXQ_favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AutoCADCommands-R16\AutoCADCommands-R16.csproj">
