@@ -482,6 +482,23 @@ namespace AutoCADCommands
             }
             else
             {
+                //for (int i = 0; i < poly.EndParam - Consts.Epsilon; i++) // mod 20111101
+                //{
+                //    if (poly.GetBulgeAt(i) == 0)
+                //    {
+                //        yield return poly.GetPointAtParameter(i);
+                //    }
+                //    else
+                //    {
+                //        int divs = divsWhenArc == 0 ? (int)((Math.Atan(Math.Abs(poly.GetBulgeAt(i))) * 4) / (Math.PI / 18) + 4) : divsWhenArc;  // 加4应对特别小的弧度，小弧度对应的弧段长度可能很大
+                //        for (int j = 0; j < divs; j++)
+                //        {
+
+                //            yield return poly.GetPointAtParam(i + (double)j / divs);
+                //        }
+                //    }
+                //}
+
                 for (int i = 0; i < poly.EndParam - Consts.Epsilon; i++) // mod 20111101
                 {
                     if (poly.GetBulgeAt(i) == 0)
@@ -490,7 +507,8 @@ namespace AutoCADCommands
                     }
                     else
                     {
-                        int divs = divsWhenArc == 0 ? (int)((Math.Atan(Math.Abs(poly.GetBulgeAt(i))) * 4) / (Math.PI / 18) + 4) : divsWhenArc;  // 加4应对特别小的弧度，小弧度对应的弧段长度可能很大
+                        double length = (poly.GetDistAtParam(i+1) - poly.GetDistAtParam(i));
+                        int divs =(int)Math.Floor(length / 2);
                         for (int j = 0; j < divs; j++)
                         {
                             yield return poly.GetPointAtParam(i + (double)j / divs);
