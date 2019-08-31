@@ -7,6 +7,7 @@ using AutoCADCommands;
 using System.Linq;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Reflection;
 
 [assembly: CommandClass(typeof(CommandMethod))]
 namespace Oy.CAD2006.CommandMethod
@@ -42,16 +43,16 @@ namespace Oy.CAD2006.CommandMethod
         public void Test()
         {
             // Get the configuration file.
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            Configuration config = ConfigurationManager.OpenExeConfiguration(Assembly.GetExecutingAssembly().GetName().Name+".dll");
+            Interaction.WriteLine(config.AppSettings.Settings["Browser"].Value);
+            Interaction.WriteLine(config.AppSettings.Settings["Username"].Value);
+            Interaction.WriteLine(config.AppSettings.Settings["Password"].Value);
 
-            // Get the appSettings section.
-            AppSettingsSection appSettings = (AppSettingsSection)config.GetSection("appSettings");
-            System.Collections.IEnumerator aa = appSettings.Settings.GetEnumerator();
-
-                Interaction.WriteLine(aa.MoveNext().ToString());
-                //Interaction.WriteLine(ConfigurationManager.AppSettings.Get("Browser"));
-                //Interaction.WriteLine(ConfigurationManager.AppSettings.Get("Username"));
-                //Interaction.WriteLine(ConfigurationManager.AppSettings.Get("Password"));
+            var s =config.AppSettings.Settings.AllKeys;
+            foreach (var item in s)
+            {
+                Interaction.WriteLine(item);
+            }
         }
     }
 }
