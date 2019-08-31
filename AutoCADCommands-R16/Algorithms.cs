@@ -482,23 +482,6 @@ namespace AutoCADCommands
             }
             else
             {
-                //for (int i = 0; i < poly.EndParam - Consts.Epsilon; i++) // mod 20111101
-                //{
-                //    if (poly.GetBulgeAt(i) == 0)
-                //    {
-                //        yield return poly.GetPointAtParameter(i);
-                //    }
-                //    else
-                //    {
-                //        int divs = divsWhenArc == 0 ? (int)((Math.Atan(Math.Abs(poly.GetBulgeAt(i))) * 4) / (Math.PI / 18) + 4) : divsWhenArc;  // 加4应对特别小的弧度，小弧度对应的弧段长度可能很大
-                //        for (int j = 0; j < divs; j++)
-                //        {
-
-                //            yield return poly.GetPointAtParam(i + (double)j / divs);
-                //        }
-                //    }
-                //}
-
                 for (int i = 0; i < poly.EndParam - Consts.Epsilon; i++) // mod 20111101
                 {
                     if (poly.GetBulgeAt(i) == 0)
@@ -507,10 +490,10 @@ namespace AutoCADCommands
                     }
                     else
                     {
-                        double length = (poly.GetDistAtParam(i+1) - poly.GetDistAtParam(i));
-                        int divs =(int)Math.Floor(length / 2);
+                        int divs = divsWhenArc == 0 ? (int)((Math.Atan(Math.Abs(poly.GetBulgeAt(i))) * 4) / (Math.PI / 18) + 4) : divsWhenArc;  // 加4应对特别小的弧度，小弧度对应的弧段长度可能很大
                         for (int j = 0; j < divs; j++)
                         {
+
                             yield return poly.GetPointAtParam(i + (double)j / divs);
                         }
                     }
@@ -536,6 +519,65 @@ namespace AutoCADCommands
                 throw new PolylineNeedCleanException("请先运行多段线清理。");
             }
         }
+
+
+
+        /// <summary>
+        /// 获取多段线上曲线部分的等距点
+        /// </summary>
+        /// <param name="cv">多段线</param>
+        /// <param name="divsLenghtWhenArc">距离</param>
+        /// <returns></returns>
+        private static IEnumerable<Point3d> GetPolylineDivPointsImp(this Curve cv, double divsLenghtWhenArc)
+        {
+            Polyline poly = cv as Polyline;
+            if (poly == null)
+            {
+                yield return cv.StartPoint;
+                yield return cv.EndPoint;
+            }
+            else
+            {
+                for (int i = 0; i < poly.EndParam - Consts.Epsilon; i++) // mod 20111101
+                {
+                    if (poly.GetBulgeAt(i) == 0)
+                    {
+                        yield return poly.GetPointAtParameter(i);
+                    }
+                    else
+                    {
+                        double length = (poly.GetDistAtParam(i + 1) - poly.GetDistAtParam(i));
+                        int divs = (int)Math.Floor(length / divsLenghtWhenArc);
+                        for (int j = 0; j < divs; j++)
+                        {
+                            yield return poly.GetPointAtParam(i + (double)j / divs);
+                        }
+                    }
+                }
+                yield return poly.GetPointAtParameter(poly.EndParam);
+            }
+        }
+
+        /// <summary>
+        /// 获取多段线的拟合点集
+        /// </summary>
+        /// <param name="cv">多段线</param>
+        /// <param name="divsLenghtWhenArc">弧段的分段数，默认为0，表示智能选取</param>
+        /// <returns>拟合点集</returns>
+        public static IEnumerable<Point3d> GetPolylineDivPoints(this Curve cv, double divsLenghtWhenArc = 0)
+        {
+            try
+            {
+                return GetPolylineDivPointsImp(cv, divsLenghtWhenArc).ToArray();
+            }
+            catch
+            {
+                throw new PolylineNeedCleanException("请先运行多段线清理。");
+            }
+        }
+
+
+
 
         /// <summary>
         /// 获取曲线上以整数参数点为界的曲线段

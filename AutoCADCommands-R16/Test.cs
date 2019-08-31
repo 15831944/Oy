@@ -72,23 +72,23 @@ namespace AutoCADCommands
         }
 
         /// <summary>
-        /// Fit arc segs of polyline with line segs
+        /// 多段线曲线等距连接
         /// </summary>
         [CommandMethod("PolyClean3", CommandFlags.UsePickSet)]
         public static void PolyClean3()
         {
-            double value = Interaction.GetValue("\nNumber of segs to fit an arc, 0 for smart determination", 0);
+            double value = Interaction.GetValue("\n距离,默认为2", 2);
             if (double.IsNaN(value))
             {
                 return;
             }
-            int n = (int)value;
+            double n = value;
 
-            ObjectId[] ids = Interaction.GetSelection("\nSelect polyline", "LWPOLYLINE");
+            ObjectId[] ids = Interaction.GetSelection("\n选择多段线", "LWPOLYLINE");
             var entsToAdd = new List<Polyline>();
             ids.QForEach<Polyline>(poly =>
             {
-                var pts = poly.GetPolylineFitPoints(n);
+                var pts = poly.GetPolylineDivPoints(n);
                 var poly1 = NoDraw.Pline(pts);
                 poly1.Layer = poly.Layer;
                 try
