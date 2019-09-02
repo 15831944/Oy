@@ -43,6 +43,7 @@
     <Compile Include="GUI\GeneralForm.Designer.cs">
       <DependentUpon>GeneralForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AppConfig.cs" />
     <Compile Include="lib\MyCommand.cs" />
     <Compile Include="lib\Document.cs" />
     <Compile Include="lib\Points2Excel.cs" />

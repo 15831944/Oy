@@ -18,15 +18,17 @@ namespace Oy.CAD2006
         private readonly ExcelPackage excelPackage;
         private readonly ExcelWorkbook excelWorkbook;
         private readonly ExcelWorksheet excelWorksheet;
-        private readonly double DefaultColWidth = 9.71;
-        private readonly double LargerColWidth = 15.71;
-        private readonly double DefaultRowHeight = 13.5;
+        private readonly double DefaultColWidth = lib.AppConfig.DefaultColWidth;
+        private readonly double LargerColWidth = lib.AppConfig.LargerColWidth;
+        private readonly double DefaultRowHeight = lib.AppConfig.DefaultRowHeight;
         private readonly TableStyles DefaultTableStyles = TableStyles.None;
         private readonly ExcelBorderStyle DefaultExcelBorderStyle = ExcelBorderStyle.Thin;
-        private string DefaultFont = "宋体";
+
+        private string DefaultFont = lib.AppConfig.DefaultFont;
+
         private readonly ExcelHorizontalAlignment ExcelHorizontalAlignment = ExcelHorizontalAlignment.Center;
         private readonly ExcelVerticalAlignment ExcelVerticalAlignment = ExcelVerticalAlignment.Center;
-        private readonly string[] ColumnNameArray = Utils.ConfigArray.ColumnNameArray;
+        private readonly string[] ColumnNameArray = lib.AppConfig.GetExcelColumnName;
 
         //属性
         private int NextRow => excelWorksheet.Dimension.End.Row + 1;

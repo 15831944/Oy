@@ -41,7 +41,7 @@ namespace Oy.CAD2006.Utils
     #region:NOD
     class NamedObjectDictionary
     {
-        public static readonly string[] tKey = { "项目编号", "项目名称", "委托单位", "街道-乡镇", "村落-社区", "制图人员", "检查人员", "审核人员", "坐标系统", "日期(年)", "日期(月)", "日期(日)" };
+        public static readonly string[] ProjectInfoName = lib.AppConfig.GetProjectInfoName;
 
         /// <summary>
         /// 写入字典
@@ -103,10 +103,10 @@ namespace Oy.CAD2006.Utils
         /// </summary>
         public static string[] ReadFromNODAll()
         {
-            string[] tValue = new string[tKey.Length];
-            for (int i = 0; i < tKey.Length; i++)
+            string[] tValue = new string[ProjectInfoName.Length];
+            for (int i = 0; i < ProjectInfoName.Length; i++)
             {
-                tValue[i] = ReadFromNOD(tKey[i]);
+                tValue[i] = ReadFromNOD(ProjectInfoName[i]);
             }
             return tValue;
         }
@@ -187,7 +187,6 @@ namespace Oy.CAD2006.Utils
         /// <param name="strNew">替换文本</param>
         public void WordReplace(string[] strOld, string[] strNew)
         {
-
             string[] SampleFilePaths = { @".\Resources\Cover.docx" };
             //string[] filePaths = { @".\Resources\Report.docx",@".\Resources\Authorisation.docx"};
 
@@ -217,36 +216,6 @@ namespace Oy.CAD2006.Utils
         }
     }
     #endregion
-    public static class ConfigArray
-    {
-        public static string[] ColumnNameArray = { "序列号", "地块号", "圈号", "界址点号", "纵坐标（X）", "横坐标（Y）", "指向点号", "距离" };
-
-        public static Point3d[] TestPoints = 
-        {
-        new Point3d(3095550.875,40555852.6016,0),
-        new Point3d(3095539.8399,40555852.5772,0),
-        new Point3d(3095539.8399,40555852.5219,0),
-        new Point3d(3095526.7366,40555852.4436,0),
-        new Point3d(3095520.6082,40555852.3724,0),
-        new Point3d(3095518.308,40555852.3357,0),
-        new Point3d(3095513.847,40555852.2379,0),
-        new Point3d(3095508.9408,40555852.1369,0),
-        new Point3d(3095505.4739,40555852.0288,0),
-        new Point3d(3095504.9238,40555851.8527,0),
-        };
-
-        public static TableData[] tableDataArray =
-        {
-        new TableData(TestPoints, 45.67, 1, 2, 1, "1"),
-        new TableData(TestPoints, 23423.123, 2, 1, 21, "2"),
-        new TableData(TestPoints, 245.123, 3, 1, 31, "3"),
-        new TableData(TestPoints, 245.123, 4, 1, 31, "4"),
-        new TableData(TestPoints, 245.123, 5, 1, 31, "5"),
-        new TableData(TestPoints, 245.123, 6, 1, 31, "6"),
-        new TableData(TestPoints, 312233.34, 7, 1, 41, "7")
-        };
-
-    };
 
     public class ArrangedPoint3d
     {
@@ -289,7 +258,6 @@ namespace Oy.CAD2006.Utils
             this.Point3D = point3D;
         }
     }
-
 
     public class ArrangedPoint3DArray
     {
