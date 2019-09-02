@@ -411,7 +411,7 @@
             this.KeyPreview = true;
             this.Name = "GeneralForm";
             this.Text = "GeneralForm";
-            this.Load += new System.EventHandler(this.TempForm_Load);
+            this.Load += new System.EventHandler(this.Form_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

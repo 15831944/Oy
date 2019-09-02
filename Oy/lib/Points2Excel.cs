@@ -116,8 +116,8 @@ namespace Oy.CAD2006
         /// 
         private void AddHeaderInfo(string ProjectName, string ProjectNum,int TotalpolylineNum)
         {
-            excelWorksheet.Cells[1, 1].Value = "项目名称:"+ ProjectName;
-            excelWorksheet.Cells[2, 1].Value = "项目编号:"+ ProjectNum;
+            excelWorksheet.Cells[1, 1].Value = lib.AppConfig.ProjectInfoName[1]+ ":"+ ProjectName;
+            excelWorksheet.Cells[2, 1].Value = lib.AppConfig.ProjectInfoName[0] + ":" + ProjectNum;
             excelWorksheet.Cells[3, 1].Value = "多边形个数:"+ TotalpolylineNum;
             MergeRow(1);
             MergeRow(2);
@@ -146,7 +146,7 @@ namespace Oy.CAD2006
 
             excelRange13.Value = "多边形编号:" + polylineLabelName;
             excelRange45.Value = "界址点数:" + BoundaryAmount;
-            excelRange68.Value = "用地面积(㎡)：" + Area;
+            excelRange68.Value = "用地面积(㎡)：" + Area.ToString();
         }
 
 

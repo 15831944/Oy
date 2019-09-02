@@ -19,7 +19,7 @@ namespace Oy.CAD2006.GUI
         {
             InitializeComponent();
         }
-        private void TempForm_Load(object sender, EventArgs e)
+        private void Form_Load(object sender, EventArgs e)
         {
             string[] ProjectInfoName = lib.AppConfig.ProjectInfoName;
             for (int i = 0; i < ProjectInfoName.Length; i++)
@@ -58,8 +58,9 @@ namespace Oy.CAD2006.GUI
             {
                 Polyline polyline = ents[i] as Polyline;
                 var point3Ds = polyline.GetPolyPoints().ToArray();
-                //保留面积两位小数
-                double Area = System.Math.Round(polyline.Area, 2);
+                //获取面积
+                double Area = Math.Round(polyline.Area, lib.AppConfig.AreaPrecision);
+
                 TableData tableData = new TableData(point3Ds, Area, i + 1, 1, StartBoundaryPointID, (i + 1).ToString());
                 StartBoundaryPointID += point3Ds.Length;
                 tableDataList.Add(tableData);
@@ -68,8 +69,10 @@ namespace Oy.CAD2006.GUI
             string saveFilePath = new Utils.Interaction().GetFilePath();
             if (saveFilePath != null)
             {
-                Points2Excel excel2 = new Points2Excel(saveFilePath, tableDataList.ToArray(),
-                    "潘桥街道横塘村城中村改造工程二期(低效用地)", "NZ-2019-123");
+                Points2Excel excel2 = new Points2Excel(saveFilePath,
+                                                       tableDataList.ToArray(),
+                                                       Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[1]),
+                                                       Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[0]));
                 excel2.Save();
             }
         }
@@ -109,6 +112,7 @@ namespace Oy.CAD2006.GUI
         private void WriteXrecord_Click(object sender, EventArgs e)
         {
             string[] ProjectInfoName = lib.AppConfig.ProjectInfoName;
+
             for (int i = 0; i <= 11; i++)
             {
                 Forms.TextBox textBox = (Forms.TextBox)panel1.Controls["infoBox" + i.ToString()];

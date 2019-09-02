@@ -253,7 +253,6 @@ namespace Oy.CAD2006.Utils
         private Point3d Point3D;
 
         #endregion
-
         public ArrangedPoint3d(Point3d point3D)
         {
             this.Point3D = point3D;

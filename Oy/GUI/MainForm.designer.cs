@@ -31,7 +31,7 @@
             this.MainFormTabControl = new System.Windows.Forms.TabControl();
             this.GeneralTabPage = new System.Windows.Forms.TabPage();
             this.PropertyTabPag = new System.Windows.Forms.TabPage();
-            this.SettingTabPage = new System.Windows.Forms.TabPage();
+            this.SettingsTabPage = new System.Windows.Forms.TabPage();
             this.MainFormTabControl.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -39,7 +39,7 @@
             // 
             this.MainFormTabControl.Controls.Add(this.GeneralTabPage);
             this.MainFormTabControl.Controls.Add(this.PropertyTabPag);
-            this.MainFormTabControl.Controls.Add(this.SettingTabPage);
+            this.MainFormTabControl.Controls.Add(this.SettingsTabPage);
             this.MainFormTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainFormTabControl.Location = new System.Drawing.Point(0, 0);
             this.MainFormTabControl.Name = "MainFormTabControl";
@@ -67,14 +67,14 @@
             this.PropertyTabPag.Text = "特性";
             this.PropertyTabPag.UseVisualStyleBackColor = true;
             // 
-            // SettingTabPage
+            // SettingsTabPage
             // 
-            this.SettingTabPage.Location = new System.Drawing.Point(4, 22);
-            this.SettingTabPage.Name = "SettingTabPage";
-            this.SettingTabPage.Size = new System.Drawing.Size(792, 424);
-            this.SettingTabPage.TabIndex = 2;
-            this.SettingTabPage.Text = "设置";
-            this.SettingTabPage.UseVisualStyleBackColor = true;
+            this.SettingsTabPage.Location = new System.Drawing.Point(4, 22);
+            this.SettingsTabPage.Name = "SettingsTabPage";
+            this.SettingsTabPage.Size = new System.Drawing.Size(792, 424);
+            this.SettingsTabPage.TabIndex = 2;
+            this.SettingsTabPage.Text = "设置";
+            this.SettingsTabPage.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -94,6 +94,6 @@
         private System.Windows.Forms.TabControl MainFormTabControl;
         private System.Windows.Forms.TabPage GeneralTabPage;
         private System.Windows.Forms.TabPage PropertyTabPag;
-        private System.Windows.Forms.TabPage SettingTabPage;
+        private System.Windows.Forms.TabPage SettingsTabPage;
     }
 }

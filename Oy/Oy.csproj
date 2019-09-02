@@ -44,6 +44,12 @@
       <DependentUpon>GeneralForm.cs</DependentUpon>
     </Compile>
     <Compile Include="AppConfig.cs" />
+    <Compile Include="GUI\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="lib\MyCommand.cs" />
     <Compile Include="lib\Points2Excel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -53,7 +59,7 @@
     <Compile Include="GUI\MainForm.designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utils\Utils.cs" />
+    <Compile Include="lib\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -80,6 +86,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\GeneralForm.resx">
       <DependentUpon>GeneralForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

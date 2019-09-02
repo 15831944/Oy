@@ -23,6 +23,8 @@ namespace Oy.CAD2006.GUI
             Text = "HXQ-瓯越制图辅助系统";
 
             AddFormToTagPage(new GeneralForm(), GeneralTabPage);
+            AddFormToTagPage(new SettingsForm(), SettingsTabPage);
+
         }
 
         /// <summary>
