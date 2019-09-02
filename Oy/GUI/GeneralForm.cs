@@ -21,7 +21,7 @@ namespace Oy.CAD2006.GUI
         }
         private void TempForm_Load(object sender, EventArgs e)
         {
-            string[] ProjectInfoName = lib.AppConfig.GetProjectInfoName;
+            string[] ProjectInfoName = lib.AppConfig.ProjectInfoName;
             for (int i = 0; i < ProjectInfoName.Length; i++)
             {
                 Forms.Label label = (Forms.Label)panel1.Controls["infoLabel" + i.ToString()];
@@ -44,6 +44,11 @@ namespace Oy.CAD2006.GUI
         private void SaveFIleButton_Click(object sender, EventArgs e)
         {
             ObjectId[] objectId = Interaction.GetSelection("\n选择多段线", "LWPOLYLINE");
+            if (objectId.Length==0)
+            {
+                Interaction.WriteLine("取消");
+                return;
+            }
             var ents = objectId.QSelect(x => x).ToList();
             List<TableData> tableDataList = new List<TableData>();
 
@@ -103,7 +108,7 @@ namespace Oy.CAD2006.GUI
 
         private void WriteXrecord_Click(object sender, EventArgs e)
         {
-            string[] ProjectInfoName = Utils.NamedObjectDictionary.ProjectInfoName;
+            string[] ProjectInfoName = lib.AppConfig.ProjectInfoName;
             for (int i = 0; i <= 11; i++)
             {
                 Forms.TextBox textBox = (Forms.TextBox)panel1.Controls["infoBox" + i.ToString()];
@@ -122,7 +127,7 @@ namespace Oy.CAD2006.GUI
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            string[] strOld = Utils.NamedObjectDictionary.ProjectInfoName;
+            string[] strOld = lib.AppConfig.ProjectInfoName;
             string[] strNew = Utils.NamedObjectDictionary.ReadFromNODAll();
             Utils.Word word = new Utils.Word();
             word.WordReplace(strOld, strNew);

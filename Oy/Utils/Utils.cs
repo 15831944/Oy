@@ -41,7 +41,6 @@ namespace Oy.CAD2006.Utils
     #region:NOD
     class NamedObjectDictionary
     {
-        public static readonly string[] ProjectInfoName = lib.AppConfig.GetProjectInfoName;
 
         /// <summary>
         /// 写入字典
@@ -103,7 +102,9 @@ namespace Oy.CAD2006.Utils
         /// </summary>
         public static string[] ReadFromNODAll()
         {
-            string[] tValue = new string[ProjectInfoName.Length];
+        string[] ProjectInfoName = lib.AppConfig.ProjectInfoName;
+
+        string[] tValue = new string[ProjectInfoName.Length];
             for (int i = 0; i < ProjectInfoName.Length; i++)
             {
                 tValue[i] = ReadFromNOD(ProjectInfoName[i]);

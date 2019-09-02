@@ -45,9 +45,7 @@
     </Compile>
     <Compile Include="AppConfig.cs" />
     <Compile Include="lib\MyCommand.cs" />
-    <Compile Include="lib\Document.cs" />
     <Compile Include="lib\Points2Excel.cs" />
-    <Compile Include="lib\AutoCAD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GUI\MainForm.cs">
       <SubType>Form</SubType>

@@ -6,8 +6,6 @@ using Oy.CAD2006.CommandMethod;
 using AutoCADCommands;
 using System.Linq;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Reflection;
 
 [assembly: CommandClass(typeof(CommandMethod))]
 namespace Oy.CAD2006.CommandMethod
@@ -21,11 +19,8 @@ namespace Oy.CAD2006.CommandMethod
         public void OpenMainForm() => Application.ShowModalDialog(Application.MainWindow, new GUI.MainForm());
 
 
-        [CommandMethod("Greating")]
-        public void Greating() => lib.AutoCAD.Greating();
-
-        [CommandMethod("ExportDocument")]
-        public void ExportDocument() => lib.Document.ExportDocument();
+        //[CommandMethod("ExportDocument")]
+        //public void ExportDocument() => lib.Document.ExportDocument();
 
         /// <summary>
         /// 写入测试数据

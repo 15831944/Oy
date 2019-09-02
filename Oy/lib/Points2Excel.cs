@@ -13,25 +13,25 @@ namespace Oy.CAD2006
     class Points2Excel
     {
         #region 字段与属性
-        //字段
         private readonly string filePath;
         private readonly ExcelPackage excelPackage;
         private readonly ExcelWorkbook excelWorkbook;
         private readonly ExcelWorksheet excelWorksheet;
+
+        private readonly TableStyles DefaultTableStyles = TableStyles.None;
+        private readonly ExcelBorderStyle DefaultExcelBorderStyle = ExcelBorderStyle.Thin;
+        private readonly ExcelHorizontalAlignment ExcelHorizontalAlignment = ExcelHorizontalAlignment.Center;
+        private readonly ExcelVerticalAlignment ExcelVerticalAlignment = ExcelVerticalAlignment.Center;
+
         private readonly double DefaultColWidth = lib.AppConfig.DefaultColWidth;
         private readonly double LargerColWidth = lib.AppConfig.LargerColWidth;
         private readonly double DefaultRowHeight = lib.AppConfig.DefaultRowHeight;
-        private readonly TableStyles DefaultTableStyles = TableStyles.None;
-        private readonly ExcelBorderStyle DefaultExcelBorderStyle = ExcelBorderStyle.Thin;
+        private readonly string DefaultFont = lib.AppConfig.DefaultFont;
+        private readonly string CoordinatePrecision = lib.AppConfig.CoordinatePrecision;
+        private readonly string DistencePrecision = lib.AppConfig.DistencePrecision;
+        private readonly string[] ColumnNameArray = lib.AppConfig.ExcelColumnName;
 
-        private string DefaultFont = lib.AppConfig.DefaultFont;
-
-        private readonly ExcelHorizontalAlignment ExcelHorizontalAlignment = ExcelHorizontalAlignment.Center;
-        private readonly ExcelVerticalAlignment ExcelVerticalAlignment = ExcelVerticalAlignment.Center;
-        private readonly string[] ColumnNameArray = lib.AppConfig.GetExcelColumnName;
-
-        //属性
-        private int NextRow => excelWorksheet.Dimension.End.Row + 1;
+        private int NextRow => excelWorksheet.Dimension.End.Row+1;
         #endregion
 
         #region 初始化
@@ -56,9 +56,9 @@ namespace Oy.CAD2006
             excelWorksheet.Column(6).Width = LargerColWidth;
             excelWorksheet.Column(7).Width = DefaultColWidth;
             //数字精度
-            excelWorksheet.Column(5).Style.Numberformat.Format = "0.0000";
-            excelWorksheet.Column(6).Style.Numberformat.Format = "0.0000";
-            excelWorksheet.Column(8).Style.Numberformat.Format = "0.00";
+            excelWorksheet.Column(5).Style.Numberformat.Format = CoordinatePrecision;
+            excelWorksheet.Column(6).Style.Numberformat.Format = CoordinatePrecision;
+            excelWorksheet.Column(8).Style.Numberformat.Format = DistencePrecision;
             //宋体，居中
             excelWorksheet.Cells.Style.Font.Name = DefaultFont;
             excelWorksheet.Cells.Style.HorizontalAlignment = ExcelHorizontalAlignment;
