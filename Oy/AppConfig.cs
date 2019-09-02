@@ -20,7 +20,6 @@ namespace Oy.CAD2006.lib
         public static string CoordinatePrecision => config.AppSettings.Settings["CoordinatePrecision"].Value;
         public static string DistencePrecision => config.AppSettings.Settings["DistencePrecision"].Value;
 
-
         public AppConfig()
         {
             // Get the configuration file.
@@ -28,7 +27,6 @@ namespace Oy.CAD2006.lib
 
             config.AppSettings.Settings.Add("asd", "das");
             Interaction.WriteLine(config.AppSettings.Settings["asd"].Value);
-
         }
 
         public static void Update(string Key, string Value)
