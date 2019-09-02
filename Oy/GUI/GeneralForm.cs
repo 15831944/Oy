@@ -21,23 +21,35 @@ namespace Oy.CAD2006.GUI
         }
         private void Form_Load(object sender, EventArgs e)
         {
-            string[] ProjectInfoName = lib.AppConfig.ProjectInfoName;
-            for (int i = 0; i < ProjectInfoName.Length; i++)
-            {
-                Forms.Label label = (Forms.Label)panel1.Controls["infoLabel" + i.ToString()];
-                label.Text = ProjectInfoName[i];
-            }
-
-            readXrecord.PerformClick();
-
+            List<string> ProjectInfoName = lib.AppConfig.ProjectInfoName.ToList();
             ///自动保存输入内容
             foreach (Forms.Control control in this.panel1.Controls)
             {
-                if (control is Forms.TextBox)
+                if (control is Forms.TextBox textBox)
                 {
-                    (control as Forms.TextBox).TextChanged += WriteXrecord_Click;
+                    textBox.TextChanged += WriteXrecord_Click;
+                    textBox.Name = ProjectInfoName[0];
+                    ProjectInfoName.RemoveAt(0);
                 }
             }
+
+
+
+
+            //ProjectInfoName = lib.AppConfig.ProjectInfoName.ToList();
+            //foreach (Forms.Control control in this.panel1.Controls)
+            //{
+            //    if (control is Forms.Label label)
+            //    {
+            //        label.Text = ProjectInfoName[0];
+            //        ProjectInfoName.RemoveAt(0);
+            //    }
+            //}
+
+
+
+
+            readXrecord.PerformClick();
         }
 
         #region:单击事件
@@ -72,7 +84,9 @@ namespace Oy.CAD2006.GUI
                 Points2Excel excel2 = new Points2Excel(saveFilePath,
                                                        tableDataList.ToArray(),
                                                        Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[1]),
-                                                       Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[0]));
+                                                       Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[0]),
+                                                       this.ExchangeXY.Checked,
+                                                       this.Plus40.Checked);
                 excel2.Save();
             }
         }
@@ -109,23 +123,22 @@ namespace Oy.CAD2006.GUI
             Parent.Parent.Parent.Show(); // this is mandatory if the form have been hidden
         }
 
+        //写入Xrecord
         private void WriteXrecord_Click(object sender, EventArgs e)
         {
-            string[] ProjectInfoName = lib.AppConfig.ProjectInfoName;
-
-            for (int i = 0; i <= 11; i++)
-            {
-                Forms.TextBox textBox = (Forms.TextBox)panel1.Controls["infoBox" + i.ToString()];
-                Utils.NamedObjectDictionary.WriteToNOD(ProjectInfoName[i], textBox.Text);
-            }
+            Forms.TextBox textBox = sender as Forms.TextBox;
+            Utils.NamedObjectDictionary.WriteToNOD(textBox.Name, textBox.Text);
         }
+
+        //读取并显示Xrecord
         private void ReadXrecord_Click(object sender, EventArgs e)
         {
-            string[] tValue = Utils.NamedObjectDictionary.ReadFromNODAll();
-            for (int i = 0; i < tValue.Length; i++)
+            foreach (Forms.Control control in this.panel1.Controls)
             {
-                Forms.TextBox textBox = (Forms.TextBox)panel1.Controls["infoBox" + i.ToString()];
-                textBox.Text = tValue[i];
+                if (control is Forms.TextBox textBox)
+                {
+                    textBox.Text = Utils.NamedObjectDictionary.ReadFromNOD(textBox.Name);
+                }
             }
         }
 

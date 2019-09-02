@@ -31,6 +31,9 @@ namespace Oy.CAD2006
         private readonly string DistencePrecision = lib.AppConfig.DistencePrecision;
         private readonly string[] ColumnNameArray = lib.AppConfig.ExcelColumnName;
 
+        private bool ExchangeXY;
+        private bool Plus40;
+
         private int NextRow => excelWorksheet.Dimension.End.Row+1;
         #endregion
 
@@ -42,13 +45,16 @@ namespace Oy.CAD2006
         /// <param name="tableDataArray">数据</param>
         /// <param name="ProjectName">项目名称</param>
         /// <param name="ProjectCode">项目编号</param>
-        public Points2Excel(string FilePath, TableData[] tableDataArray, string ProjectName,string ProjectCode)
+        public Points2Excel(string FilePath, TableData[] tableDataArray, string ProjectName,string ProjectCode, bool ExchangeXY, bool Plus40)
         {
             //初始化
             filePath = FilePath;
             excelPackage = new ExcelPackage();
             excelWorkbook = excelPackage.Workbook;
             excelWorksheet = excelWorkbook.Worksheets.Add(ProjectName);
+            this.ExchangeXY = ExchangeXY;
+            this.Plus40 = Plus40;
+
             //特殊列宽
             excelWorksheet.DefaultColWidth = DefaultColWidth;
             excelWorksheet.DefaultRowHeight = DefaultRowHeight;
@@ -161,7 +167,8 @@ namespace Oy.CAD2006
             int CircleID = tableData.CircleID;
             int StartBoundaryPointID = tableData.StartBoundaryPointID;
             string polylineLabelName = tableData.polylineLabelName;
-            TableInfo(NextRow, point3Ds.Length, Area, polylineLabelName);
+
+        TableInfo(NextRow, point3Ds.Length, Area, polylineLabelName);
 
 
             string tableNamePrefix = "Table";
@@ -191,7 +198,7 @@ namespace Oy.CAD2006
             }
 
             //写入数据
-            Utils.ArrangedPoint3d[] arrangedPoint3DArray = new Utils.ArrangedPoint3DArray(point3Ds, BlockID, CircleID, StartBoundaryPointID).GetResults();
+            Utils.ArrangedPoint3d[] arrangedPoint3DArray = new Utils.ArrangedPoint3DArray(point3Ds, BlockID, CircleID, StartBoundaryPointID,ExchangeXY,Plus40).GetResults();
             for (int i = 0; i < arrangedPoint3DArray.Length; i++)
             {
                 Utils.ArrangedPoint3d arrangedPoint3D = arrangedPoint3DArray[i];
@@ -225,7 +232,6 @@ namespace Oy.CAD2006
         public int CircleID;
         public int StartBoundaryPointID;
         public string polylineLabelName;
-
         public TableData(Point3d[] point3Ds, double Area, int BlockID, int CircleID, int StartBoundaryPointID, string polylineLabelName)
         {
             this.Point3Ds = point3Ds;

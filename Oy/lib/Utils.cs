@@ -224,11 +224,12 @@ namespace Oy.CAD2006.Utils
         /// <summary>
         /// X点坐标
         /// </summary>
-        public double X => this.Point3D.X;
+        public double X => ExchangeXY ? Point3D.Y : Point3D.X;
+
         /// <summary>
         /// Y点坐标
         /// </summary>
-        public double Y => this.Point3D.Y;
+        public double Y => Plus40 ? (ExchangeXY ? Point3D.X : Point3D.Y) + 40000000.0: (ExchangeXY ? Point3D.X : Point3D.Y);
 
         /// <summary>
         /// 地块号
@@ -250,12 +251,16 @@ namespace Oy.CAD2006.Utils
         /// 距离
         /// </summary>
         public double Distence;
+        private bool ExchangeXY;
+        private bool Plus40;
         private Point3d Point3D;
 
         #endregion
-        public ArrangedPoint3d(Point3d point3D)
+        public ArrangedPoint3d(Point3d point3D, bool ExchangeXY, bool Plus40)
         {
             this.Point3D = point3D;
+            this.ExchangeXY = ExchangeXY;
+            this.Plus40 = Plus40;
         }
     }
 
@@ -263,11 +268,11 @@ namespace Oy.CAD2006.Utils
     {
         List<ArrangedPoint3d> arrangedPoint3Ds=new List<ArrangedPoint3d>();
 
-        public ArrangedPoint3DArray(Point3d[] point3Ds, int AreaID, int CircleID, int StartBoundaryPointID)
+        public ArrangedPoint3DArray(Point3d[] point3Ds, int AreaID, int CircleID, int StartBoundaryPointID, bool ExchangeXY, bool Plus40)
         {
             for (int i = 0; i < point3Ds.Length; i++)
             {
-                ArrangedPoint3d arrangedPoint3D = new ArrangedPoint3d(point3Ds[i]);
+                ArrangedPoint3d arrangedPoint3D = new ArrangedPoint3d(point3Ds[i],ExchangeXY, Plus40);
 
                 //界址点号赋值
                 arrangedPoint3D.BoundaryPointID = StartBoundaryPointID + i;

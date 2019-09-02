@@ -35,34 +35,6 @@ namespace Oy.CAD2006.CommandMethod
         public void RNOD() => Utils.NamedObjectDictionary.ReadFromNOD("asd");
 
 
-        [CommandMethod("test")]
-        public void Test()
-        {
-            ObjectId[] objectId = Interaction.GetSelection("\n选择多段线", "LWPOLYLINE");
-            var ents = objectId.QSelect(x => x).ToList();
-            List<TableData> tableDataList = new List<TableData>();
-
-            int StartBoundaryPointID = 1;
-
-            for (int i = 0; i < ents.Count; i++)
-            {
-                Polyline polyline = ents[i] as Polyline;
-                var point3Ds = polyline.GetPolyPoints().ToArray();
-                //保留面积两位小数
-                double Area = System.Math.Round(polyline.Area, 2);
-                TableData tableData = new TableData(point3Ds, Area, i + 1, 1, StartBoundaryPointID, (i + 1).ToString());
-                StartBoundaryPointID += point3Ds.Length;
-                tableDataList.Add(tableData);
-            }
-
-            string saveFilePath = new Utils.Interaction().GetFilePath();
-            if (saveFilePath != null)
-            {
-                Points2Excel excel2 = new Points2Excel(saveFilePath, tableDataList.ToArray(),
-                    "潘桥街道横塘村城中村改造工程二期(低效用地)", "NZ-2019-123");
-                excel2.Save();
-            }
-        }
 
 
 

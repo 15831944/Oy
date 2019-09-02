@@ -62,6 +62,8 @@
             this.PingButton = new System.Windows.Forms.Button();
             this.AddressTextBox = new System.Windows.Forms.TextBox();
             this.SaveFileButton = new System.Windows.Forms.Button();
+            this.ExchangeXY = new System.Windows.Forms.CheckBox();
+            this.Plus40 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -394,11 +396,37 @@
             this.SaveFileButton.UseVisualStyleBackColor = true;
             this.SaveFileButton.Click += new System.EventHandler(this.SaveFIleButton_Click);
             // 
+            // ExchangeXY
+            // 
+            this.ExchangeXY.AutoSize = true;
+            this.ExchangeXY.Checked = true;
+            this.ExchangeXY.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ExchangeXY.Location = new System.Drawing.Point(321, 26);
+            this.ExchangeXY.Name = "ExchangeXY";
+            this.ExchangeXY.Size = new System.Drawing.Size(60, 16);
+            this.ExchangeXY.TabIndex = 43;
+            this.ExchangeXY.Text = "交换XY";
+            this.ExchangeXY.UseVisualStyleBackColor = true;
+            // 
+            // Plus40
+            // 
+            this.Plus40.AutoSize = true;
+            this.Plus40.Checked = true;
+            this.Plus40.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Plus40.Location = new System.Drawing.Point(321, 49);
+            this.Plus40.Name = "Plus40";
+            this.Plus40.Size = new System.Drawing.Size(60, 16);
+            this.Plus40.TabIndex = 44;
+            this.Plus40.Text = "添加40";
+            this.Plus40.UseVisualStyleBackColor = true;
+            // 
             // GeneralForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Plus40);
+            this.Controls.Add(this.ExchangeXY);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.readXrecord);
@@ -454,5 +482,7 @@
         private System.Windows.Forms.Button PingButton;
         private System.Windows.Forms.TextBox AddressTextBox;
         private System.Windows.Forms.Button SaveFileButton;
+        private System.Windows.Forms.CheckBox ExchangeXY;
+        private System.Windows.Forms.CheckBox Plus40;
     }
 }
