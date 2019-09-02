@@ -224,12 +224,14 @@ namespace Oy.CAD2006.Utils
         /// <summary>
         /// X点坐标
         /// </summary>
-        public double X => ExchangeXY ? Point3D.Y : Point3D.X;
+
+        //public double X => ExchangeXY ? Point3D.Y : Point3D.X;
+        public double X;
 
         /// <summary>
         /// Y点坐标
         /// </summary>
-        public double Y => Plus40 ? (ExchangeXY ? Point3D.X : Point3D.Y) + 40000000.0: (ExchangeXY ? Point3D.X : Point3D.Y);
+        public double Y;
 
         /// <summary>
         /// 地块号
@@ -252,15 +254,16 @@ namespace Oy.CAD2006.Utils
         /// </summary>
         public double Distence;
         private bool ExchangeXY;
-        private bool Plus40;
-        private Point3d Point3D;
 
         #endregion
         public ArrangedPoint3d(Point3d point3D, bool ExchangeXY, bool Plus40)
         {
-            this.Point3D = point3D;
+            this.X = Plus40 ? point3D.X + 40000000.0 : point3D.X;
+
+            this.Y = ExchangeXY ? this.X : point3D.Y;
+            this.X = ExchangeXY ? point3D.Y : this.X;
+
             this.ExchangeXY = ExchangeXY;
-            this.Plus40 = Plus40;
         }
     }
 
