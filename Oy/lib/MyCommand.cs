@@ -44,10 +44,9 @@ namespace Oy.CAD2006.CommandMethod
         public void Test2()
         {
             ObjectId[] ids = Interaction.GetSelection("\n选择多段线", "LWPOLYLINE");
-            double epsilon = Interaction.GetValue("\n最小距离", 0.05);//过滤距离,默认大小需要设置文件
             ids.QForEach<Polyline>(poly =>
             {
-                int count = Algorithms.PolyClean_ReducePoints(poly, epsilon);
+                int count = Algorithms.PolyClean_ReducePoints(poly, lib.AppConfig.ReduceVertexEpsilon);
             });
         }
 

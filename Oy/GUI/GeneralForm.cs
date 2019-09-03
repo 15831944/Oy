@@ -61,22 +61,20 @@ namespace Oy.CAD2006.GUI
                 Interaction.WriteLine("取消");
                 return;
             }
-            var ents = objectId.QSelect(x => x).ToList();
+
             List<TableData> tableDataList = new List<TableData>();
-
             int StartBoundaryPointID = 1;
-
-            for (int i = 0; i < ents.Count; i++)
+            objectId.QForEach<Polyline>(polyline =>
             {
-                Polyline polyline = ents[i] as Polyline;
+                int count = Algorithms.PolyClean_ReducePoints(polyline, lib.AppConfig.ReduceVertexEpsilon);//删除重复点
                 var point3Ds = polyline.GetPolyPoints().ToArray();
-                //获取面积
-                double Area = Math.Round(polyline.Area, lib.AppConfig.AreaPrecision);
+                double Area = Math.Round(polyline.Area, lib.AppConfig.AreaPrecision); //获取面积
 
-                TableData tableData = new TableData(point3Ds, Area, i + 1, 1, StartBoundaryPointID, (i + 1).ToString());
+                //TODO:blockID和LabelName暂时是随便填写的
+                TableData tableData = new TableData(point3Ds, Area, (int)polyline.Handle.Value, 1, StartBoundaryPointID, polyline.Handle.Value.ToString());
                 StartBoundaryPointID += point3Ds.Length;
                 tableDataList.Add(tableData);
-            }
+            });
 
             string saveFilePath = new Utils.Interaction().GetFilePath();
             if (saveFilePath != null)

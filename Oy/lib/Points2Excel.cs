@@ -170,7 +170,6 @@ namespace Oy.CAD2006
 
         TableInfo(NextRow, point3Ds.Length, Area, polylineLabelName);
 
-
             string tableNamePrefix = "Table";
             int FromRow = NextRow;
             int FromCol = 1;
@@ -214,6 +213,11 @@ namespace Oy.CAD2006
         }
         #endregion
     }
+
+
+
+
+
 
     public class TableData
     {

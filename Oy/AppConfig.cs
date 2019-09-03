@@ -7,11 +7,10 @@ using AutoCADCommands;
 
 namespace Oy.CAD2006.lib
 {
-
     class AppConfig
     {
         private static string AssemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
-        private static Configuration config = ConfigurationManager.OpenExeConfiguration(AssemblyName + ".dll");
+        private static readonly Configuration config = ConfigurationManager.OpenExeConfiguration(AssemblyName + ".dll");
         
         // 项目信息
         public static string[] ProjectInfoName => config.AppSettings.Settings["ProjectInfoName"].Value.Split(',');
@@ -40,10 +39,13 @@ namespace Oy.CAD2006.lib
         // 面积-小数点保留位数
         public static int AreaPrecision =>Int32.Parse(config.AppSettings.Settings["AreaPrecision"].Value);
 
+        //多段线重复点距离
+        public static Double ReduceVertexEpsilon => Double.Parse(config.AppSettings.Settings["ReduceVertexEpsilon"].Value);
 
 
 
-        
+
+
         /// 更新配置文件，不存在则添加
         /// <param name="Key">键</param>
         /// <param name="Value">值</param>
