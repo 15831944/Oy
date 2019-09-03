@@ -32,60 +32,26 @@ namespace Oy.CAD2006.GUI
                     ProjectInfoName.RemoveAt(0);
                 }
             }
-
-
-
-
-            //ProjectInfoName = lib.AppConfig.ProjectInfoName.ToList();
-            //foreach (Forms.Control control in this.panel1.Controls)
-            //{
-            //    if (control is Forms.Label label)
-            //    {
-            //        label.Text = ProjectInfoName[0];
-            //        ProjectInfoName.RemoveAt(0);
-            //    }
-            //}
-
-
-
-
             readXrecord.PerformClick();
         }
 
         #region:单击事件
         private void SaveFIleButton_Click(object sender, EventArgs e)
         {
-            ObjectId[] objectId = Interaction.GetSelection("\n选择多段线", "LWPOLYLINE");
-            if (objectId.Length==0)
-            {
-                Interaction.WriteLine("取消");
-                return;
-            }
-
-            List<TableData> tableDataList = new List<TableData>();
-            int StartBoundaryPointID = 1;
-            objectId.QForEach<Polyline>(polyline =>
-            {
-                int count = Algorithms.PolyClean_ReducePoints(polyline, lib.AppConfig.ReduceVertexEpsilon);//删除重复点
-                var point3Ds = polyline.GetPolyPoints().ToArray();
-                double Area = Math.Round(polyline.Area, lib.AppConfig.AreaPrecision); //获取面积
-
-                //TODO:blockID和LabelName暂时是随便填写的
-                TableData tableData = new TableData(point3Ds, Area, (int)polyline.Handle.Value, 1, StartBoundaryPointID, polyline.Handle.Value.ToString());
-                StartBoundaryPointID += point3Ds.Length;
-                tableDataList.Add(tableData);
-            });
+            
+            ObjectId[] objectId = Interaction.GetSelection("\n选择多段线", "LWPOLYLINE");//选择多段线
+            if (objectId.Length == 0) return;//一个都没选的情况下退出操作
 
             string saveFilePath = new Utils.Interaction().GetFilePath();
             if (saveFilePath != null)
             {
-                Points2Excel excel2 = new Points2Excel(saveFilePath,
-                                                       tableDataList.ToArray(),
-                                                       Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[1]),
-                                                       Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[0]),
-                                                       this.ExchangeXY.Checked,
-                                                       this.Plus40.Checked);
-                excel2.Save();
+                new Points2Excel(saveFilePath,
+                                 objectId,
+                                 Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[1]),
+                                 Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[0]),
+                                 ExchangeXY.Checked,
+                                 Plus40.Checked)
+                                .Save();
             }
         }
 
@@ -93,17 +59,7 @@ namespace Oy.CAD2006.GUI
         {
             string pingAddress = AddressTextBox.Text;
             if (pingAddress.Length > 0)
-            {
-                bool pingResult = new Utils.Server().Ping(pingAddress);
-                if (pingResult == true && pingAddress.Length > 0)
-                {
-                    Forms.MessageBox.Show("成功");
-                }
-                else
-                {
-                    Forms.MessageBox.Show("失败");
-                }
-            }
+                _ = new Utils.Server().Ping(pingAddress) ? Forms.MessageBox.Show("成功") : Forms.MessageBox.Show("失败");
             else
             {
                 Forms.MessageBox.Show("未输入内容");

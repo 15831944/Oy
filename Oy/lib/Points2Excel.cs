@@ -1,9 +1,12 @@
 ﻿using Autodesk.AutoCAD.Geometry;
+using Autodesk.AutoCAD.DatabaseServices;
+using AutoCADCommands;
 using OfficeOpenXml;
 using OfficeOpenXml.Table;
 using OfficeOpenXml.Style;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace Oy.CAD2006
 {
@@ -36,7 +39,6 @@ namespace Oy.CAD2006
 
         private int NextRow => excelWorksheet.Dimension.End.Row+1;
         #endregion
-
         #region 初始化
         /// <summary>
         /// 构造函数
@@ -45,7 +47,7 @@ namespace Oy.CAD2006
         /// <param name="tableDataArray">数据</param>
         /// <param name="ProjectName">项目名称</param>
         /// <param name="ProjectCode">项目编号</param>
-        public Points2Excel(string FilePath, TableData[] tableDataArray, string ProjectName,string ProjectCode, bool ExchangeXY, bool Plus40)
+        public Points2Excel(string FilePath, ObjectId[] objectId, string ProjectName,string ProjectCode, bool ExchangeXY, bool Plus40)
         {
             //初始化
             filePath = FilePath;
@@ -54,7 +56,6 @@ namespace Oy.CAD2006
             excelWorksheet = excelWorkbook.Worksheets.Add(ProjectName);
             this.ExchangeXY = ExchangeXY;
             this.Plus40 = Plus40;
-
             //特殊列宽
             excelWorksheet.DefaultColWidth = DefaultColWidth;
             excelWorksheet.DefaultRowHeight = DefaultRowHeight;
@@ -70,105 +71,48 @@ namespace Oy.CAD2006
             excelWorksheet.Cells.Style.HorizontalAlignment = ExcelHorizontalAlignment;
             excelWorksheet.Cells.Style.VerticalAlignment = ExcelVerticalAlignment;
 
-            AddHeaderInfo(ProjectName,ProjectCode,tableDataArray.Length);
-            foreach (TableData tableData in tableDataArray)
-            {
-                AddTable(tableData);
-            }
-        }
-        #endregion
+            ProjectName = Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[1]);
 
-        #region Save()
-        /// <summary>
-        /// 保存文件
-        /// </summary>
-        protected internal void Save()
-        {
-            try
-            {
-                excelPackage.SaveAs(new FileInfo(filePath));
-                //询问是否打开文件
-                Utils.Interaction.OpenFile(filePath);
-            }
-            catch (Exception)
-            {
-                //重试
-                bool Retry = Utils.Interaction.RetrySaveDialog();
-                if (Retry is true) Save();
-            }
-        }
-        #endregion
 
-        #region MergeRow()
-        /// <summary>
-        /// 合并一行表格
-        /// </summary>
-        /// <param name="Row">要合并的行号</param>
-        /// <param name="alignment">对其方式,默认左对齐</param>
-        private void MergeRow(int Row, ExcelHorizontalAlignment alignment = ExcelHorizontalAlignment.Left)
-        {
-            //后续需要处理
-            excelWorksheet.Cells[Row, 1, Row, 8].Merge = true;
-            ExcelRange excelRange = excelWorksheet.Cells[excelWorksheet.MergedCells[Row, 1]];
-            excelRange.Style.HorizontalAlignment = alignment;
-            excelRange.Style.Font.Bold = true;
-        }
-        #endregion
-
-        #region HeaderInfo()
-        /// <summary>
-        /// 最前面三行信息栏
-        /// </summary>
-        /// 
-        private void AddHeaderInfo(string ProjectName, string ProjectNum,int TotalpolylineNum)
-        {
-            excelWorksheet.Cells[1, 1].Value = lib.AppConfig.ProjectInfoName[1]+ ":"+ ProjectName;
-            excelWorksheet.Cells[2, 1].Value = lib.AppConfig.ProjectInfoName[0] + ":" + ProjectNum;
-            excelWorksheet.Cells[3, 1].Value = "多边形个数:"+ TotalpolylineNum;
+            //写入项目信息到前三行
+            excelWorksheet.Cells[1, 1].Value = lib.AppConfig.ProjectInfoName[1] + ":" + ProjectName;
+            excelWorksheet.Cells[2, 1].Value = lib.AppConfig.ProjectInfoName[0] + ":" + ProjectCode;
+            excelWorksheet.Cells[3, 1].Value = "多边形个数:" + objectId.Length;
             MergeRow(1);
             MergeRow(2);
             MergeRow(3);
+            
+            //接着写入各个多段线的端点坐标
+            int StartBoundaryPointID = 1;
+            objectId.QForEach<Polyline>(polyline =>
+            {
+                Algorithms.PolyClean_ReducePoints(polyline, lib.AppConfig.ReduceVertexEpsilon);//删除重复点
+                double Area = Math.Round(polyline.Area, lib.AppConfig.AreaPrecision); //获取面积
+                Point3d[] point3Ds = polyline.GetPolyPoints().ToArray();//获取端点坐标
+
+                //TODO:blockID和LabelName暂时是随便填写的
+                AddTable(point3Ds, Area, (int)polyline.Handle.Value, (int)polyline.Handle.Value, StartBoundaryPointID, polyline.Handle.Value.ToString());
+                StartBoundaryPointID += point3Ds.Length;
+            });
         }
         #endregion
-
-        #region TableData()
-        /// <summary>
-        /// 二号信息栏
-        /// </summary>
-        /// <param name="Row">起始行号</param>
-        /// <param name="BoundaryAmount">界址点数量</param>
-        /// <param name="Area">面积</param>
-        /// <param name="polylineID">多边形编号</param>
-        private void TableInfo(int Row, int BoundaryAmount, double Area, string polylineLabelName)
+        # region AddTable()
+        // 插入一列数据表
+        private void AddTable(Point3d[] point3Ds, double Area, int BlockID, int CircleID, int StartBoundaryPointID, string polylineLabelName)
         {
-            MergeRow(Row);
-            Row += 1;
+            # region 添加多段线信息
+            int Row = NextRow;
+            MergeRow(Row++);
             ExcelRange excelRange13 = excelWorksheet.Cells[Row, 1, Row, 3];
             ExcelRange excelRange45 = excelWorksheet.Cells[Row, 4, Row, 5];
             ExcelRange excelRange68 = excelWorksheet.Cells[Row, 6, Row, 8];
             excelRange13.Merge = true;
             excelRange45.Merge = true;
             excelRange68.Merge = true;
-
             excelRange13.Value = "多边形编号:" + polylineLabelName;
-            excelRange45.Value = "界址点数:" + BoundaryAmount;
+            excelRange45.Value = "界址点数:" + point3Ds.Length;
             excelRange68.Value = "用地面积(㎡)：" + Area.ToString();
-        }
-
-
-        /// <summary>
-        /// 插入一列数据表
-        /// </summary>
-        private void AddTable(TableData tableData)
-        {
-            Point3d[] point3Ds = tableData.Point3Ds;
-            double Area = tableData.Area;
-            int BlockID = tableData.BlockID;
-            int CircleID = tableData.CircleID;
-            int StartBoundaryPointID = tableData.StartBoundaryPointID;
-            string polylineLabelName = tableData.polylineLabelName;
-
-        TableInfo(NextRow, point3Ds.Length, Area, polylineLabelName);
+            #endregion
 
             string tableNamePrefix = "Table";
             int FromRow = NextRow;
@@ -176,15 +120,13 @@ namespace Oy.CAD2006
             int HowManyLines = point3Ds.Length + 1;
             int ToRow = FromRow + HowManyLines;
             int ToCol = 8;
+            
+            ExcelRange excelRange = excelWorksheet.Cells[FromRow, FromCol, ToRow, ToCol];//表范围
+            ExcelTable excelTable = excelWorksheet.Tables.Add(excelRange, tableNamePrefix + polylineLabelName);//新建表
+            excelTable.TableStyle = DefaultTableStyles;//表样式
+            excelTable.ShowFilter = false;//关闭筛选
 
-            //表范围
-            ExcelRange excelRange = excelWorksheet.Cells[FromRow, FromCol, ToRow, ToCol];
-            //新建表
-            ExcelTable excelTable = excelWorksheet.Tables.Add(excelRange, tableNamePrefix + polylineLabelName);
-            //表样式
-            excelTable.TableStyle = DefaultTableStyles;
-            excelTable.ShowFilter = false;
-            //Range样式
+            //边框样式
             excelRange.Style.Border.Top.Style = DefaultExcelBorderStyle;
             excelRange.Style.Border.Right.Style = DefaultExcelBorderStyle;
             excelRange.Style.Border.Bottom.Style = DefaultExcelBorderStyle;
@@ -212,38 +154,36 @@ namespace Oy.CAD2006
             }
         }
         #endregion
-    }
-
-
-
-
-
-
-    public class TableData
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="point3Ds">多段线点数组</param>
-        /// <param name="Area">面积</param>
-        /// <param name="BlockID">地块号</param>
-        /// <param name="CircleID">圈号</param>
-        /// <param name="StartBoundaryPointID">起始点号</param>
-        /// <param name="polylineLabelName">多边形编号</            //public Point3d[] Point3Ds { get => Point3Ds; set => Point3Ds = value; }
-        public Point3d[] Point3Ds;
-        public double Area;
-        public int BlockID;
-        public int CircleID;
-        public int StartBoundaryPointID;
-        public string polylineLabelName;
-        public TableData(Point3d[] point3Ds, double Area, int BlockID, int CircleID, int StartBoundaryPointID, string polylineLabelName)
+        #region MergeRow()
+        // 合并一行表格
+        private void MergeRow(int Row, ExcelHorizontalAlignment alignment = ExcelHorizontalAlignment.Left)
         {
-            this.Point3Ds = point3Ds;
-            this.Area = Area;
-            this.BlockID = BlockID;
-            this.CircleID = CircleID;
-            this.StartBoundaryPointID = StartBoundaryPointID;
-            this.polylineLabelName = polylineLabelName;
+            //后续需要处理
+            excelWorksheet.Cells[Row, 1, Row, 8].Merge = true;
+            ExcelRange excelRange = excelWorksheet.Cells[excelWorksheet.MergedCells[Row, 1]];
+            excelRange.Style.HorizontalAlignment = alignment;
+            excelRange.Style.Font.Bold = true;
         }
+        #endregion
+        #region Save()
+        /// <summary>
+        /// 保存文件
+        /// </summary>
+        protected internal void Save()
+        {
+            try
+            {
+                excelPackage.SaveAs(new FileInfo(filePath));
+                //询问是否打开文件
+                Utils.Interaction.OpenFile(filePath);
+            }
+            catch (Exception)
+            {
+                //重试
+                bool Retry = Utils.Interaction.RetrySaveDialog();
+                if (Retry is true) Save();
+            }
+        }
+        #endregion
     }
 }

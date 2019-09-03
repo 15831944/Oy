@@ -35,28 +35,6 @@ namespace Oy.CAD2006.CommandMethod
         public void RNOD() => Utils.NamedObjectDictionary.ReadFromNOD("asd");
 
 
-
-
-
-
-
-        [CommandMethod("test2")]
-        public void Test2()
-        {
-            ObjectId[] ids = Interaction.GetSelection("\n选择多段线", "LWPOLYLINE");
-            ids.QForEach<Polyline>(poly =>
-            {
-                int count = Algorithms.PolyClean_ReducePoints(poly, lib.AppConfig.ReduceVertexEpsilon);
-            });
-        }
-
-
-
-
-
-
-
-
         [CommandMethod("test3")]
         public static void Test3()
         {
