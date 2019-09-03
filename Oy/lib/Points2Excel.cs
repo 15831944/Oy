@@ -47,8 +47,11 @@ namespace Oy.CAD2006
         /// <param name="tableDataArray">数据</param>
         /// <param name="ProjectName">项目名称</param>
         /// <param name="ProjectCode">项目编号</param>
-        public Points2Excel(string FilePath, ObjectId[] objectId, string ProjectName,string ProjectCode, bool ExchangeXY, bool Plus40)
+        public Points2Excel(string FilePath, ObjectId[] objectId, bool ExchangeXY, bool Plus40)
         {
+            string ProjectName = Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[1]);
+            string ProjectCode = Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[0]);
+
             //初始化
             filePath = FilePath;
             excelPackage = new ExcelPackage();
@@ -70,9 +73,6 @@ namespace Oy.CAD2006
             excelWorksheet.Cells.Style.Font.Name = DefaultFont;
             excelWorksheet.Cells.Style.HorizontalAlignment = ExcelHorizontalAlignment;
             excelWorksheet.Cells.Style.VerticalAlignment = ExcelVerticalAlignment;
-
-            ProjectName = Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[1]);
-
 
             //写入项目信息到前三行
             excelWorksheet.Cells[1, 1].Value = lib.AppConfig.ProjectInfoName[1] + ":" + ProjectName;

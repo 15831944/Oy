@@ -47,8 +47,6 @@ namespace Oy.CAD2006.GUI
             {
                 new Points2Excel(saveFilePath,
                                  objectId,
-                                 Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[1]),
-                                 Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[0]),
                                  ExchangeXY.Checked,
                                  Plus40.Checked)
                                 .Save();
