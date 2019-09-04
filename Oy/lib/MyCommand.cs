@@ -12,59 +12,35 @@ namespace Oy.CAD2006.CommandMethod
 {
     public class CommandMethod
     {
-        //GUI.MainForm mainForm = new GUI.MainForm();
-        //mainForm.ShowDialog(Application.MainWindow);
-        //mainForm.Dispose();
         [CommandMethod("TT")]
         public void OpenMainForm() => Application.ShowModalDialog(Application.MainWindow, new GUI.MainForm());
 
 
-        //[CommandMethod("ExportDocument")]
-        //public void ExportDocument() => lib.Document.ExportDocument();
-
-        /// <summary>
-        /// 写入测试数据
-        /// </summary>
-        [CommandMethod("WNOD")]
-        public void WNOD() => Utils.NamedObjectDictionary.WriteToNOD("asd", "asd");
-
-        /// <summary>
-        /// 读取测试数据
-        /// </summary>
-        [CommandMethod("RNOD")]
-        public void RNOD() => Utils.NamedObjectDictionary.ReadFromNOD("asd");
-
-
-        [CommandMethod("test3")]
-        public static void Test3()
+        [CommandMethod("test")]
+        public static void Test()
         {
-            double value = Interaction.GetValue("\n曲线分割数量, 默认0为智能取点", 0);
-            if (double.IsNaN(value))
-            {
-                return;
-            }
-            int n = (int)value;
+            //var objectId =Interaction.GetSelection("\n选择多段线", "LWPOLYLINE");
+            //DBObjectCollection dBObjectCollection = new DBObjectCollection();
+            //objectId.QForEach<Polyline>(polyline =>
+            //{
+            //    dBObjectCollection.Add(polyline);
+            //    polyline.int
+            //    DBObjectCollection DBC = Region.CreateFromCurves(dBObjectCollection);
+            //    Region region0 =DBC[0] as Region;
+            //    Region region1 =DBC[1] as Region;
+            //    try
+            //    {
+            //       var d= region0.Area;
+            //    }
+            //    catch (System.Exception)
+            //    {
+            //        System.Windows.Forms.MessageBox.Show("未知错误");
+            //    } 
+               
 
-            ObjectId[] ids = Interaction.GetSelection("\n选择多段线", "LWPOLYLINE");
-            var entsToAdd = new List<Polyline>();
-            ids.QForEach<Polyline>(poly =>
-            {
-                var pts = poly.GetPolylineFitPoints(n);
-                var poly1 = NoDraw.Pline(pts);
-                poly1.Layer = poly.Layer;
-                try
-                {
-                    poly1.ConstantWidth = poly.ConstantWidth;
-                }
-                catch
-                {
-                }
-                poly1.XData = poly.XData;
-                poly.Erase();
-                entsToAdd.Add(poly1);
-            });
-            entsToAdd.ToArray().AddToCurrentSpace();
-            Interaction.WriteLine("{0} handled.", entsToAdd.Count);
+                //region0.BooleanOperation(BooleanOperationType.BoolIntersect, region1);
+                //System.Windows.Forms.MessageBox.Show(region0.Area.ToString());
+            
         }
     }
 }

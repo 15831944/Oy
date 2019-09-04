@@ -11,36 +11,40 @@ namespace Oy.CAD2006.lib
     {
         private static string AssemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
         private static readonly Configuration config = ConfigurationManager.OpenExeConfiguration(AssemblyName + ".dll");
-        
+        private static readonly KeyValueConfigurationCollection Settings = config.AppSettings.Settings;
+
         // 项目信息
-        public static string[] ProjectInfoName => config.AppSettings.Settings["ProjectInfoName"].Value.Split(',');
+        public static string[] ProjectInfoName => Settings["ProjectInfoName"].Value.Split(',');
        
         // Excel列名
-        public static string[] ExcelColumnName => config.AppSettings.Settings["ExcelColumnName"].Value.Split(',');
+        public static string[] ExcelColumnName => Settings["ExcelColumnName"].Value.Split(',');
         
         // 默认字体
-        public static string DefaultFont => config.AppSettings.Settings["DefaultFont"].Value;
+        public static string DefaultFont => Settings["DefaultFont"].Value;
         
         // Excel默认列宽
-        public static double DefaultColWidth =>Double.Parse(config.AppSettings.Settings["DefaultColWidth"].Value);
+        public static double DefaultColWidth =>Double.Parse(Settings["DefaultColWidth"].Value);
         
         // Excel大号列宽
-        public static double LargerColWidth => Double.Parse(config.AppSettings.Settings["LargerColWidth"].Value);
+        public static double LargerColWidth => Double.Parse(Settings["LargerColWidth"].Value);
         
         // Excel默认行高
-        public static double DefaultRowHeight => Double.Parse(config.AppSettings.Settings["DefaultRowHeight"].Value);
+        public static double DefaultRowHeight => Double.Parse(Settings["DefaultRowHeight"].Value);
         
         // XY坐标-小数点保留位数
-        public static string CoordinatePrecision => config.AppSettings.Settings["CoordinatePrecision"].Value;
+        public static string CoordinatePrecision => Settings["CoordinatePrecision"].Value;
         
         // 距离-小数点保留位数
-        public static string DistencePrecision => config.AppSettings.Settings["DistencePrecision"].Value;
+        public static string DistencePrecision => Settings["DistencePrecision"].Value;
 
         // 面积-小数点保留位数
-        public static int AreaPrecision =>Int32.Parse(config.AppSettings.Settings["AreaPrecision"].Value);
+        public static int AreaPrecision =>Int32.Parse(Settings["AreaPrecision"].Value);
 
         //多段线重复点距离
-        public static Double ReduceVertexEpsilon => Double.Parse(config.AppSettings.Settings["ReduceVertexEpsilon"].Value);
+        public static Double ReduceVertexEpsilon => Double.Parse(Settings["ReduceVertexEpsilon"].Value);
+
+        //侧边距(厘米)
+        public static decimal SideMargin => decimal.Parse(Settings["SideMargin"].Value);
 
 
 
@@ -51,10 +55,10 @@ namespace Oy.CAD2006.lib
         /// <param name="Value">值</param>
         public static void Update(string Key, string Value)
         {
-            if (config.AppSettings.Settings[Key] == null)
-                config.AppSettings.Settings.Add(Key, Value);
+            if (Settings[Key] == null)
+                Settings.Add(Key, Value);
             else
-                config.AppSettings.Settings[Key].Value = Value;
+                Settings[Key].Value = Value;
 
             //保存
             config.Save(ConfigurationSaveMode.Modified);
@@ -63,7 +67,7 @@ namespace Oy.CAD2006.lib
 
         public static string Search(string Key)
         {
-            return config.AppSettings.Settings[Key].Value;
+            return Settings[Key].Value;
         }
     }
 }

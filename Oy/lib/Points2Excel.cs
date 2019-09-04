@@ -13,7 +13,7 @@ namespace Oy.CAD2006
     /// <summary>
     /// 将界址点输出到Excel文件
     /// </summary>
-    class Points2Excel
+    sealed class Points2Excel
     {
         #region 字段与属性
         private readonly string filePath;
@@ -26,16 +26,18 @@ namespace Oy.CAD2006
         private readonly ExcelHorizontalAlignment ExcelHorizontalAlignment = ExcelHorizontalAlignment.Center;
         private readonly ExcelVerticalAlignment ExcelVerticalAlignment = ExcelVerticalAlignment.Center;
 
-        private readonly double DefaultColWidth = lib.AppConfig.DefaultColWidth;
-        private readonly double LargerColWidth = lib.AppConfig.LargerColWidth;
-        private readonly double DefaultRowHeight = lib.AppConfig.DefaultRowHeight;
-        private readonly string DefaultFont = lib.AppConfig.DefaultFont;
-        private readonly string CoordinatePrecision = lib.AppConfig.CoordinatePrecision;
-        private readonly string DistencePrecision = lib.AppConfig.DistencePrecision;
+        private readonly double DefaultColWidth = lib.AppConfig.DefaultColWidth;//默认列宽
+        private readonly double LargerColWidth = lib.AppConfig.LargerColWidth;//加大列宽
+        private readonly double DefaultRowHeight = lib.AppConfig.DefaultRowHeight;//默认行高
+        private readonly string DefaultFont = lib.AppConfig.DefaultFont;//默认字体
+        private readonly string CoordinatePrecision = lib.AppConfig.CoordinatePrecision;//坐标精度
+        private readonly string DistencePrecision = lib.AppConfig.DistencePrecision;//长度零度
+        private readonly decimal SideMargin = lib.AppConfig.SideMargin / 2.54M;//边距(英寸)
         private readonly string[] ColumnNameArray = lib.AppConfig.ExcelColumnName;
 
-        private bool ExchangeXY;
-        private bool Plus40;
+
+        private readonly bool ExchangeXY;
+        private readonly bool Plus40;
 
         private int NextRow => excelWorksheet.Dimension.End.Row+1;
         #endregion
@@ -65,14 +67,19 @@ namespace Oy.CAD2006
             excelWorksheet.Column(5).Width = LargerColWidth;
             excelWorksheet.Column(6).Width = LargerColWidth;
             excelWorksheet.Column(7).Width = DefaultColWidth;
-            //数字精度
+            //数字精度设置
             excelWorksheet.Column(5).Style.Numberformat.Format = CoordinatePrecision;
             excelWorksheet.Column(6).Style.Numberformat.Format = CoordinatePrecision;
             excelWorksheet.Column(8).Style.Numberformat.Format = DistencePrecision;
             //宋体，居中
             excelWorksheet.Cells.Style.Font.Name = DefaultFont;
-            excelWorksheet.Cells.Style.HorizontalAlignment = ExcelHorizontalAlignment;
-            excelWorksheet.Cells.Style.VerticalAlignment = ExcelVerticalAlignment;
+            excelWorksheet.Cells.Style.HorizontalAlignment = ExcelHorizontalAlignment;//单元格水平居中
+            excelWorksheet.Cells.Style.VerticalAlignment = ExcelVerticalAlignment;//单元格垂直居中
+
+            //打印设置
+            excelWorksheet.PrinterSettings.LeftMargin = SideMargin;//左边距
+            excelWorksheet.PrinterSettings.RightMargin = SideMargin;//右边距
+            excelWorksheet.PrinterSettings.HorizontalCentered = true;//水平页面居中
 
             //写入项目信息到前三行
             excelWorksheet.Cells[1, 1].Value = lib.AppConfig.ProjectInfoName[1] + ":" + ProjectName;
