@@ -110,5 +110,11 @@ namespace Oy.CAD2006.GUI
             this.infoBox10.Text = dateTimePicker1.Value.Month.ToString() + "月";
             this.infoBox11.Text = dateTimePicker1.Value.Day.ToString() + "日";
         }
+
+        private void PolygonizationButton_Click(object sender, EventArgs e)
+        {
+            CodePackTest.PolyClean3();
+            (Parent.Parent.Parent as Forms.Form).Close();
+        }
     }
 }

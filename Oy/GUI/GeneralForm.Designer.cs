@@ -64,6 +64,7 @@
             this.SaveFileButton = new System.Windows.Forms.Button();
             this.ExchangeXY = new System.Windows.Forms.CheckBox();
             this.Plus40 = new System.Windows.Forms.CheckBox();
+            this.polygonizationButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -420,11 +421,22 @@
             this.Plus40.Text = "添加40";
             this.Plus40.UseVisualStyleBackColor = true;
             // 
+            // polygonizationButton
+            // 
+            this.polygonizationButton.Location = new System.Drawing.Point(538, 106);
+            this.polygonizationButton.Name = "polygonizationButton";
+            this.polygonizationButton.Size = new System.Drawing.Size(75, 23);
+            this.polygonizationButton.TabIndex = 45;
+            this.polygonizationButton.Text = "折线化";
+            this.polygonizationButton.UseVisualStyleBackColor = true;
+            this.polygonizationButton.Click += new System.EventHandler(this.PolygonizationButton_Click);
+            // 
             // GeneralForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.polygonizationButton);
             this.Controls.Add(this.Plus40);
             this.Controls.Add(this.ExchangeXY);
             this.Controls.Add(this.panel1);
@@ -484,5 +496,6 @@
         private System.Windows.Forms.Button SaveFileButton;
         private System.Windows.Forms.CheckBox ExchangeXY;
         private System.Windows.Forms.CheckBox Plus40;
+        private System.Windows.Forms.Button polygonizationButton;
     }
 }
