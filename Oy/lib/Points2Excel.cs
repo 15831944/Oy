@@ -91,6 +91,8 @@ namespace Oy.CAD2006
             
             //接着写入各个多段线的端点坐标
             int StartBoundaryPointID = 1;
+            int BlockID = 1;
+            int CircleID = 1;
             objectId.QForEach<Polyline>(polyline =>
             {
                 Algorithms.PolyClean_ReducePoints(polyline, lib.AppConfig.ReduceVertexEpsilon);//删除重复点
@@ -98,7 +100,7 @@ namespace Oy.CAD2006
                 Point3d[] point3Ds = polyline.GetPolyPoints().ToArray();//获取端点坐标
 
                 //TODO:blockID和LabelName暂时是随便填写的
-                AddTable(point3Ds, Area, (int)polyline.Handle.Value, (int)polyline.Handle.Value, StartBoundaryPointID, polyline.Handle.Value.ToString());
+                AddTable(point3Ds, Area, BlockID++, CircleID, StartBoundaryPointID, polyline.Handle.Value.ToString());
                 StartBoundaryPointID += point3Ds.Length;
             });
         }
@@ -116,7 +118,7 @@ namespace Oy.CAD2006
             excelRange13.Merge = true;
             excelRange45.Merge = true;
             excelRange68.Merge = true;
-            excelRange13.Value = "多边形编号:" + polylineLabelName;
+            excelRange13.Value = "多边形编号:" + BlockID;
             excelRange45.Value = "界址点数:" + point3Ds.Length;
             excelRange68.Value = "用地面积(㎡)：" + Area.ToString();
             #endregion
