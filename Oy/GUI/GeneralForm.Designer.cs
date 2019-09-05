@@ -65,6 +65,7 @@
             this.ExchangeXY = new System.Windows.Forms.CheckBox();
             this.Plus40 = new System.Windows.Forms.CheckBox();
             this.polygonizationButton = new System.Windows.Forms.Button();
+            this.polygonizationLengthtextBox = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -423,7 +424,7 @@
             // 
             // polygonizationButton
             // 
-            this.polygonizationButton.Location = new System.Drawing.Point(538, 106);
+            this.polygonizationButton.Location = new System.Drawing.Point(619, 105);
             this.polygonizationButton.Name = "polygonizationButton";
             this.polygonizationButton.Size = new System.Drawing.Size(75, 23);
             this.polygonizationButton.TabIndex = 45;
@@ -431,11 +432,21 @@
             this.polygonizationButton.UseVisualStyleBackColor = true;
             this.polygonizationButton.Click += new System.EventHandler(this.PolygonizationButton_Click);
             // 
+            // polygonizationLengthtextBox
+            // 
+            this.polygonizationLengthtextBox.Location = new System.Drawing.Point(538, 106);
+            this.polygonizationLengthtextBox.Name = "polygonizationLengthtextBox";
+            this.polygonizationLengthtextBox.Size = new System.Drawing.Size(75, 21);
+            this.polygonizationLengthtextBox.TabIndex = 46;
+            this.polygonizationLengthtextBox.Text = "2";
+            this.polygonizationLengthtextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // GeneralForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.polygonizationLengthtextBox);
             this.Controls.Add(this.polygonizationButton);
             this.Controls.Add(this.Plus40);
             this.Controls.Add(this.ExchangeXY);
@@ -497,5 +508,6 @@
         private System.Windows.Forms.CheckBox ExchangeXY;
         private System.Windows.Forms.CheckBox Plus40;
         private System.Windows.Forms.Button polygonizationButton;
+        private System.Windows.Forms.TextBox polygonizationLengthtextBox;
     }
 }

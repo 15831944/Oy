@@ -113,7 +113,37 @@ namespace Oy.CAD2006.GUI
 
         private void PolygonizationButton_Click(object sender, EventArgs e)
         {
-            CodePackTest.PolyClean3();
+            double n;
+            try
+            {
+                 n = double.Parse(polygonizationLengthtextBox.Text);
+            }
+            catch (Exception)
+            {
+                Forms.MessageBox.Show("请输入数字");
+                return;
+            }
+            ObjectId[] ids = Interaction.GetSelection("\n选择多段线", "LWPOLYLINE");
+            var entsToAdd = new List<Polyline>();
+            ids.QForEach<Polyline>(poly =>
+            {
+                var pts = poly.GetPolylineDivPoints(n);
+                var poly1 = NoDraw.Pline(pts);
+                poly1.Layer = poly.Layer;
+                try
+                {
+                    poly1.ConstantWidth = poly.ConstantWidth;
+                }
+                catch
+                {
+                }
+                poly1.XData = poly.XData;
+                poly.Erase();
+                entsToAdd.Add(poly1);
+            });
+            entsToAdd.ToArray().AddToCurrentSpace();
+            Interaction.WriteLine("{0} handled.", entsToAdd.Count);
+
             (Parent.Parent.Parent as Forms.Form).Close();
         }
     }
