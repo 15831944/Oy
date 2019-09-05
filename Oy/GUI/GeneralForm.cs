@@ -21,15 +21,15 @@ namespace Oy.CAD2006.GUI
         }
         private void Form_Load(object sender, EventArgs e)
         {
-            List<string> ProjectInfoName = lib.AppConfig.ProjectInfoName.ToList();
+            //List<string> ProjectInfoName = lib.AppConfig.ProjectInfoName.ToList();
             ///自动保存输入内容
             foreach (Forms.Control control in this.panel1.Controls)
             {
                 if (control is Forms.TextBox textBox)
                 {
                     textBox.TextChanged += WriteXrecord_Click;
-                    textBox.Name = ProjectInfoName[0];
-                    ProjectInfoName.RemoveAt(0);
+                    //textBox.Name = ProjectInfoName[0];
+                    //ProjectInfoName.RemoveAt(0);
                 }
             }
             readXrecord.PerformClick();
@@ -42,7 +42,7 @@ namespace Oy.CAD2006.GUI
             ObjectId[] objectId = Interaction.GetSelection("\n选择多段线", "LWPOLYLINE");//选择多段线
             if (objectId.Length == 0) return;//一个都没选的情况下退出操作
 
-            string saveFilePath = new Utils.Interaction().GetFilePath();
+            string saveFilePath = Utils.Interaction.GetFilePath();
             if (saveFilePath != null)
             {
                 new Points2Excel(saveFilePath,
@@ -100,15 +100,15 @@ namespace Oy.CAD2006.GUI
             string[] strNew = Utils.NamedObjectDictionary.ReadFromNODAll();
             Utils.Word word = new Utils.Word();
             word.WordReplace(strOld, strNew);
-            this.AddressTextBox.Text = "完成";
+            Forms.MessageBox.Show("完成");
         }
         #endregion
 
         private void DateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            this.infoBox9.Text = dateTimePicker1.Value.Year.ToString() + "年";
-            this.infoBox10.Text = dateTimePicker1.Value.Month.ToString() + "月";
-            this.infoBox11.Text = dateTimePicker1.Value.Day.ToString() + "日";
+            this.日期_年.Text = dateTimePicker1.Value.Year.ToString() + "年";
+            this.日期_月.Text = dateTimePicker1.Value.Month.ToString() + "月";
+            this.日期_日.Text = dateTimePicker1.Value.Day.ToString() + "日";
         }
 
         private void PolygonizationButton_Click(object sender, EventArgs e)

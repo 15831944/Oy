@@ -155,7 +155,7 @@ namespace Oy.CAD2006.Utils
         /// 获取文件保存路径
         /// </summary>
         /// <returns></returns>
-        public string GetFilePath()
+        public static string GetFilePath()
         {
             Forms.SaveFileDialog saveFileDialog = new Forms.SaveFileDialog
             {
@@ -173,6 +173,24 @@ namespace Oy.CAD2006.Utils
             }
             return null;
         }
+
+        public static string GetFolderPath()//获取文件目录
+        {
+            using (Forms.FolderBrowserDialog FolderBrowser = new Forms.FolderBrowserDialog())
+            {
+                FolderBrowser.Description = "请选择保存目录";
+
+                if (FolderBrowser.ShowDialog() == Forms.DialogResult.OK)
+                {
+                    if (string.IsNullOrEmpty(FolderBrowser.SelectedPath))
+                    {
+                        Forms.MessageBox.Show("文件夹路径不能为空", "提示");
+                        return null;
+                    }
+                }
+                return FolderBrowser.SelectedPath;
+            }
+        }
     }
     #endregion
 
@@ -188,31 +206,36 @@ namespace Oy.CAD2006.Utils
         /// <param name="strNew">替换文本</param>
         public void WordReplace(string[] strOld, string[] strNew)
         {
-            string[] SampleFilePaths = { @".\Resources\Cover.docx" };
-            //string[] filePaths = { @".\Resources\Report.docx",@".\Resources\Authorisation.docx"};
+            string[] SampleFilePaths = { @".\Resources\外封面.docx", @".\Resources\报告书.docx", @".\Resources\委托书.docx", @".\Resources\管理表.docx", @".\Resources\流程单.docx" };
+            string ProjectName= NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[1]);
+            string FolderPath = Interaction.GetFolderPath();
 
-            foreach (string filePath in SampleFilePaths)
+            if (strOld.Length == strNew.Length)
             {
-                if (strOld.Length == strNew.Length)
+                using (Spire.Doc.Document doc = new Spire.Doc.Document())
                 {
-                    Spire.Doc.Document doc = new Spire.Doc.Document();
-                    doc.LoadFromFile(filePath);
-                    for (int i = 0; i < strOld.Length; i++)
+                    foreach (string SampleFilePath in SampleFilePaths)
                     {
-                        doc.Replace("[<" + strOld[i] + ">]", strNew[i], false, false);
-                    }
-                    string saveFilePath = new Interaction().GetFilePath();
-                    if (saveFilePath !=null)
-                    {
-                        doc.SaveToFile(saveFilePath);
-                        doc.Close();
-                        doc.Dispose();
+                            string filename = System.IO.Path.GetFileNameWithoutExtension(SampleFilePath)+"-"+ProjectName;//获取文件名
+                            string extension = System.IO.Path.GetExtension(SampleFilePath);//获取扩展名
+                            string saveFilePath = FolderPath +@"\"+ filename + extension;//合并成完整路径
+
+                            doc.LoadFromFile(SampleFilePath);
+                            for (int i = 0; i < strOld.Length; i++)
+                            {
+                                doc.Replace("[<" + strOld[i] + ">]", strNew[i], false, false);
+                            }
+                            if (saveFilePath != null)
+                            {
+                            doc.SaveToFile(saveFilePath);
+                                doc.Close();
+                            }
+                        }
                     }
                 }
-                else
-                {
-                    Forms.MessageBox.Show("要替换的新旧字符串数量不同，取消操作");
-                }
+            else
+            {
+                Forms.MessageBox.Show("要替换的新旧字符串数量不同，取消操作");
             }
         }
     }

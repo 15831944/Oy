@@ -63,22 +63,29 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Resources\Cover.docx">
+    <None Include="Resources\外封面.docx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\Authorisation.docx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="Resources\委托书.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\Managing.docx" />
-    <None Include="Resources\Report.docx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="Resources\流程单.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\管理表.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\报告书.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Tools\ArxDbg\ArxDbg.2004.arx" />
     <None Include="Tools\ArxDbg\ArxDbg.2008.x64.arx" />
     <None Include="Tools\AutoNetLoad-mac.lsp" />
     <None Include="Tools\AutoNetLoad-oy.lsp" />
     <None Include="Tools\AutoNetLoad-dell.lsp" />
-    <None Include="Resources\Template.xls" />
+    <None Include="Resources\Template.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GUI\MainForm.resx">
@@ -120,10 +127,10 @@
     <Content Include="References\ObjectARX 2006\inc\AcDbMgdHost.dll" />
     <Content Include="References\ObjectARX 2006\inc\AcMgd.dll" />
     <Content Include="Resources\Certification.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HXQ_favicon.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

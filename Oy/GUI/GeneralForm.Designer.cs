@@ -32,28 +32,28 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.infoLabel0 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.infoBox0 = new System.Windows.Forms.TextBox();
-            this.infoBox1 = new System.Windows.Forms.TextBox();
+            this.项目编号 = new System.Windows.Forms.TextBox();
+            this.项目名称 = new System.Windows.Forms.TextBox();
             this.infoLabel11 = new System.Windows.Forms.Label();
-            this.infoBox2 = new System.Windows.Forms.TextBox();
+            this.委托单位 = new System.Windows.Forms.TextBox();
             this.infoLabel10 = new System.Windows.Forms.Label();
-            this.infoBox4 = new System.Windows.Forms.TextBox();
+            this.制图人员 = new System.Windows.Forms.TextBox();
             this.infoLabel9 = new System.Windows.Forms.Label();
-            this.infoBox5 = new System.Windows.Forms.TextBox();
+            this.街道乡镇 = new System.Windows.Forms.TextBox();
             this.infoLabel8 = new System.Windows.Forms.Label();
-            this.infoBox3 = new System.Windows.Forms.TextBox();
+            this.村落_社区 = new System.Windows.Forms.TextBox();
             this.infoLabel7 = new System.Windows.Forms.Label();
-            this.infoBox6 = new System.Windows.Forms.TextBox();
+            this.检查人员 = new System.Windows.Forms.TextBox();
             this.infoLabel6 = new System.Windows.Forms.Label();
-            this.infoBox7 = new System.Windows.Forms.TextBox();
+            this.审核人员 = new System.Windows.Forms.TextBox();
+            this.街道_乡镇 = new System.Windows.Forms.Label();
+            this.坐标系统 = new System.Windows.Forms.TextBox();
             this.infoLabel5 = new System.Windows.Forms.Label();
-            this.infoBox8 = new System.Windows.Forms.TextBox();
-            this.infoLabel4 = new System.Windows.Forms.Label();
-            this.infoBox9 = new System.Windows.Forms.TextBox();
+            this.日期_年 = new System.Windows.Forms.TextBox();
             this.infoLabel3 = new System.Windows.Forms.Label();
-            this.infoBox10 = new System.Windows.Forms.TextBox();
+            this.日期_月 = new System.Windows.Forms.TextBox();
             this.infoLabel2 = new System.Windows.Forms.Label();
-            this.infoBox11 = new System.Windows.Forms.TextBox();
+            this.日期_日 = new System.Windows.Forms.TextBox();
             this.infoLabel1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.readXrecord = new System.Windows.Forms.Button();
@@ -73,28 +73,28 @@
             // 
             this.panel1.Controls.Add(this.infoLabel0);
             this.panel1.Controls.Add(this.dateTimePicker1);
-            this.panel1.Controls.Add(this.infoBox0);
-            this.panel1.Controls.Add(this.infoBox1);
+            this.panel1.Controls.Add(this.项目编号);
+            this.panel1.Controls.Add(this.项目名称);
             this.panel1.Controls.Add(this.infoLabel11);
-            this.panel1.Controls.Add(this.infoBox2);
+            this.panel1.Controls.Add(this.委托单位);
             this.panel1.Controls.Add(this.infoLabel10);
-            this.panel1.Controls.Add(this.infoBox4);
+            this.panel1.Controls.Add(this.制图人员);
             this.panel1.Controls.Add(this.infoLabel9);
-            this.panel1.Controls.Add(this.infoBox5);
+            this.panel1.Controls.Add(this.街道乡镇);
             this.panel1.Controls.Add(this.infoLabel8);
-            this.panel1.Controls.Add(this.infoBox3);
+            this.panel1.Controls.Add(this.村落_社区);
             this.panel1.Controls.Add(this.infoLabel7);
-            this.panel1.Controls.Add(this.infoBox6);
-            this.panel1.Controls.Add(this.infoLabel6);
-            this.panel1.Controls.Add(this.infoBox7);
             this.panel1.Controls.Add(this.infoLabel5);
-            this.panel1.Controls.Add(this.infoBox8);
-            this.panel1.Controls.Add(this.infoLabel4);
-            this.panel1.Controls.Add(this.infoBox9);
+            this.panel1.Controls.Add(this.检查人员);
+            this.panel1.Controls.Add(this.infoLabel6);
+            this.panel1.Controls.Add(this.审核人员);
+            this.panel1.Controls.Add(this.街道_乡镇);
+            this.panel1.Controls.Add(this.坐标系统);
+            this.panel1.Controls.Add(this.日期_年);
             this.panel1.Controls.Add(this.infoLabel3);
-            this.panel1.Controls.Add(this.infoBox10);
+            this.panel1.Controls.Add(this.日期_月);
             this.panel1.Controls.Add(this.infoLabel2);
-            this.panel1.Controls.Add(this.infoBox11);
+            this.panel1.Controls.Add(this.日期_日);
             this.panel1.Controls.Add(this.infoLabel1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
@@ -118,23 +118,23 @@
             this.dateTimePicker1.TabIndex = 20;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.DateTimePicker1_ValueChanged);
             // 
-            // infoBox0
+            // 项目编号
             // 
-            this.infoBox0.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox0.Location = new System.Drawing.Point(74, 6);
-            this.infoBox0.Name = "infoBox0";
-            this.infoBox0.Size = new System.Drawing.Size(205, 21);
-            this.infoBox0.TabIndex = 7;
-            this.infoBox0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.项目编号.BackColor = System.Drawing.SystemColors.Control;
+            this.项目编号.Location = new System.Drawing.Point(74, 6);
+            this.项目编号.Name = "项目编号";
+            this.项目编号.Size = new System.Drawing.Size(205, 21);
+            this.项目编号.TabIndex = 7;
+            this.项目编号.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // infoBox1
+            // 项目名称
             // 
-            this.infoBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox1.Location = new System.Drawing.Point(74, 33);
-            this.infoBox1.Name = "infoBox1";
-            this.infoBox1.Size = new System.Drawing.Size(205, 21);
-            this.infoBox1.TabIndex = 8;
-            this.infoBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.项目名称.BackColor = System.Drawing.SystemColors.Control;
+            this.项目名称.Location = new System.Drawing.Point(74, 33);
+            this.项目名称.Name = "项目名称";
+            this.项目名称.Size = new System.Drawing.Size(205, 21);
+            this.项目名称.TabIndex = 8;
+            this.项目名称.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // infoLabel11
             // 
@@ -142,17 +142,17 @@
             this.infoLabel11.Name = "infoLabel11";
             this.infoLabel11.Size = new System.Drawing.Size(60, 15);
             this.infoLabel11.TabIndex = 30;
-            this.infoLabel11.Text = "日期(日)";
+            this.infoLabel11.Text = "日期_日";
             this.infoLabel11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // infoBox2
+            // 委托单位
             // 
-            this.infoBox2.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox2.Location = new System.Drawing.Point(74, 60);
-            this.infoBox2.Name = "infoBox2";
-            this.infoBox2.Size = new System.Drawing.Size(205, 21);
-            this.infoBox2.TabIndex = 9;
-            this.infoBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.委托单位.BackColor = System.Drawing.SystemColors.Control;
+            this.委托单位.Location = new System.Drawing.Point(74, 60);
+            this.委托单位.Name = "委托单位";
+            this.委托单位.Size = new System.Drawing.Size(205, 21);
+            this.委托单位.TabIndex = 9;
+            this.委托单位.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // infoLabel10
             // 
@@ -160,17 +160,17 @@
             this.infoLabel10.Name = "infoLabel10";
             this.infoLabel10.Size = new System.Drawing.Size(60, 15);
             this.infoLabel10.TabIndex = 29;
-            this.infoLabel10.Text = "日期(月)";
+            this.infoLabel10.Text = "日期_月";
             this.infoLabel10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // infoBox4
+            // 制图人员
             // 
-            this.infoBox4.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox4.Location = new System.Drawing.Point(74, 114);
-            this.infoBox4.Name = "infoBox4";
-            this.infoBox4.Size = new System.Drawing.Size(205, 21);
-            this.infoBox4.TabIndex = 11;
-            this.infoBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.制图人员.BackColor = System.Drawing.SystemColors.Control;
+            this.制图人员.Location = new System.Drawing.Point(74, 141);
+            this.制图人员.Name = "制图人员";
+            this.制图人员.Size = new System.Drawing.Size(205, 21);
+            this.制图人员.TabIndex = 12;
+            this.制图人员.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // infoLabel9
             // 
@@ -178,17 +178,17 @@
             this.infoLabel9.Name = "infoLabel9";
             this.infoLabel9.Size = new System.Drawing.Size(60, 15);
             this.infoLabel9.TabIndex = 28;
-            this.infoLabel9.Text = "日期(年)";
+            this.infoLabel9.Text = "日期_年";
             this.infoLabel9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // infoBox5
+            // 街道乡镇
             // 
-            this.infoBox5.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox5.Location = new System.Drawing.Point(74, 141);
-            this.infoBox5.Name = "infoBox5";
-            this.infoBox5.Size = new System.Drawing.Size(205, 21);
-            this.infoBox5.TabIndex = 12;
-            this.infoBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.街道乡镇.BackColor = System.Drawing.SystemColors.Control;
+            this.街道乡镇.Location = new System.Drawing.Point(74, 114);
+            this.街道乡镇.Name = "街道乡镇";
+            this.街道乡镇.Size = new System.Drawing.Size(205, 21);
+            this.街道乡镇.TabIndex = 11;
+            this.街道乡镇.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // infoLabel8
             // 
@@ -199,14 +199,14 @@
             this.infoLabel8.Text = "坐标系统";
             this.infoLabel8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // infoBox3
+            // 村落_社区
             // 
-            this.infoBox3.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox3.Location = new System.Drawing.Point(74, 87);
-            this.infoBox3.Name = "infoBox3";
-            this.infoBox3.Size = new System.Drawing.Size(205, 21);
-            this.infoBox3.TabIndex = 10;
-            this.infoBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.村落_社区.BackColor = System.Drawing.SystemColors.Control;
+            this.村落_社区.Location = new System.Drawing.Point(74, 87);
+            this.村落_社区.Name = "村落_社区";
+            this.村落_社区.Size = new System.Drawing.Size(205, 21);
+            this.村落_社区.TabIndex = 10;
+            this.村落_社区.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // infoLabel7
             // 
@@ -217,14 +217,14 @@
             this.infoLabel7.Text = "审核人员";
             this.infoLabel7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // infoBox6
+            // 检查人员
             // 
-            this.infoBox6.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox6.Location = new System.Drawing.Point(74, 168);
-            this.infoBox6.Name = "infoBox6";
-            this.infoBox6.Size = new System.Drawing.Size(205, 21);
-            this.infoBox6.TabIndex = 13;
-            this.infoBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.检查人员.BackColor = System.Drawing.SystemColors.Control;
+            this.检查人员.Location = new System.Drawing.Point(74, 168);
+            this.检查人员.Name = "检查人员";
+            this.检查人员.Size = new System.Drawing.Size(205, 21);
+            this.检查人员.TabIndex = 13;
+            this.检查人员.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // infoLabel6
             // 
@@ -235,50 +235,50 @@
             this.infoLabel6.Text = "检查人员";
             this.infoLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // infoBox7
+            // 审核人员
             // 
-            this.infoBox7.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox7.Location = new System.Drawing.Point(74, 195);
-            this.infoBox7.Name = "infoBox7";
-            this.infoBox7.Size = new System.Drawing.Size(205, 21);
-            this.infoBox7.TabIndex = 14;
-            this.infoBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.审核人员.BackColor = System.Drawing.SystemColors.Control;
+            this.审核人员.Location = new System.Drawing.Point(74, 195);
+            this.审核人员.Name = "审核人员";
+            this.审核人员.Size = new System.Drawing.Size(205, 21);
+            this.审核人员.TabIndex = 14;
+            this.审核人员.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // 街道_乡镇
+            // 
+            this.街道_乡镇.Location = new System.Drawing.Point(8, 116);
+            this.街道_乡镇.Name = "街道_乡镇";
+            this.街道_乡镇.Size = new System.Drawing.Size(60, 15);
+            this.街道_乡镇.TabIndex = 24;
+            this.街道_乡镇.Text = "街道_乡镇";
+            this.街道_乡镇.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // 坐标系统
+            // 
+            this.坐标系统.BackColor = System.Drawing.SystemColors.Control;
+            this.坐标系统.Location = new System.Drawing.Point(74, 222);
+            this.坐标系统.Name = "坐标系统";
+            this.坐标系统.Size = new System.Drawing.Size(205, 21);
+            this.坐标系统.TabIndex = 15;
+            this.坐标系统.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // infoLabel5
             // 
             this.infoLabel5.Location = new System.Drawing.Point(8, 143);
             this.infoLabel5.Name = "infoLabel5";
             this.infoLabel5.Size = new System.Drawing.Size(60, 15);
-            this.infoLabel5.TabIndex = 24;
+            this.infoLabel5.TabIndex = 23;
             this.infoLabel5.Text = "制图人员";
             this.infoLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // infoBox8
+            // 日期_年
             // 
-            this.infoBox8.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox8.Location = new System.Drawing.Point(74, 222);
-            this.infoBox8.Name = "infoBox8";
-            this.infoBox8.Size = new System.Drawing.Size(205, 21);
-            this.infoBox8.TabIndex = 15;
-            this.infoBox8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // infoLabel4
-            // 
-            this.infoLabel4.Location = new System.Drawing.Point(8, 116);
-            this.infoLabel4.Name = "infoLabel4";
-            this.infoLabel4.Size = new System.Drawing.Size(60, 15);
-            this.infoLabel4.TabIndex = 23;
-            this.infoLabel4.Text = "村落-社区";
-            this.infoLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // infoBox9
-            // 
-            this.infoBox9.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox9.Location = new System.Drawing.Point(74, 249);
-            this.infoBox9.Name = "infoBox9";
-            this.infoBox9.Size = new System.Drawing.Size(205, 21);
-            this.infoBox9.TabIndex = 17;
-            this.infoBox9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.日期_年.BackColor = System.Drawing.SystemColors.Control;
+            this.日期_年.Location = new System.Drawing.Point(74, 249);
+            this.日期_年.Name = "日期_年";
+            this.日期_年.Size = new System.Drawing.Size(205, 21);
+            this.日期_年.TabIndex = 17;
+            this.日期_年.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // infoLabel3
             // 
@@ -286,17 +286,17 @@
             this.infoLabel3.Name = "infoLabel3";
             this.infoLabel3.Size = new System.Drawing.Size(60, 15);
             this.infoLabel3.TabIndex = 22;
-            this.infoLabel3.Text = "街道-乡镇";
+            this.infoLabel3.Text = "村落_社区";
             this.infoLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // infoBox10
+            // 日期_月
             // 
-            this.infoBox10.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox10.Location = new System.Drawing.Point(74, 276);
-            this.infoBox10.Name = "infoBox10";
-            this.infoBox10.Size = new System.Drawing.Size(205, 21);
-            this.infoBox10.TabIndex = 18;
-            this.infoBox10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.日期_月.BackColor = System.Drawing.SystemColors.Control;
+            this.日期_月.Location = new System.Drawing.Point(74, 276);
+            this.日期_月.Name = "日期_月";
+            this.日期_月.Size = new System.Drawing.Size(205, 21);
+            this.日期_月.TabIndex = 18;
+            this.日期_月.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // infoLabel2
             // 
@@ -307,14 +307,14 @@
             this.infoLabel2.Text = "委托单位";
             this.infoLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // infoBox11
+            // 日期_日
             // 
-            this.infoBox11.BackColor = System.Drawing.SystemColors.Control;
-            this.infoBox11.Location = new System.Drawing.Point(74, 303);
-            this.infoBox11.Name = "infoBox11";
-            this.infoBox11.Size = new System.Drawing.Size(205, 21);
-            this.infoBox11.TabIndex = 19;
-            this.infoBox11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.日期_日.BackColor = System.Drawing.SystemColors.Control;
+            this.日期_日.Location = new System.Drawing.Point(74, 303);
+            this.日期_日.Name = "日期_日";
+            this.日期_日.Size = new System.Drawing.Size(205, 21);
+            this.日期_日.TabIndex = 19;
+            this.日期_日.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // infoLabel1
             // 
@@ -390,41 +390,39 @@
             // 
             // SaveFileButton
             // 
-            this.SaveFileButton.Location = new System.Drawing.Point(619, 76);
+            this.SaveFileButton.Location = new System.Drawing.Point(321, 74);
             this.SaveFileButton.Name = "SaveFileButton";
             this.SaveFileButton.Size = new System.Drawing.Size(75, 23);
             this.SaveFileButton.TabIndex = 36;
-            this.SaveFileButton.Text = "保存文件";
+            this.SaveFileButton.Text = "保存Excel";
             this.SaveFileButton.UseVisualStyleBackColor = true;
             this.SaveFileButton.Click += new System.EventHandler(this.SaveFIleButton_Click);
             // 
             // ExchangeXY
             // 
-            this.ExchangeXY.AutoSize = true;
             this.ExchangeXY.Checked = true;
             this.ExchangeXY.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ExchangeXY.Location = new System.Drawing.Point(321, 26);
             this.ExchangeXY.Name = "ExchangeXY";
-            this.ExchangeXY.Size = new System.Drawing.Size(60, 16);
+            this.ExchangeXY.Size = new System.Drawing.Size(75, 16);
             this.ExchangeXY.TabIndex = 43;
             this.ExchangeXY.Text = "交换XY";
             this.ExchangeXY.UseVisualStyleBackColor = true;
             // 
             // Plus40
             // 
-            this.Plus40.AutoSize = true;
             this.Plus40.Checked = true;
             this.Plus40.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Plus40.Location = new System.Drawing.Point(321, 49);
             this.Plus40.Name = "Plus40";
-            this.Plus40.Size = new System.Drawing.Size(60, 16);
+            this.Plus40.Size = new System.Drawing.Size(75, 16);
             this.Plus40.TabIndex = 44;
             this.Plus40.Text = "添加40";
             this.Plus40.UseVisualStyleBackColor = true;
             // 
             // polygonizationButton
             // 
-            this.polygonizationButton.Location = new System.Drawing.Point(619, 105);
+            this.polygonizationButton.Location = new System.Drawing.Point(321, 144);
             this.polygonizationButton.Name = "polygonizationButton";
             this.polygonizationButton.Size = new System.Drawing.Size(75, 23);
             this.polygonizationButton.TabIndex = 45;
@@ -434,7 +432,7 @@
             // 
             // polygonizationLengthtextBox
             // 
-            this.polygonizationLengthtextBox.Location = new System.Drawing.Point(538, 106);
+            this.polygonizationLengthtextBox.Location = new System.Drawing.Point(321, 122);
             this.polygonizationLengthtextBox.Name = "polygonizationLengthtextBox";
             this.polygonizationLengthtextBox.Size = new System.Drawing.Size(75, 21);
             this.polygonizationLengthtextBox.TabIndex = 46;
@@ -475,28 +473,28 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label infoLabel0;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.TextBox infoBox0;
-        private System.Windows.Forms.TextBox infoBox1;
+        private System.Windows.Forms.TextBox 项目编号;
+        private System.Windows.Forms.TextBox 项目名称;
         private System.Windows.Forms.Label infoLabel11;
-        private System.Windows.Forms.TextBox infoBox2;
+        private System.Windows.Forms.TextBox 委托单位;
         private System.Windows.Forms.Label infoLabel10;
-        private System.Windows.Forms.TextBox infoBox4;
+        private System.Windows.Forms.TextBox 制图人员;
         private System.Windows.Forms.Label infoLabel9;
-        private System.Windows.Forms.TextBox infoBox5;
+        private System.Windows.Forms.TextBox 街道乡镇;
         private System.Windows.Forms.Label infoLabel8;
-        private System.Windows.Forms.TextBox infoBox3;
+        private System.Windows.Forms.TextBox 村落_社区;
         private System.Windows.Forms.Label infoLabel7;
-        private System.Windows.Forms.TextBox infoBox6;
+        private System.Windows.Forms.TextBox 检查人员;
         private System.Windows.Forms.Label infoLabel6;
-        private System.Windows.Forms.TextBox infoBox7;
+        private System.Windows.Forms.TextBox 审核人员;
+        private System.Windows.Forms.Label 街道_乡镇;
+        private System.Windows.Forms.TextBox 坐标系统;
         private System.Windows.Forms.Label infoLabel5;
-        private System.Windows.Forms.TextBox infoBox8;
-        private System.Windows.Forms.Label infoLabel4;
-        private System.Windows.Forms.TextBox infoBox9;
+        private System.Windows.Forms.TextBox 日期_年;
         private System.Windows.Forms.Label infoLabel3;
-        private System.Windows.Forms.TextBox infoBox10;
+        private System.Windows.Forms.TextBox 日期_月;
         private System.Windows.Forms.Label infoLabel2;
-        private System.Windows.Forms.TextBox infoBox11;
+        private System.Windows.Forms.TextBox 日期_日;
         private System.Windows.Forms.Label infoLabel1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button readXrecord;
