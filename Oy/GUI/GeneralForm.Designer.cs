@@ -413,7 +413,7 @@
             // 
             this.Plus40.Checked = true;
             this.Plus40.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Plus40.Location = new System.Drawing.Point(321, 49);
+            this.Plus40.Location = new System.Drawing.Point(321, 51);
             this.Plus40.Name = "Plus40";
             this.Plus40.Size = new System.Drawing.Size(75, 16);
             this.Plus40.TabIndex = 44;
