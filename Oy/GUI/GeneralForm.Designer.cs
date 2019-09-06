@@ -39,16 +39,16 @@
             this.infoLabel10 = new System.Windows.Forms.Label();
             this.制图人员 = new System.Windows.Forms.TextBox();
             this.infoLabel9 = new System.Windows.Forms.Label();
-            this.街道乡镇 = new System.Windows.Forms.TextBox();
+            this.街道_乡镇 = new System.Windows.Forms.TextBox();
             this.infoLabel8 = new System.Windows.Forms.Label();
             this.村落_社区 = new System.Windows.Forms.TextBox();
             this.infoLabel7 = new System.Windows.Forms.Label();
+            this.infoLabel5 = new System.Windows.Forms.Label();
             this.检查人员 = new System.Windows.Forms.TextBox();
             this.infoLabel6 = new System.Windows.Forms.Label();
             this.审核人员 = new System.Windows.Forms.TextBox();
-            this.街道_乡镇 = new System.Windows.Forms.Label();
+            this.infoLabel4 = new System.Windows.Forms.Label();
             this.坐标系统 = new System.Windows.Forms.TextBox();
-            this.infoLabel5 = new System.Windows.Forms.Label();
             this.日期_年 = new System.Windows.Forms.TextBox();
             this.infoLabel3 = new System.Windows.Forms.Label();
             this.日期_月 = new System.Windows.Forms.TextBox();
@@ -80,7 +80,7 @@
             this.panel1.Controls.Add(this.infoLabel10);
             this.panel1.Controls.Add(this.制图人员);
             this.panel1.Controls.Add(this.infoLabel9);
-            this.panel1.Controls.Add(this.街道乡镇);
+            this.panel1.Controls.Add(this.街道_乡镇);
             this.panel1.Controls.Add(this.infoLabel8);
             this.panel1.Controls.Add(this.村落_社区);
             this.panel1.Controls.Add(this.infoLabel7);
@@ -88,7 +88,7 @@
             this.panel1.Controls.Add(this.检查人员);
             this.panel1.Controls.Add(this.infoLabel6);
             this.panel1.Controls.Add(this.审核人员);
-            this.panel1.Controls.Add(this.街道_乡镇);
+            this.panel1.Controls.Add(this.infoLabel4);
             this.panel1.Controls.Add(this.坐标系统);
             this.panel1.Controls.Add(this.日期_年);
             this.panel1.Controls.Add(this.infoLabel3);
@@ -181,14 +181,14 @@
             this.infoLabel9.Text = "日期_年";
             this.infoLabel9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // 街道乡镇
+            // 街道_乡镇
             // 
-            this.街道乡镇.BackColor = System.Drawing.SystemColors.Control;
-            this.街道乡镇.Location = new System.Drawing.Point(74, 114);
-            this.街道乡镇.Name = "街道乡镇";
-            this.街道乡镇.Size = new System.Drawing.Size(205, 21);
-            this.街道乡镇.TabIndex = 11;
-            this.街道乡镇.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.街道_乡镇.BackColor = System.Drawing.SystemColors.Control;
+            this.街道_乡镇.Location = new System.Drawing.Point(74, 114);
+            this.街道_乡镇.Name = "街道_乡镇";
+            this.街道_乡镇.Size = new System.Drawing.Size(205, 21);
+            this.街道_乡镇.TabIndex = 11;
+            this.街道_乡镇.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // infoLabel8
             // 
@@ -217,6 +217,15 @@
             this.infoLabel7.Text = "审核人员";
             this.infoLabel7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // infoLabel5
+            // 
+            this.infoLabel5.Location = new System.Drawing.Point(8, 143);
+            this.infoLabel5.Name = "infoLabel5";
+            this.infoLabel5.Size = new System.Drawing.Size(60, 15);
+            this.infoLabel5.TabIndex = 23;
+            this.infoLabel5.Text = "制图人员";
+            this.infoLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // 检查人员
             // 
             this.检查人员.BackColor = System.Drawing.SystemColors.Control;
@@ -244,14 +253,14 @@
             this.审核人员.TabIndex = 14;
             this.审核人员.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // 街道_乡镇
+            // infoLabel4
             // 
-            this.街道_乡镇.Location = new System.Drawing.Point(8, 116);
-            this.街道_乡镇.Name = "街道_乡镇";
-            this.街道_乡镇.Size = new System.Drawing.Size(60, 15);
-            this.街道_乡镇.TabIndex = 24;
-            this.街道_乡镇.Text = "街道_乡镇";
-            this.街道_乡镇.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.infoLabel4.Location = new System.Drawing.Point(8, 116);
+            this.infoLabel4.Name = "infoLabel4";
+            this.infoLabel4.Size = new System.Drawing.Size(60, 15);
+            this.infoLabel4.TabIndex = 24;
+            this.infoLabel4.Text = "街道_乡镇";
+            this.infoLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // 坐标系统
             // 
@@ -261,15 +270,6 @@
             this.坐标系统.Size = new System.Drawing.Size(205, 21);
             this.坐标系统.TabIndex = 15;
             this.坐标系统.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // infoLabel5
-            // 
-            this.infoLabel5.Location = new System.Drawing.Point(8, 143);
-            this.infoLabel5.Name = "infoLabel5";
-            this.infoLabel5.Size = new System.Drawing.Size(60, 15);
-            this.infoLabel5.TabIndex = 23;
-            this.infoLabel5.Text = "制图人员";
-            this.infoLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // 日期_年
             // 
@@ -480,14 +480,14 @@
         private System.Windows.Forms.Label infoLabel10;
         private System.Windows.Forms.TextBox 制图人员;
         private System.Windows.Forms.Label infoLabel9;
-        private System.Windows.Forms.TextBox 街道乡镇;
+        private System.Windows.Forms.TextBox 街道_乡镇;
         private System.Windows.Forms.Label infoLabel8;
         private System.Windows.Forms.TextBox 村落_社区;
         private System.Windows.Forms.Label infoLabel7;
         private System.Windows.Forms.TextBox 检查人员;
         private System.Windows.Forms.Label infoLabel6;
         private System.Windows.Forms.TextBox 审核人员;
-        private System.Windows.Forms.Label 街道_乡镇;
+        private System.Windows.Forms.Label infoLabel4;
         private System.Windows.Forms.TextBox 坐标系统;
         private System.Windows.Forms.Label infoLabel5;
         private System.Windows.Forms.TextBox 日期_年;
