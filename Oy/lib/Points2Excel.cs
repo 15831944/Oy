@@ -98,7 +98,6 @@ namespace Oy.CAD2006
                 Algorithms.PolyClean_ReducePoints(polyline, lib.AppConfig.ReduceVertexEpsilon);//删除重复点
                 double Area = Math.Round(polyline.Area, lib.AppConfig.AreaPrecision); //获取面积
                 Point3d[] point3Ds = polyline.GetPolyPoints().ToArray();//获取端点坐标
-
                 //TODO:blockID和LabelName暂时是随便填写的
                 AddTable(point3Ds, Area, BlockID++, CircleID, StartBoundaryPointID, polyline.Handle.Value.ToString());
                 StartBoundaryPointID += point3Ds.Length;

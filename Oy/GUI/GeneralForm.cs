@@ -129,6 +129,7 @@ namespace Oy.CAD2006.GUI
             {
                 var pts = poly.GetPolylineDivPoints(n);
                 var poly1 = NoDraw.Pline(pts);
+
                 poly1.Layer = poly.Layer;
                 try
                 {
