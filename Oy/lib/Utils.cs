@@ -277,6 +277,9 @@ namespace Oy.CAD2006.Utils
         /// </summary>
         public double Distence;
         private bool ExchangeXY;
+        public Point3d PreviousPoint3D;
+        public Point3d NextPoint3D;
+        public Point3d CurrentPoint3D;
 
         #endregion
         public ArrangedPoint3d(Point3d point3D, bool ExchangeXY, bool Plus40)
@@ -287,25 +290,46 @@ namespace Oy.CAD2006.Utils
             this.X = ExchangeXY ? point3D.Y : this.X;
 
             this.ExchangeXY = ExchangeXY;
+            this.CurrentPoint3D = point3D;
         }
     }
 
     public class ArrangedPoint3DArray
     {
         List<ArrangedPoint3d> arrangedPoint3Ds=new List<ArrangedPoint3d>();
-
         public ArrangedPoint3DArray(Point3d[] point3Ds, int AreaID, int CircleID, int StartBoundaryPointID, bool ExchangeXY, bool Plus40)
         {
-            for (int i = 0; i < point3Ds.Length; i++)
+            int Length = point3Ds.Length;
+            for (int i = 0; i < Length; i++)
             {
-                ArrangedPoint3d arrangedPoint3D = new ArrangedPoint3d(point3Ds[i],ExchangeXY, Plus40);
+                //上一点和下一点
+                ArrangedPoint3d arrangedPoint3D = new ArrangedPoint3d(point3Ds[i], ExchangeXY, Plus40);
+                if (i == 0)
+                {
+                    arrangedPoint3D.PreviousPoint3D = point3Ds[Length - 1];
+                    arrangedPoint3D.NextPoint3D = point3Ds[1];
+                }
+                else if (i == Length-1)
+                {
+                    arrangedPoint3D.PreviousPoint3D = point3Ds[i - 1];
+                    arrangedPoint3D.NextPoint3D = point3Ds[0];
+                }
+                else
+                {
+                    arrangedPoint3D.PreviousPoint3D = point3Ds[i - 1];
+                    arrangedPoint3D.NextPoint3D = point3Ds[i + 1];
+                }
+
+
+
+                Forms.MessageBox.Show("第" + (i+1).ToString());
 
                 //界址点号赋值
                 arrangedPoint3D.BoundaryPointID = StartBoundaryPointID + i;
 
                 //指向点号赋值
                 arrangedPoint3D.PointTO = arrangedPoint3D.BoundaryPointID + 1;
-                if (arrangedPoint3D.PointTO == point3Ds.Length+ StartBoundaryPointID)
+                if (arrangedPoint3D.PointTO ==Length+ StartBoundaryPointID)
                 {
                     arrangedPoint3D.PointTO = StartBoundaryPointID;
                 }
@@ -316,7 +340,7 @@ namespace Oy.CAD2006.Utils
                 arrangedPoint3D.CircleID = CircleID;
 
                 //计算到下一个点的距离
-                if (i<point3Ds.Length-1)
+                if (i<Length-1)
                 {
                     arrangedPoint3D.Distence = point3Ds[i].DistanceTo(point3Ds[i + 1]);
                 }
