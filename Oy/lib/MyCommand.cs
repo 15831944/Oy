@@ -31,7 +31,7 @@ namespace Oy.CAD2006.CommandMethod
                 for (int i = 0; i <= length; i++)
                 {
 
-                    Line l1 = NoDraw.Line(polyline.GetPreviousPointAtParam(i), polyline.GetPointAtParam(i));
+                    Line l1 = NoDraw.Line(polyline.GetPointAtParam(i), polyline.GetPreviousPointAtParam(i));
                     Line l2 = NoDraw.Line( polyline.GetPointAtParam(i),polyline.GetNextPointAtParam(i));
                     // Checks if lines intersect
                     Plane plane;
@@ -44,7 +44,7 @@ namespace Oy.CAD2006.CommandMethod
                     Point3d inters = line1.IntersectWith(line2)[0];
                     Vector3d vec1 = line1.Direction;
                     Vector3d vec2 = line2.Direction;
-                    Vector3d bisectDir = (vec1 - vec2) / 2.0;
+                    Vector3d bisectDir = ((vec1 + vec2) / 2.0).Negate();
                     var angle = bisectDir.GetAngleTo(Vector3d.XAxis);
 
                     Xline xline = new Xline();
