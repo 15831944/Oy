@@ -25,7 +25,8 @@ namespace AutoCADCommands
         /// <summary>
         /// 默认文字样式
         /// </summary>
-        public const string TextStyleName = "AutoCADCodePackTextStyle";
+        public const string TextStyleName = "宋体";
+        //public const string TextStyleName = "AutoCADCodePackTextStyle";
         /// <summary>
         /// 编码的FXD AppName
         /// </summary>

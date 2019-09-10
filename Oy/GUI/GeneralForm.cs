@@ -38,7 +38,6 @@ namespace Oy.CAD2006.GUI
         #region:单击事件
         private void SaveFIleButton_Click(object sender, EventArgs e)
         {
-            
             ObjectId[] objectId = Interaction.GetSelection("\n选择多段线", "LWPOLYLINE");//选择多段线
             if (objectId.Length == 0) return;//一个都没选的情况下退出操作
 

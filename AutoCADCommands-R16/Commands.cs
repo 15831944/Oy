@@ -611,7 +611,6 @@ namespace AutoCADCommands
             if (centerAligned)
             {
                 txt.HorizontalMode = TextHorizontalMode.TextCenter;
-                txt.VerticalMode = TextVerticalMode.TextVerticalMid;
             }
             ObjectId id = Draw.AddToCurrentSpace(txt);
             return id;

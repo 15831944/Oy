@@ -10,7 +10,7 @@ using Autodesk.AutoCAD.EditorInput;
 
 namespace AutoCADCommands
 {
-    static class ExtendMethods
+    public static class ExtendMethods
     {
         //TODO:还有未完成的代码,Algorithms.cs 有大量调用
         //拓展方法
@@ -77,6 +77,29 @@ namespace AutoCADCommands
         public static void SetCurrentView(this Editor editor, ViewTableRecord value)
         {
             System.Windows.Forms.MessageBox.Show("未完成内容SetCurrentView()");
+        }
+
+
+        /// <summary>
+        /// 获取闭合多段线指定点的上一个点的坐标
+        /// </summary>
+        /// <param name="polyline">多段线</param>
+        /// <param name="prama">指定点号</param>
+        /// <returns></returns>
+        public static Point3d GetPreviousPointAtParam(this Polyline polyline, int prama)
+        {
+            return prama == polyline.StartParam ? polyline.EndPoint: polyline.GetPointAtParam(prama - 1);
+        }
+
+        /// <summary>
+        /// 获取闭合多段线指定点的下一个点的坐标
+        /// </summary>
+        /// <param name="polyline">多段线</param>
+        /// <param name="prama">指定点号</param>
+        /// <returns></returns>
+        public static Point3d GetNextPointAtParam(this Polyline polyline, int prama)
+        {
+            return prama == polyline.EndParam ? polyline.StartPoint : polyline.GetPointAtParam(prama + 1);
         }
     }
 }
