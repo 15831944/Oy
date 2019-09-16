@@ -102,9 +102,9 @@ namespace Oy.CAD2006.Utils
         /// </summary>
         public static string[] ReadFromNODAll()
         {
-        string[] ProjectInfoName = lib.AppConfig.ProjectInfoName;
+            string[] ProjectInfoName = lib.AppConfig.ProjectInfoName;
 
-        string[] tValue = new string[ProjectInfoName.Length];
+            string[] tValue = new string[ProjectInfoName.Length];
             for (int i = 0; i < ProjectInfoName.Length; i++)
             {
                 tValue[i] = ReadFromNOD(ProjectInfoName[i]);
@@ -207,7 +207,7 @@ namespace Oy.CAD2006.Utils
         public void WordReplace(string[] strOld, string[] strNew)
         {
             string[] SampleFilePaths = { @".\Resources\外封面.docx", @".\Resources\报告书.docx", @".\Resources\委托书.docx", @".\Resources\管理表.docx", @".\Resources\流程单.docx" };
-            string ProjectName= NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[1]);
+            string ProjectName = NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[1]);
             string FolderPath = Interaction.GetFolderPath();
 
             if (strOld.Length == strNew.Length)
@@ -216,23 +216,23 @@ namespace Oy.CAD2006.Utils
                 {
                     foreach (string SampleFilePath in SampleFilePaths)
                     {
-                            string filename = System.IO.Path.GetFileNameWithoutExtension(SampleFilePath)+"-"+ProjectName;//获取文件名
-                            string extension = System.IO.Path.GetExtension(SampleFilePath);//获取扩展名
-                            string saveFilePath = FolderPath +@"\"+ filename + extension;//合并成完整路径
+                        string filename = System.IO.Path.GetFileNameWithoutExtension(SampleFilePath) + "-" + ProjectName;//获取文件名
+                        string extension = System.IO.Path.GetExtension(SampleFilePath);//获取扩展名
+                        string saveFilePath = FolderPath + @"\" + filename + extension;//合并成完整路径
 
-                            doc.LoadFromFile(SampleFilePath);
-                            for (int i = 0; i < strOld.Length; i++)
-                            {
-                                doc.Replace("[<" + strOld[i] + ">]", strNew[i], false, false);
-                            }
-                            if (saveFilePath != null)
-                            {
+                        doc.LoadFromFile(SampleFilePath);
+                        for (int i = 0; i < strOld.Length; i++)
+                        {
+                            doc.Replace("[<" + strOld[i] + ">]", strNew[i], false, false);
+                        }
+                        if (saveFilePath != null)
+                        {
                             doc.SaveToFile(saveFilePath);
-                                doc.Close();
-                            }
+                            doc.Close();
                         }
                     }
                 }
+            }
             else
             {
                 Forms.MessageBox.Show("要替换的新旧字符串数量不同，取消操作");
@@ -296,29 +296,35 @@ namespace Oy.CAD2006.Utils
 
     public class ArrangedPoint3DArray
     {
-        List<ArrangedPoint3d> arrangedPoint3Ds=new List<ArrangedPoint3d>();
+        List<ArrangedPoint3d> arrangedPoint3Ds = new List<ArrangedPoint3d>();
         public ArrangedPoint3DArray(Point3d[] point3Ds, int AreaID, int CircleID, int StartBoundaryPointID, bool ExchangeXY, bool Plus40)
         {
             int Length = point3Ds.Length;
             for (int i = 0; i < Length; i++)
             {
+
                 //上一点和下一点
                 ArrangedPoint3d arrangedPoint3D = new ArrangedPoint3d(point3Ds[i], ExchangeXY, Plus40);
-                if (i == 0)
-                {
-                    arrangedPoint3D.PreviousPoint3D = point3Ds[Length - 1];
-                    arrangedPoint3D.NextPoint3D = point3Ds[1];
-                }
-                else if (i == Length-1)
-                {
-                    arrangedPoint3D.PreviousPoint3D = point3Ds[i - 1];
-                    arrangedPoint3D.NextPoint3D = point3Ds[0];
-                }
-                else
-                {
-                    arrangedPoint3D.PreviousPoint3D = point3Ds[i - 1];
-                    arrangedPoint3D.NextPoint3D = point3Ds[i + 1];
-                }
+                //if (i == 0)
+                //{
+                //    arrangedPoint3D.PreviousPoint3D = point3Ds[Length - 1];
+                //    arrangedPoint3D.NextPoint3D = point3Ds[1];
+                //}
+                //else if (i == Length - 1)
+                //{
+                //    arrangedPoint3D.PreviousPoint3D = point3Ds[i - 1];
+                //    arrangedPoint3D.NextPoint3D = point3Ds[0];
+                //}
+                //else
+                //{
+                //    arrangedPoint3D.PreviousPoint3D = point3Ds[i - 1];
+                //    arrangedPoint3D.NextPoint3D = point3Ds[i + 1];
+                //}
+
+
+
+
+
 
 
                 //界址点号赋值
@@ -326,7 +332,7 @@ namespace Oy.CAD2006.Utils
 
                 //指向点号赋值
                 arrangedPoint3D.PointTO = arrangedPoint3D.BoundaryPointID + 1;
-                if (arrangedPoint3D.PointTO ==Length+ StartBoundaryPointID)
+                if (arrangedPoint3D.PointTO == Length + StartBoundaryPointID)
                 {
                     arrangedPoint3D.PointTO = StartBoundaryPointID;
                 }
@@ -337,7 +343,7 @@ namespace Oy.CAD2006.Utils
                 arrangedPoint3D.CircleID = CircleID;
 
                 //计算到下一个点的距离
-                if (i<Length-1)
+                if (i < Length - 1)
                 {
                     arrangedPoint3D.Distence = point3Ds[i].DistanceTo(point3Ds[i + 1]);
                 }
@@ -362,5 +368,53 @@ namespace Oy.CAD2006.Utils
             return arrangedPoint3Ds.ToArray();
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //public class  ArrangedPoint
+    //{
+    //    public Point3d 
+    //    public ArrangedPoint(Point3d point3D)
+    //    {
+
+    //    }
+
+    //    var point3Ds = polyline.GetPoints().ToArray();
+    //    int Length = point3Ds.Length;
+
+
+    //    for (int i = 0; i < Length; i++)
+    //    {
+    //        //上一点和下一点
+    //        ArrangedPoint3d arrangedPoint3D = new ArrangedPoint3d(point3Ds[i], ExchangeXY, Plus40);
+    //        if (i == 0)
+    //        {
+    //            arrangedPoint3D.PreviousPoint3D = point3Ds[Length - 1];
+    //            arrangedPoint3D.NextPoint3D = point3Ds[1];
+    //        }
+    //        else if (i == Length - 1)
+    //        {
+    //            arrangedPoint3D.PreviousPoint3D = point3Ds[i - 1];
+    //            arrangedPoint3D.NextPoint3D = point3Ds[0];
+    //        }
+    //        else
+    //        {
+    //            arrangedPoint3D.PreviousPoint3D = point3Ds[i - 1];
+    //            arrangedPoint3D.NextPoint3D = point3Ds[i + 1];
+    //        }
+    //    }
+    //}
+
+
 
 }

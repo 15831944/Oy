@@ -21,28 +21,39 @@ namespace Oy.CAD2006.CommandMethod
         [CommandMethod("test")]
         public static void Test()
         {
-            //var objectId =Interaction.GetSelection("\n选择多段线", "LWPOLYLINE");
-            //DBObjectCollection dBObjectCollection = new DBObjectCollection();
-            //objectId.QForEach<Polyline>(polyline =>
-            //{
-            //    dBObjectCollection.Add(polyline);
-            //    polyline.int
-            //    DBObjectCollection DBC = Region.CreateFromCurves(dBObjectCollection);
-            //    Region region0 =DBC[0] as Region;
-            //    Region region1 =DBC[1] as Region;
-            //    try
-            //    {
-            //       var d= region0.Area;
-            //    }
-            //    catch (System.Exception)
-            //    {
-            //        System.Windows.Forms.MessageBox.Show("未知错误");
-            //    } 
-               
+            ObjectId[] objectId = Interaction.GetSelection("\n选择多段线", "LWPOLYLINE");//选择多段线
+            if (objectId.Length == 0) return;//一个都没选的情况下退出操作
+            objectId.QForEach<Polyline>(polyline =>
+            {
+                int length = (int)polyline.EndParam;
 
-                //region0.BooleanOperation(BooleanOperationType.BoolIntersect, region1);
-                //System.Windows.Forms.MessageBox.Show(region0.Area.ToString());
-            
+
+                for (int i = 0; i <= length; i++)
+                {
+
+                    Line l1 = NoDraw.Line(polyline.GetPointAtParam(i), polyline.GetPreviousPointAtParam(i));
+                    Line l2 = NoDraw.Line( polyline.GetPointAtParam(i),polyline.GetNextPointAtParam(i));
+                    // Checks if lines intersect
+                    Plane plane;
+                    Line3d line1 = new Line3d(l1.StartPoint, l1.EndPoint);
+                    Line3d line2 = new Line3d(l2.StartPoint, l2.EndPoint);
+                    if (!line1.IsCoplanarWith(line2, out plane) || line1.IsParallelTo(line2))
+                        return;
+
+                    // Calculates the bisector
+                    Point3d inters = line1.IntersectWith(line2)[0];
+                    Vector3d vec1 = line1.Direction;
+                    Vector3d vec2 = line2.Direction;
+                    Vector3d bisectDir = ((vec1 + vec2) / 2.0).Negate();
+                    var angle = bisectDir.GetAngleTo(Vector3d.XAxis);
+
+                    Xline xline = new Xline();
+                    xline.UnitDir = bisectDir.GetNormal();
+                    xline.BasePoint = inters;
+                    Draw.Text((i+1).ToString(),2, xline.GetPointAtDist(1));
+                    Draw.Circle(polyline.GetPointAtParam(i),0.5);
+                }
+            });
         }
 
 
@@ -98,5 +109,8 @@ namespace Oy.CAD2006.CommandMethod
                 tr.Commit();
             }
         }
+
+
+
     }
 }
