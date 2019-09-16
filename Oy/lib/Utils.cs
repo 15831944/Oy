@@ -321,9 +321,6 @@ namespace Oy.CAD2006.Utils
                 }
 
 
-
-                Forms.MessageBox.Show("第" + (i+1).ToString());
-
                 //界址点号赋值
                 arrangedPoint3D.BoundaryPointID = StartBoundaryPointID + i;
 
