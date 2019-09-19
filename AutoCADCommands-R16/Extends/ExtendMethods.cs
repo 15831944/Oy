@@ -100,7 +100,6 @@ namespace AutoCADCommands
         public static Point3d GetNextPointAtParam(this Polyline polyline, int prama)
         {
             return prama == polyline.EndParam ? polyline.StartPoint : polyline.GetPointAtParam(prama + 1);
-            polyline.IsPointIn
         }
     }
 }
