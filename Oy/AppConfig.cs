@@ -9,7 +9,8 @@ namespace Oy.CAD2006.lib
 {
     class AppConfig
     {
-        private static string AssemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+        //private static string AssemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+        private static string AssemblyName = "Oy";
         private static readonly Configuration config = ConfigurationManager.OpenExeConfiguration(AssemblyName + ".dll");
         private static readonly KeyValueConfigurationCollection Settings = config.AppSettings.Settings;
 
