@@ -102,6 +102,9 @@ namespace Oy.CAD2006
                 AddTable(point3Ds, Area, BlockID++, CircleID, StartBoundaryPointID, polyline.Handle.Value.ToString());
                 StartBoundaryPointID += point3Ds.Length;
             });
+            AddSummary();
+
+
         }
         #endregion
         # region AddTable()
@@ -120,6 +123,7 @@ namespace Oy.CAD2006
             excelRange13.Value = "多边形编号:" + BlockID;
             excelRange45.Value = "界址点数:" + point3Ds.Length;
             excelRange68.Value = "用地面积(㎡)：" + Area.ToString();
+            excelRange68.Style.Font.Color.SetColor(System.Drawing.Color.Red);
             #endregion
 
             string tableNamePrefix = "Table";
@@ -162,15 +166,34 @@ namespace Oy.CAD2006
             }
         }
         #endregion
+        private void AddSummary()
+        {
+            string date = Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[9])
+                + Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[10])
+                + Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[11]);
+
+            MergeRow(NextRow, ExcelHorizontalAlignment.Center, false);
+            MergeRow(NextRow, ExcelHorizontalAlignment.Left, false).Value = Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[8])+",中央子午线为120°";
+            MergeRow(NextRow, ExcelHorizontalAlignment.Center).Value = "* 面积计算结果列表 *";
+            MergeRow(NextRow, ExcelHorizontalAlignment.Center, false).Value = "---------------------------------------------------------------------------------------";
+            MergeRow(NextRow, ExcelHorizontalAlignment.Left, false).Style.Indent = 4;
+            MergeRow(NextRow, ExcelHorizontalAlignment.Left, false).Style.Indent = 5;
+            MergeRow(NextRow, ExcelHorizontalAlignment.Left, false).Style.Indent=5;
+            MergeRow(NextRow, ExcelHorizontalAlignment.Center, false).Value = "---------------------------------------------------------------------------------------";
+            MergeRow(NextRow, ExcelHorizontalAlignment.Center).Value = "*计算结束*";
+            MergeRow(NextRow, ExcelHorizontalAlignment.Right,false).Value = "温州市瓯越土地勘测有限公司";
+            MergeRow(NextRow, ExcelHorizontalAlignment.Right, false).Value = date;
+        }
         #region MergeRow()
         // 合并一行表格
-        private void MergeRow(int Row, ExcelHorizontalAlignment alignment = ExcelHorizontalAlignment.Left)
+        private ExcelRange MergeRow(int Row, ExcelHorizontalAlignment alignment = ExcelHorizontalAlignment.Left,bool Bold=true)
         {
             //后续需要处理
             excelWorksheet.Cells[Row, 1, Row, 8].Merge = true;
             ExcelRange excelRange = excelWorksheet.Cells[excelWorksheet.MergedCells[Row, 1]];
             excelRange.Style.HorizontalAlignment = alignment;
-            excelRange.Style.Font.Bold = true;
+            excelRange.Style.Font.Bold = Bold;
+            return excelRange;
         }
         #endregion
         #region Save()

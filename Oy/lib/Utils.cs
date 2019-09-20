@@ -155,13 +155,14 @@ namespace Oy.CAD2006.Utils
         /// 获取文件保存路径
         /// </summary>
         /// <returns></returns>
-        public static string GetFilePath()
+        public static string GetFilePath(string Extention)
         {
             Forms.SaveFileDialog saveFileDialog = new Forms.SaveFileDialog
             {
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
-                FileName = "坐标表",//默认文件名
-                Filter = "所有文件(*.*)|*.*|Excel 2007 工作簿(*.xlsx)|*.xlsx|Word 2007 文档(*.docx)|*.docx",
+                FileName = "坐标表-" + Utils.NamedObjectDictionary.ReadFromNOD(lib.AppConfig.ProjectInfoName[1]),//默认文件名
+                Filter = Extention+"|*."+ Extention,
+                //Filter = "所有文件(*.*)|*.*|Excel 2007 工作簿(*.xlsx)|*.xlsx|Word 2007 文档(*.docx)|*.docx",
                 RestoreDirectory = false,
                 OverwritePrompt = false,
             };

@@ -41,7 +41,7 @@ namespace Oy.CAD2006.GUI
             ObjectId[] objectId = Interaction.GetSelection("\n选择多段线", "LWPOLYLINE");//选择多段线
             if (objectId.Length == 0) return;//一个都没选的情况下退出操作
 
-            string saveFilePath = Utils.Interaction.GetFilePath();
+            string saveFilePath = Utils.Interaction.GetFilePath("xlsx");
             if (saveFilePath != null)
             {
                 new Points2Excel(saveFilePath,
@@ -127,16 +127,25 @@ namespace Oy.CAD2006.GUI
             ids.QForEach<Polyline>(poly =>
             {
                 var pts = poly.GetPolylineDivPoints(n);
-                var poly1 = NoDraw.Pline(pts);
+                var poly1 = NoDraw.Pline(pts,0);
+                if (poly1.EndPoint==poly1.StartPoint)
+                {
+                    poly1.RemoveVertexAt((int)poly1.EndParam);
+                }
+                poly1.Closed = true;
 
-                poly1.Layer = poly.Layer;
-                try
-                {
-                    poly1.ConstantWidth = poly.ConstantWidth;
-                }
-                catch
-                {
-                }
+                //if (poly.Closed == false)
+                //{
+                //    return poly;
+                //}
+                //poly1.Layer = poly.Layer;
+                //try
+                //{
+                //    poly1.ConstantWidth = poly.ConstantWidth;
+                //}
+                //catch
+                //{
+                //}
                 poly1.XData = poly.XData;
                 poly.Erase();
                 entsToAdd.Add(poly1);
